@@ -1,0 +1,15 @@
+{% if rout_list %}
+    <ul style="margin-top:30px">
+        {% for rout in rout_list %}
+        <li>
+            <a href="{{ rout.get_absolute_url }}">{{ rout.title }}</a>
+            ({{ rout.distance }} km)
+            <!-- {% for t in rout.tags.all %} #{{ t }} {% endfor %} -->
+            <strong>сложность</strong> {{ rout.difficulty }}
+        </li>
+        {% endfor %}
+
+    </ul>
+{% else %}
+    <p>По запросу ничего не найдено</p>
+{% endif %}

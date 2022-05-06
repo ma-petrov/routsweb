@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+{% block content %}
+<h1>Велосипедные маршурты Казани</h1>
+<p>Которые находятся в городе и его окрестностях</p>
+<a href="{% url 'rout-list' %}">Список маршрутов</a><br>
+<a href="https://t.me/kazantracks">Telegram</a>
+{% endblock %}

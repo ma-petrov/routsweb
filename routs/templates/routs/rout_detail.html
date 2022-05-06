@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>{{ rout.title }}</h1>
+
+    <p><strong>Расстояние</strong> {{ rout.distance }} km </p>
+    <p><strong>Сложность</strong> {{ rout.difficulty }}</p>
+    <p><strong>Тип</strong> {{ rout.surface }}</p>
+    <p><strong>Направление</strong> {{ rout.direction }}</p>
+    <p><strong>Особенности</strong> {% for t in rout.tags.all %} #{{ t }} {% endfor %}</p>
+    <p><strong>Описание</strong> {{ rout.description }} </p>
+    <p>Трек на <a href="{{ rout.goggle_map_lin }}">Google Картах</a></p>
+    <p>Трек на <a href="{{ rout.bike_map_link }}">BikeMap</a></p>
+    <p>Скачать трек в <a href="{{ rout.kml_file_link }}">формате KML</a></p>
+{% endblock %}

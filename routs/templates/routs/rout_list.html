@@ -1,0 +1,49 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Маршруты</h1>
+
+    <form>
+        <!-- <label for="id_min_distance"> Дистанция </label>
+        <input id="id_min_distance" type="number" name="min_distance_field" value="0">
+        <label for="id_max_distance"> - </label>
+        <input id="id_max_distance" type="number" name="max_distance_field" value="1000"> -->
+        <table>{{ form }}</table>
+        <input type="button" value="найти" onclick="update_rout_list('/routs/update-rout-list', on_update_rout_list)">
+    </form>
+
+    <div id="rout-list-container"></div>
+
+    <script>
+        function update_rout_list(url, callback) {
+            const xhttp=new XMLHttpRequest();
+            xhttp.onload = function() {callback(this);}
+
+            // let min_distance = document.getElementById("id_min_distance").value
+            // let max_distance = document.getElementById("id_max_distance").value
+
+            url += '?min_distance=' + document.getElementById("id_min_distance").value;
+            url += '&max_distance=' + document.getElementById("id_max_distance").value;
+            let difficulty = document.getElementById("id_difficulty").getElementsByTagName("input");
+            for (let i = 0; i < difficulty.length; i++) {
+                let key = difficulty[i].value;
+                url += '&difficulty_' + key + '=';
+                if (difficulty[i].checked) {
+                    url += 'true';
+                }
+                else {
+                    url += 'false'
+                }
+            }
+
+            xhttp.open("GET", url);
+            xhttp.send();
+        }
+
+        function on_update_rout_list(xhttp) {
+            document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
+        }
+
+        window.onload = update_rout_list('/routs/update-rout-list', on_update_rout_list)
+    </script>
+{% endblock %}

@@ -19,3 +19,20 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+from django.contrib import admin
+from django.urls import path, include
+from django.views.generic import RedirectView
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('routs/', include('routs.urls')), # добавление дочернего сопоставителя адресов
+    path('', RedirectView.as_view(url='/routs/', permanent=True)), # перенаправление запроса домашней страницы на адрес /routs/
+]
+
+# Используйте static() чтобы добавить соотношения для статических файлов
+# Только на период разработки
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

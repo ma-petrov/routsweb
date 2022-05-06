@@ -1,0 +1,11 @@
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.roud-card {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: azure;
+}
