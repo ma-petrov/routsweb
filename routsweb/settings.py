@@ -24,9 +24,9 @@ import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-a-4-%obpc@0ho3e)9y3cqs4e1ot#moise50wk=tueb^i@h*4px')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'kazantracks.ru', 'www.kazantracks.ru']
+ALLOWED_HOSTS = ['localhost', 'kazantracks.ru', 'www.kazantracks.ru', '94.67.90.160']
 
 
 # Application definition
