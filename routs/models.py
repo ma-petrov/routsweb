@@ -59,15 +59,18 @@ class Rout(models.Model):
     Model representing a Rout.
     """
     title = models.CharField(max_length=200)
-    distance = models.PositiveIntegerField(help_text="Enter distance in kilometers")
+    distance = models.PositiveIntegerField(help_text="Enter distance in kilometers, or min distance if range")
+    distance_max = models.PositiveIntegerField(null=True, help_text="If range - enter max distance, else - leave empty")
     difficulty = models.ForeignKey(Difficulty, on_delete=models.SET_NULL, null=True)
     surface = models.ForeignKey(Surface, on_delete=models.SET_NULL, null=True)
-    direction = models.ForeignKey(Direction, on_delete=models.SET_NULL, null=True)
+    direction = models.ManyToManyField(Direction)
+    is_transport_availability = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, help_text="Select characteristics")
     description = models.CharField(max_length=1000)
     goggle_map_link = models.CharField(max_length=200)
     bike_map_link = models.CharField(max_length=200)
     kml_file_link = models.CharField(max_length=200)
+    wallpaper_image = models.ImageField(upload_to='uploads/', null=True)
 
     def __str__(self):
         """
