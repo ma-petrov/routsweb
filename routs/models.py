@@ -70,7 +70,7 @@ class Rout(models.Model):
     goggle_map_link = models.CharField(max_length=200)
     bike_map_link = models.CharField(max_length=200)
     kml_file_link = models.CharField(max_length=200)
-    wallpaper_image = models.ImageField(upload_to='images/uploads/', null=True)
+    wallpaper_image = models.ImageField(upload_to='uploads/', null=True)
 
     def __str__(self):
         """
