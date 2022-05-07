@@ -86,8 +86,8 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'u1673062_kazantracks',
-            'USER': 'u1673062_petrov',
+            'NAME': 'kazantracks',
+            'USER': 'django',
             'PASSWORD': os.environ.get('DJANGO_MYSQL_PASSWORD'),
             'HOST': 'localhost',
         }
