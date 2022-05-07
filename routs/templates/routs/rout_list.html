@@ -19,21 +19,23 @@
             const xhttp=new XMLHttpRequest();
             xhttp.onload = function() {callback(this);}
 
-            // let min_distance = document.getElementById("id_min_distance").value
-            // let max_distance = document.getElementById("id_max_distance").value
-
-            url += '?min_distance=' + document.getElementById("id_min_distance").value;
-            url += '&max_distance=' + document.getElementById("id_max_distance").value;
-            let difficulty = document.getElementById("id_difficulty").getElementsByTagName("input");
-            for (let i = 0; i < difficulty.length; i++) {
-                let key = difficulty[i].value;
-                url += '&difficulty_' + key + '=';
-                if (difficulty[i].checked) {
-                    url += 'true';
+            url += "?min_distance=" + document.getElementById("id_min_distance").value;
+            url += "&max_distance=" + document.getElementById("id_max_distance").value;
+            url += "&difficulty=";
+            let checkboxes = document.getElementById("id_difficulty").getElementsByTagName("input");
+            let difficulty_keys = "";
+            let difficulty_keys_all = "";
+            for (let i = 0; i < checkboxes.length; i++) {
+                difficulty_keys_all += checkboxes[i].value;
+                if (checkboxes[i].checked) {
+                    difficulty_keys += checkboxes[i].value;
                 }
-                else {
-                    url += 'false'
-                }
+            }
+            if (difficulty_keys == "") {
+                url += difficulty_keys_all;
+            }
+            else {
+                url += difficulty_keys;
             }
 
             xhttp.open("GET", url);
