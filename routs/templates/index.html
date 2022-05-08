@@ -4,8 +4,14 @@
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 {% block content %}
-<h1>Велосипедные маршурты Казани</h1>
-<p>Каталог велосипедных маршрутов города Казани и его окрестностей</p>
-<a href="{% url 'rout-list' %}">Список маршрутов</a><br>
-<a href="https://t.me/kazantracks">Telegram</a>
+<p class="main-page-text" style="margin-top: 16px;">Каталог велосипедных маршрутов города Казани и его окрестностей</p>
+<p class="main-page-text"><a href="{% url 'rout-list' %}">Список маршрутов</a></p>
+<p class="main-page-text"><a href="https://t.me/kazantracks">Telegram</a></p>
+
+<script>
+    window.onload = () => {
+        document.getElementById("home-button").style.display = 'none';
+        document.getElementById("back-button").style.display = 'none';
+    }
+</script>
 {% endblock %}

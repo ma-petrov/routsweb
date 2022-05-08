@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
+        {% block title %}<title>kazanrouts</title>{% endblock %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
-  {% block title %}<title>Routs</title>{% endblock %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+        <!-- Добавление дополнительного статического CSS файла -->
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
 
-  <!-- Добавление дополнительного статического CSS файла -->
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+    <body>
+        <div class="topbar-container">
+            <p class="topbar-title"><strong><a href="/">kazantracks</a></strong></p>
 
-<body>
-
-  <div class="container-fluid">
-
-    <div class="row">
-      <div class="container">
-      {% block content %}{% endblock %}
-      </div>
-    </div>
-
-  </div>
-</body>
+            <div class="topbar">
+                <!-- <input class="topbar-button" id="home-button" type="button"
+                style="background-image: url(/images/icons/home_icon.svg);">
+                <input class="topbar-button" id="back-button" type="button"
+                style="background-image: url(/images/icons/back_icon.svg);"> -->
+                <button class="topbar-button" id="home-button" onclick="document.location='/'">
+                    <img class="topbar-button-background" src="/images/icons/home_icon.svg">
+                </button>
+                <button class="topbar-button" id="back-button" onclick="history.back();">
+                    <img class="topbar-button-background" src="/images/icons/back_icon.svg">
+                </button>
+            </div>
+        </div>
+        <div class="data-container">
+        {% block content %}{% endblock %}
+        </div>
+    </body>
 </html>
