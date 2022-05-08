@@ -2,10 +2,12 @@
 
 {% block content %}
 <div class="header-container">
-    <img class="wallpaper-image" alt="" src="{{ rout.wallpaper_image.url }}">
-    <div class="simple-linear">
+    <div class="overlay-header-container">
+        <img class="wallpaper-image" alt="" src="{{ rout.wallpaper_image.url }}">
+        <div class="simple-linear">
+        </div>
+        <h3 class="header-text">{{ rout.title }}</h3>
     </div>
-    <h2 class="header-text">{{ rout.title }}</h2>
 </div>
 <div class="feature-container">
     <p><strong>Расстояние</strong> {{ rout.distance }} km </p>
@@ -19,7 +21,6 @@
 </div>
 <p>Трек на <a href="{{ rout.bike_map_link }}">BikeMap</a></p>
 <p>Скачать трек в <a href="{{ rout.kml_file_link }}">формате KML</a></p>
-<p>--------------</p>
 <p><strong>На Google картах</strong></p>
 <iframe class="google-map" src="{{ rout.goggle_map_link }}"></iframe>
 {% endblock %}
