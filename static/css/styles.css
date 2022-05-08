@@ -125,6 +125,7 @@ a:hover {
     position: absolute;
     width: 100%;
     height: var(--header-image-height);
+    object-fit: cover;
     /* height: inherit;
     width: inherit; */
 }
