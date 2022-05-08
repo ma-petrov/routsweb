@@ -6,14 +6,46 @@
     
     <form>
         <table>{{ form }}</table>
-        <input type="button" value="найти" onclick="update_rout_list('/routs/update-rout-list', on_update_rout_list)">
+        <input id="submit-button" type="button" value="найти" onclick="update_rout_list('/routs/update-rout-list', on_update_rout_list)">
     </form>
 </div>
     
 <div id="rout-list-container"></div>
 
 <script>
+    function isNaturalNumber(n) {
+        /* check is number natural */
+        n = n.toString(); // force the value incase it is not
+        var n1 = Math.abs(n),
+            n2 = parseInt(n, 10);
+        return !isNaN(n1) && n2 === n1 && n1.toString() === n;
+    }
+
     function update_rout_list(url, callback) {
+        min_distance_field = document.getElementById("id_min_distance");
+        max_distance_field = document.getElementById("id_max_distance");
+
+        if (isNaturalNumber(min_distance_field.value)) {
+            prev_min_distance = min_distance_field.value;
+        }
+        else {
+            min_distance_field.value = prev_min_distance;
+        }
+
+        if (isNaturalNumber(max_distance_field.value)) {
+            prev_max_distance = max_distance_field.value;
+        }
+        else {
+            max_distance_field.value = prev_max_distance;
+        }
+
+        console.log('max' + String(max_distance_field.value));
+        console.log('min' + String(min_distance_field.value));
+        if (parseInt(max_distance_field.value, 10) < parseInt(min_distance_field.value, 10)) {
+            console.log('lower');
+            max_distance_field.value = min_distance_field.value;
+        }
+
         const xhttp=new XMLHttpRequest();
         xhttp.onload = function() {callback(this);}
 
@@ -44,6 +76,34 @@
         document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
     }
 
-    window.onload = update_rout_list('/routs/update-rout-list', on_update_rout_list)
+    function on_change_min_distance(e) {
+        if (isNaturalNumber(e.target.value)) {
+            prev_min_distance = e.target.value;
+        }
+        else {
+            e.target.value = prev_min_distance;
+        }
+    }
+
+    function on_change_max_distance(e) {
+        if (isNaturalNumber(e.target.value)) {
+            prev_max_distance = e.target.value;
+        }
+        else {
+            e.target.value = prev_max_distance;
+        }
+    }
+
+    function onload() {
+        update_rout_list('/routs/update-rout-list', on_update_rout_list);
+        min_distance_field = document.getElementById("id_min_distance");
+        max_distance_field = document.getElementById("id_max_distance");
+        prev_min_distance = min_distance_field.value;
+        prev_max_distance = max_distance_field.value;
+        min_distance_field.addEventListener("change", on_change_min_distance);
+        max_distance_field.addEventListener("change", on_change_max_distance);
+    }
+
+    window.onload = onload();
 </script>
 {% endblock %}
