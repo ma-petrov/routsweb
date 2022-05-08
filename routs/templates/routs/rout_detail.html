@@ -1,18 +1,25 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <div class="route-detail-container">
-        <img class="wallpaper-image" alt="" src="{{ rout.wallpaper_image.url }}">
-        <h1>{{ rout.title }}</h1>
-        <p><strong>Расстояние</strong> {{ rout.distance }} km </p>
-        <p><strong>Сложность</strong> {{ rout.difficulty }}</p>
-        <p><strong>Тип</strong> {{ rout.surface }}</p>
-        <p><strong>Направление</strong> {{ rout.direction }}</p>
-        <p><strong>Особенности</strong> {% for t in rout.tags.all %} #{{ t }} {% endfor %}</p>
-        <p><strong>Описание</strong> {{ rout.description }} </p>
-        <!-- <p>Трек на <a href="{{ rout.goggle_map_link }}">Google Картах</a></p> -->
-        <!-- <iframe src="{{ rout.goggle_map_link }}" width="640" height="480"></iframe> -->
-        <p>Трек на <a href="{{ rout.bike_map_link }}">BikeMap</a></p>
-        <p>Скачать трек в <a href="{{ rout.kml_file_link }}">формате KML</a></p>
+<div class="header-container">
+    <img class="wallpaper-image" alt="" src="{{ rout.wallpaper_image.url }}">
+    <div class="simple-linear">
     </div>
+    <h2 class="header-text">{{ rout.title }}</h2>
+</div>
+<div class="feature-container">
+    <p><strong>Расстояние</strong> {{ rout.distance }} km </p>
+    <p><strong>Сложность</strong> {{ rout.difficulty }}</p>
+    <p><strong>Тип</strong> {{ rout.surface }}</p>
+    <p><strong>Направление</strong> {{ rout.direction }}</p>
+    <p><strong>Особенности</strong> {% for t in rout.tags.all %} #{{ t }} {% endfor %}</p>
+</div>
+<div class="description-container">
+    <p class="text-justify">{{ rout.description }}</p>
+</div>
+<p>Трек на <a href="{{ rout.bike_map_link }}">BikeMap</a></p>
+<p>Скачать трек в <a href="{{ rout.kml_file_link }}">формате KML</a></p>
+<p>--------------</p>
+<p><strong>На Google картах</strong></p>
+<iframe class="google-map" src="{{ rout.goggle_map_link }}"></iframe>
 {% endblock %}
