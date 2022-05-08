@@ -81,6 +81,8 @@ a:hover {text-decoration: none;}
 
     .topbar-button {margin-left: var(--main-margin);}
 
+    #home-button {display: none}
+
     .rout-list-container {
         margin-left: var(--main-margin);
         margin-right: var(--main-margin);
