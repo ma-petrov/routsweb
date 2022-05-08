@@ -1,51 +1,49 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Маршруты</h1>
-
+<div class="route-list-header">
+    <h2>Маршруты</h2>
+    
     <form>
-        <!-- <label for="id_min_distance"> Дистанция </label>
-        <input id="id_min_distance" type="number" name="min_distance_field" value="0">
-        <label for="id_max_distance"> - </label>
-        <input id="id_max_distance" type="number" name="max_distance_field" value="1000"> -->
         <table>{{ form }}</table>
         <input type="button" value="найти" onclick="update_rout_list('/routs/update-rout-list', on_update_rout_list)">
     </form>
+</div>
+    
+<div id="rout-list-container"></div>
 
-    <div id="rout-list-container"></div>
+<script>
+    function update_rout_list(url, callback) {
+        const xhttp=new XMLHttpRequest();
+        xhttp.onload = function() {callback(this);}
 
-    <script>
-        function update_rout_list(url, callback) {
-            const xhttp=new XMLHttpRequest();
-            xhttp.onload = function() {callback(this);}
-
-            url += "?min_distance=" + document.getElementById("id_min_distance").value;
-            url += "&max_distance=" + document.getElementById("id_max_distance").value;
-            url += "&difficulty=";
-            let checkboxes = document.getElementById("id_difficulty").getElementsByTagName("input");
-            let difficulty_keys = "";
-            let difficulty_keys_all = "";
-            for (let i = 0; i < checkboxes.length; i++) {
-                difficulty_keys_all += checkboxes[i].value;
-                if (checkboxes[i].checked) {
-                    difficulty_keys += checkboxes[i].value;
-                }
+        url += "?min_distance=" + document.getElementById("id_min_distance").value;
+        url += "&max_distance=" + document.getElementById("id_max_distance").value;
+        url += "&difficulty=";
+        let checkboxes = document.getElementById("id_difficulty").getElementsByTagName("input");
+        let difficulty_keys = "";
+        let difficulty_keys_all = "";
+        for (let i = 0; i < checkboxes.length; i++) {
+            difficulty_keys_all += checkboxes[i].value;
+            if (checkboxes[i].checked) {
+                difficulty_keys += checkboxes[i].value;
             }
-            if (difficulty_keys == "") {
-                url += difficulty_keys_all;
-            }
-            else {
-                url += difficulty_keys;
-            }
-
-            xhttp.open("GET", url);
-            xhttp.send();
+        }
+        if (difficulty_keys == "") {
+            url += difficulty_keys_all;
+        }
+        else {
+            url += difficulty_keys;
         }
 
-        function on_update_rout_list(xhttp) {
-            document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
-        }
+        xhttp.open("GET", url);
+        xhttp.send();
+    }
 
-        window.onload = update_rout_list('/routs/update-rout-list', on_update_rout_list)
-    </script>
+    function on_update_rout_list(xhttp) {
+        document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
+    }
+
+    window.onload = update_rout_list('/routs/update-rout-list', on_update_rout_list)
+</script>
 {% endblock %}
