@@ -97,6 +97,16 @@ a:hover {text-decoration: none;}
         margin-left: var(--main-margin);
         margin-right: var(--main-margin);
     }
+
+    .route-list-header {
+        margin-left: var(--main-margin);
+        margin-right: var(--main-margin);
+    }
+
+    .submit-button-container {
+        margin-left: var(--main-margin);
+        margin-right: var(--main-margin);
+    }
 }
 
 /*
@@ -178,7 +188,6 @@ a:hover {text-decoration: none;}
 
 .route-list-header {
     display: block;
-    /* height: 100px; */
     overflow: hidden;
 }
 
