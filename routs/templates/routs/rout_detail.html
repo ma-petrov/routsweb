@@ -20,9 +20,9 @@
 </div>
 <div class="description-container">
     <p class="text-justify">{{ rout.description }}</p>
+    <p>Трек на <a href="{{ rout.bike_map_link }}">BikeMap</a></p>
+    <p>Скачать трек в <a href="{{ rout.kml_file_link }}">формате KML</a></p>
+    <p><strong>На Google картах</strong></p>
+    <iframe class="google-map" src="{{ rout.goggle_map_link }}"></iframe>
 </div>
-<p>Трек на <a href="{{ rout.bike_map_link }}">BikeMap</a></p>
-<p>Скачать трек в <a href="{{ rout.kml_file_link }}">формате KML</a></p>
-<p><strong>На Google картах</strong></p>
-<iframe class="google-map" src="{{ rout.goggle_map_link }}"></iframe>
 {% endblock %}
