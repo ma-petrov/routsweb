@@ -5,6 +5,7 @@
     <h2>Маршруты</h2>
     
     <form>
+        <input id="slider" type="range" value="3" min="1" max="20" step="1">
         <table>{{ form }}</table>
         <input id="submit-button" type="button" value="найти" onclick="update_rout_list('/routs/update-rout-list', on_update_rout_list)">
     </form>
