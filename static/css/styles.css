@@ -10,9 +10,26 @@
     --header-image-height: 300px;
 }
 
+ul {
+    padding-left: 0;
+}
+
+li {
+    list-style-type: none;
+    padding: 0px;
+}
+
 a:hover {
     text-decoration: none;
 }
+
+.filter-container {
+    float: left;
+}
+
+/*
+ * base generic
+ */
 
 .topbar-container {
     width: 100%;
@@ -102,10 +119,6 @@ a:hover {
     text-align: center;
 }
 
-/* .main-page-text #description {
-    margin-top: 16px;
-} */
-
 /*
  * detail view
  */
@@ -126,8 +139,6 @@ a:hover {
     width: 100%;
     height: var(--header-image-height);
     object-fit: cover;
-    /* height: inherit;
-    width: inherit; */
 }
 
 .simple-linear {
@@ -165,12 +176,38 @@ a:hover {
 }
 
 /* 
-
-*/
+ * route list
+ */
 
 .route-list-header {
+    display: block;
+    height: 100px;
     padding-bottom: 5%;
+}
+
+.submit-button-container {
     border-bottom: 2px solid gray;
+}
+
+.submit-button {
+    background-color: transparent;
+    border: 0px;
+    padding: 0px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.filter-container {
+    float: left;
+    padding-top: 8px;
+    padding-right: 32px;
+}
+
+.input-number {
+    width: 100px;
+    border: 1px solid lightgray;
+    border-radius: var(--main-border-radius);
+    padding: 5px;
 }
 
 .route-card {
@@ -179,4 +216,8 @@ a:hover {
     padding: 10px;
     border: 1px solid lightgray;
     border-radius: var(--main-border-radius);
+}
+
+.message-nothing-was-found {
+    padding-top: 8px;
 }

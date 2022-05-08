@@ -1,14 +1,28 @@
 {% extends "base_generic.html" %}
 
+{% block title %}<title>Поиск маршрутов</title>{% endblock %}
+
 {% block content %}
 <div class="route-list-header">
-    <h2>Маршруты</h2>
-    
-    <form>
-        <input id="slider" type="range" value="3" min="1" max="20" step="1">
-        <table>{{ form }}</table>
-        <input id="submit-button" type="button" value="найти" onclick="update_rout_list('/routs/update-rout-list', on_update_rout_list)">
-    </form>
+    <div>
+        <div class="filter-container">
+            <p>Протяженность маршрута (км)</p>
+            <div>
+                {{ form.min_distance }}
+                {{ form.max_distance }}
+            </div>
+        </div>
+        <div class="filter-container">
+            <p>Cложность</p>
+            {{ form.difficulty }}
+        </div>
+    </div>
+</div>
+
+<div class="submit-button-container">
+    <strong>
+        <input class="submit-button" id="submit-button" type="button" value="Найти" onclick="update_rout_list('/routs/update-rout-list', on_update_rout_list)">
+    </strong>
 </div>
     
 <div id="rout-list-container"></div>
@@ -99,6 +113,8 @@
         update_rout_list('/routs/update-rout-list', on_update_rout_list);
         min_distance_field = document.getElementById("id_min_distance");
         max_distance_field = document.getElementById("id_max_distance");
+        min_distance_field.className = "input-number";
+        max_distance_field.className = "input-number";
         prev_min_distance = min_distance_field.value;
         prev_max_distance = max_distance_field.value;
         min_distance_field.addEventListener("change", on_change_min_distance);
