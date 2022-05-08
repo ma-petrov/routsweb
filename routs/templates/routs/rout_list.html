@@ -111,12 +111,12 @@
 
     function onload() {
         update_rout_list('/routs/update-rout-list', on_update_rout_list);
-        min_distance_field = document.getElementById("id_min_distance");
-        max_distance_field = document.getElementById("id_max_distance");
+        let min_distance_field = document.getElementById("id_min_distance");
+        let max_distance_field = document.getElementById("id_max_distance");
         min_distance_field.className = "input-number";
         max_distance_field.className = "input-number";
-        prev_min_distance = min_distance_field.value;
-        prev_max_distance = max_distance_field.value;
+        let prev_min_distance = min_distance_field.value;
+        let prev_max_distance = max_distance_field.value;
         min_distance_field.addEventListener("change", on_change_min_distance);
         max_distance_field.addEventListener("change", on_change_max_distance);
     }
