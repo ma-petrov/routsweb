@@ -60,7 +60,7 @@ class Rout(models.Model):
     """
     title = models.CharField(max_length=200)
     distance = models.PositiveIntegerField(help_text="Enter distance in kilometers, or min distance if range")
-    distance_max = models.PositiveIntegerField(null=True, help_text="If range - enter max distance, else - leave empty")
+    distance_max = models.PositiveIntegerField(null=True, help_text="If range - enter max distance, else - enter 0")
     difficulty = models.ForeignKey(Difficulty, on_delete=models.SET_NULL, null=True)
     surface = models.ForeignKey(Surface, on_delete=models.SET_NULL, null=True)
     direction = models.ManyToManyField(Direction)
@@ -76,7 +76,10 @@ class Rout(models.Model):
         """
         String for representing the Model object.
         """
-        return f'{self.title} ({self.distance} km)'
+        distance = str(self.distance)
+        if (self.distance_max > 0):
+            distance += f' - {self.distance_max}'
+        return f'{self.title} ({distance} km)'
 
     def get_absolute_url(self):
         """
