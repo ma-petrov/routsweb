@@ -12,11 +12,24 @@
     </div>
 </div>
 <div class="feature-container">
-    <p><strong>Расстояние</strong> {{ rout.distance }} km </p>
-    <p><strong>Сложность</strong> {{ rout.difficulty }}</p>
-    <p><strong>Тип</strong> {{ rout.surface }}</p>
-    <p><strong>Направление</strong> {{ rout.direction }}</p>
-    <p><strong>Особенности</strong> {% for t in rout.tags.all %} #{{ t }} {% endfor %}</p>
+    <p><strong>Расстояние</strong> 
+        {{ rout.distance }}
+        {% if rout.distance_max > 0 %}
+            - {{ rout.distance_max }}
+        {% endif %}
+        km
+    </p>
+    <p><strong>Сложность</strong> {{ rout.difficulty }} </p>
+    <p><strong>Тип</strong> {{ rout.surface }} </p>
+    <p><strong>Направление</strong> {% for d in rout.direction.all %} #{{ d }} {% endfor %} </p>
+    <p><strong>Заброска транспортом</strong>
+        {% if rout.is_transport_availability %}
+            Да
+        {% else %}
+            Нет
+        {% endif %}
+    </p>
+    <p><strong>Особенности</strong> {% for t in rout.tags.all %} #{{ t }} {% endfor %} </p>
 </div>
 <div class="description-container">
     <p class="text-justify">{{ rout.description }}</p>

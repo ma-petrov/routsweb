@@ -1,11 +1,24 @@
 {% if rout_list %}
-    {% for rout in rout_list %}
-    <div class="route-card">
-        <a href="{{ rout.get_absolute_url }}">{{ rout.title }}</a>
-        ({{ rout.distance }} km)
-        <!-- {% for t in rout.tags.all %} #{{ t }} {% endfor %} -->
-        <strong>сложность</strong> {{ rout.difficulty }}
-    </div>
+    {% for route in rout_list %}
+        <div class="route-card" id="{{ route.get_absolute_url }}">
+            <!-- <a href="{{ route.get_absolute_url }}">{{ route.title }}</a> -->
+            <strong> {{ route.title }} </strong>
+            ({{ route.distance }} 
+            {% if route.distance_max > 0 %}
+                - {{ route.distance_max }}
+            {% endif %}
+            km) |
+            <strong>Сложность</strong> {{ route.difficulty }} |
+            <strong>Покрытие</strong> {{ route.surface }} |
+            <strong>Направление</strong> {% for d in route.direction.all %} {{ d }} {% endfor %} |
+            <strong>Особенности</strong> {% for t in route.tags.all %} {{ t }} {% endfor %} |
+            <strong>Заброска</strong>
+            {% if route.is_transport_availability == True %}
+                Да
+            {% else %}
+                Нет
+            {% endif %}
+        </div>
     {% endfor %}
 {% else %}
     <p class="message-nothing-was-found">По запросу ничего не найдено</p>
