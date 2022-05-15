@@ -2,32 +2,68 @@ from django.views import generic
 from django import forms
 from django.shortcuts import render
 from .forms import FilterForm
-from .models import Rout, Difficulty
+from .models import Rout, Difficulty, Surface, Direction, Tag, RouteCollections
 from django import forms
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Min, Max
 
 
 def index(request):
     """
-    Функция отображения для домашней страницы сайта.
+    Home page rendering
     """
-    return render(request, 'index.html')
+    route_collections = RouteCollections.objects.all()
+
+    return render(request, 'index.html', {'route_collections': route_collections})
 
 
 class RoutListView(generic.ListView):
     model = Rout
 
     def get(self, request):
+        """
+        Render page of routes searching.
+        Firstly parse params for filter from request,
+        if param was not given - return all available values in data base.
+        Then render page with request parameters.
+        """
+        
+        distance_range = Rout.objects.aggregate(Min('distance'), Max('distance'), Max('distance_max'))
+
+        _min_distance = request.GET.get('min_distance')
+        if _min_distance == None:
+            _min_distance = distance_range['distance__min']
+
+        _max_distance = request.GET.get('max_distance')
+        if _max_distance == None:
+            _max_distance = max(distance_range['distance__max'], distance_range['distance_max__max'])
+
+        choice_params = dict()
+        params = ['difficulty', 'surface', 'direction', 'tags']
+        models = [Difficulty, Surface, Direction, Tag]
+        for param, model in zip(params, models):
+            _param = request.GET.get(param)
+            if _param == None:
+                available_choices = [i[0] for i in Rout.objects.values_list(param).distinct()]
+                _param = ''
+                for choice in model.objects.values_list('id', 'name'):
+                    if choice[0] in available_choices:
+                        _param += str(choice[0])
+            choice_params.update(dict({param: _param}))
+
+        _is_transport_availability = request.GET.get('is_transport_availability')
+        if _is_transport_availability == None:
+            _is_transport_availability = 'unknown'
+
         form = FilterForm()
-        rout_list = Rout.objects.all()
         return render(request, 'routs/rout_list.html', {
             'form': form,
-            'rout_list': rout_list,
-            'choice_form_fields': [
-                ('difficulty', 'Сложность'),
-                ('direction', 'Направление'),
-                ('tag', 'Особенности')
-            ]
+            'min_distance': _min_distance,
+            'max_distance': _max_distance,
+            'difficulty': choice_params['difficulty'],
+            'surface': choice_params['surface'],
+            'direction': choice_params['direction'],
+            'tags': choice_params['tags'],
+            'is_transport_availability': _is_transport_availability
         })
 
 
@@ -53,7 +89,7 @@ class UpdateRoutListView(generic.ListView):
         if min_distance == 0:
             min_distance = 1
 
-        rout_list = Rout.objects.filter(
+        route_list = Rout.objects.filter(
             (Q(distance__range=(min_distance, max_distance)) | Q(distance_max__range=(min_distance, max_distance))) &
             Q(difficulty__in=difficulties) &
             Q(surface__in=surfaces) &
@@ -62,7 +98,7 @@ class UpdateRoutListView(generic.ListView):
             Q(is_transport_availability__in=is_transport_availabilities)
         ).distinct()
 
-        return render(request, 'routs/update_rout_list.html', {'rout_list': rout_list})
+        return render(request, 'routs/update_rout_list.html', {'rout_list': route_list})
 
 
 class RoutDetailView(generic.DetailView):
