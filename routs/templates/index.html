@@ -6,9 +6,13 @@
 {% block title %}<title>Веломаршруты</title>{% endblock %}
 
 {% block content %}
-<p class="main-page-text" style="margin-top: 16px;">Каталог велосипедных маршрутов города Казани и его окрестностей</p>
-<p class="main-page-text"><a href="{% url 'rout-list' %}">Список маршрутов</a></p>
-<p class="main-page-text"><a href="https://t.me/kazantracks">Telegram</a></p>
+    <p class="main-page-text" style="margin-top: 16px;">Каталог велосипедных маршрутов города Казани и его окрестностей</p>
+    <p class="main-page-text"><a href="{% url 'rout-list' %}">Список маршрутов</a></p>
+    <p class="main-page-text"><a href="https://t.me/kazantracks">Telegram</a></p>
+    <h3>Подборка маршрутов</h3>
+    {% for collection in route_collections %}
+        <p> {{ collection.get_url_params }} </p>
+    {% endfor %}
 
 <script>
     window.onload = () => {
