@@ -8,11 +8,10 @@
         <div class="filter-container">
             <p>Протяженность (км)</p>
             <div class="distance-range-input-container">
-                {{ form.min_distance }} |
-                {{ form.max_distance }}
+                {{ form.min_distance }} | {{ form.max_distance }}
             </div>
         </div>
-
+ 
         <div class="filter-container">
             <p>Сложность</p>
             <div class="drop-down-multiple-choice-button-contaniner">
@@ -55,16 +54,12 @@
 
         <div class="filter-container">
             <p>Заброска</p>
-            <!-- <div class="boolean-choice-container">
-                {{ form.is_transport_availability }}
-                <span for="id_is_transport_availability">Заброска</span>
-            </div> -->
             {{ form.is_transport_availability }}
         </div>
     </div>
 </div>
 
-<!-- <input class="submit-button" id="submit-button" type="button" value="Найти" onclick="update_rout_list(on_update_rout_list)"> -->
+<!-- <input class="submit-button" id="submit-button" type="button" value="Найти" onclick="updateRouteList(onUpdateRouteList)"> -->
 
 <div class="filter-border"></div>
     
@@ -73,7 +68,7 @@
 <script>
     function addRouteCardEventListeners() {
         [...document.getElementsByClassName("route-card")].forEach(item => {
-            item.addEventListener('click', e => {
+            item.addEventListener("click", e => {
                 console.log(e.target.id);
                 location.href = e.target.id;
             });
@@ -81,144 +76,13 @@
     }
 
     function isNaturalNumber(n) {
-        /* check is number natural */
-        n = n.toString(); // force the value incase it is not
+        n = n.toString();
         var n1 = Math.abs(n),
             n2 = parseInt(n, 10);
         return !isNaN(n1) && n2 === n1 && n1.toString() === n;
     }
 
-    function getDropDownChoiceSelect(field) {
-        let url = "&" + field + "=";
-        let checkboxes = document.getElementById("id_" + field).getElementsByTagName("input");
-        let keys = "";
-        let keys_all = "";
-        for (let i = 0; i < checkboxes.length; i++) {
-            keys_all += checkboxes[i].value;
-            if (checkboxes[i].checked) {
-                keys += checkboxes[i].value;
-            }
-        }
-        if (keys == "") {
-            url += keys_all;
-        }
-        else {
-            url += keys;
-        }
-        return url;
-    }
-
-    function getBooleanChoiceSelect(id) {
-        let url = "&" + id + "=";
-        let checkbox = document.getElementById(id)
-        if (checkbox.checked) {
-            url += "True";
-        }
-        else {
-            url += "False";
-        }
-        return url;
-    }
-
-    function update_rout_list(callback) {
-        url = "/routs/update-rout-list";
-
-        let min_distance_field = document.getElementById("id_min_distance");
-        let max_distance_field = document.getElementById("id_max_distance");
-
-        if (isNaturalNumber(min_distance_field.value)) {
-            prev_min_distance = min_distance_field.value;
-        }
-        else {
-            min_distance_field.value = prev_min_distance;
-        }
-
-        if (isNaturalNumber(max_distance_field.value)) {
-            prev_max_distance = max_distance_field.value;
-        }
-        else {
-            max_distance_field.value = prev_max_distance;
-        }
-
-        if (parseInt(max_distance_field.value, 10) < parseInt(min_distance_field.value, 10)) {
-            max_distance_field.value = min_distance_field.value;
-        }
-
-        const xhttp=new XMLHttpRequest();
-        xhttp.onload = function() {callback(this, on_update_rout_list_html);}
-
-        url += "?min_distance=" + document.getElementById("id_min_distance").value;
-        url += "&max_distance=" + document.getElementById("id_max_distance").value;
-        ["difficulty", "surface", "direction", "tag"].forEach(field => {
-            url += getDropDownChoiceSelect(field);
-        });
-        url += "&is_transport_availability=" + document.getElementById("id_is_transport_availability").value;
-
-        console.log(url);
-
-        xhttp.open("GET", url);
-        xhttp.send();
-    }
-
-    function on_update_rout_list_html() {
-        addRouteCardEventListeners();
-    }
-
-    function on_update_rout_list(xhttp, callback) {
-        document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
-        callback();
-    }
-
-    function on_change_min_distance(e) {
-        if (isNaturalNumber(e.target.value)) {
-            if (parseInt(max_distance_field.value, 10) < parseInt(min_distance_field.value, 10)) {
-                min_distance_field.value = max_distance_field.value;
-            }
-            prev_min_distance = e.target.value;
-            update_rout_list(on_update_rout_list);
-        }
-        else {
-            e.target.value = prev_min_distance;
-        }
-    }
-
-    function on_change_max_distance(e) {
-        if (isNaturalNumber(e.target.value)) {
-            if (parseInt(max_distance_field.value, 10) < parseInt(min_distance_field.value, 10)) {
-                max_distance_field.value = min_distance_field.value;
-            }
-            prev_max_distance = e.target.value;
-            update_rout_list(on_update_rout_list);
-        }
-        else {
-            e.target.value = prev_max_distance;
-        }
-    }
-
-    function getTopCoordinate(elem) {
-        let box = elem.getBoundingClientRect();
-        return (box.top + window.pageYOffset + 40).toString() + 'px';
-    }
-
-    function setTopCoordinate(choice, button) {
-        choice.style.top = getTopCoordinate(button);
-    }
-
-    function placeMultipleChoiceContainer(field) {
-        let button = document.getElementById("drop-down-multiple-choice-button-" + field);
-        let choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
-        setTopCoordinate(choice, button);
-    }
-
-    // drop-down multiple choice
-    let is_choice_display = new Map([
-        ['difficulty', false],
-        ['surface', false],
-        ['direction', false],
-        ['tag', false]
-    ]);
-
-    function update_button(field) {
+    function updateButton(field) {
         let checkboxes = document.getElementById("id_" + field).getElementsByTagName("input");
         let labels = document.getElementById("id_" + field).getElementsByTagName("label");
         let n = 0;
@@ -244,6 +108,124 @@
         }
     }
 
+    function getDropDownChoiceSelect(field) {
+        let url = "&" + field + "=";
+        let checkboxes = document.getElementById("id_" + field).getElementsByTagName("input");
+        let keys = "";
+        let keys_all = "";
+        for (let i = 0; i < checkboxes.length; i++) {
+            keys_all += checkboxes[i].value;
+            if (checkboxes[i].checked) {
+                keys += checkboxes[i].value;
+            }
+        }
+        if (keys == "") {
+            url += keys_all;
+        }
+        else {
+            url += keys;
+        }
+        return url;
+    }
+
+    function setDropDownChoiceSelect(field, values, callback) {
+        let checkboxes = document.getElementById("id_" + field).getElementsByTagName("input");
+        let is_all_checked = true;
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (values.includes(checkboxes[i].value)) {
+                checkboxes[i].checked = true;
+            }
+            else {
+                checkboxes[i].checked = false;
+                is_all_checked = false;
+            }
+        }
+        if (is_all_checked) {
+            for (let i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = false;
+            }
+        }
+        callback();
+    }
+
+    function generateUpdateRouteListUrl() {
+        url = "/routs/update-rout-list";
+        url += "?min_distance=" + document.getElementById("id_min_distance").value;
+        url += "&max_distance=" + document.getElementById("id_max_distance").value;
+        ["difficulty", "surface", "direction", "tag"].forEach(field => {
+            url += getDropDownChoiceSelect(field);
+        });
+        url += "&is_transport_availability=" + document.getElementById("id_is_transport_availability").value;
+        return url;
+    }
+
+    function updateRouteList(callback) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {callback(this, addRouteCardEventListeners);}
+        xhttp.open("GET", generateUpdateRouteListUrl());
+        xhttp.send();
+    }
+
+    function onUpdateRouteList(xhttp, callback) {
+        document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
+        callback();
+    }
+
+    function on_change_min_distance(e) {
+        let min_distance_field = e.target;
+        let max_distance_field = document.getElementById("id_max_distance");
+
+        if (isNaturalNumber(min_distance_field.value)) {
+            if (parseInt(max_distance_field.value, 10) < parseInt(min_distance_field.value, 10)) {
+                max_distance_field.value = min_distance_field.value;
+            }
+            prev_min_distance = min_distance_field.value;
+            updateRouteList(onUpdateRouteList);
+        }
+        else {
+            min_distance_field.value = prev_min_distance;
+        }
+    }
+
+    function on_change_max_distance(e) {
+        let max_distance_field = e.target;
+        let min_distance_field = document.getElementById("id_min_distance");
+
+        if (isNaturalNumber(max_distance_field.value)) {
+            if (parseInt(max_distance_field.value, 10) < parseInt(min_distance_field.value, 10)) {
+                min_distance_field.value = max_distance_field.value;
+            }
+            prev_max_distance = max_distance_field.value;
+            updateRouteList(onUpdateRouteList);
+        }
+        else {
+            max_distance_field.value = prev_max_distance;
+        }
+    }
+
+    function getTopCoordinate(elem) {
+        let box = elem.getBoundingClientRect();
+        return (box.top + window.pageYOffset + 40).toString() + "px";
+    }
+
+    function setTopCoordinate(choice, button) {
+        choice.style.top = getTopCoordinate(button);
+    }
+
+    function placeMultipleChoiceContainer(field) {
+        let button = document.getElementById("drop-down-multiple-choice-button-" + field);
+        let choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
+        setTopCoordinate(choice, button);
+    }
+
+    // drop-down multiple choice
+    let is_choice_display = new Map([
+        ['difficulty', false],
+        ['surface', false],
+        ['direction', false],
+        ['tag', false]
+    ]);
+
     function openDropDownChoice(choice, button) {
         choice.style.display = "block";
         choice.style.boxShadow = "0px 0px 5px lightgrey";
@@ -254,7 +236,7 @@
         choice.style.display = "none";
         choice.style.boxShadow = "0px 0px 0px lightgrey";
         button.style.boxShadow = "0px 0px 0px lightgrey";
-        button.value = update_button(field);
+        button.value = updateButton(field);
     }
 
     function on_drop_down_multiple_choice_button(field) {
@@ -267,7 +249,7 @@
         }
         else {
             closeDropDownChoice(choice, button, field);
-            update_rout_list(on_update_rout_list);
+            updateRouteList(onUpdateRouteList);
         }
     }
 
@@ -282,14 +264,35 @@
                 if (is_choice_display.get(field)) {
                     is_choice_display.set(field, false);
                     closeDropDownChoice(choice, button, field);
-                    update_rout_list(on_update_rout_list);
+                    updateRouteList(onUpdateRouteList);
                 }
             }
         })
     }
 
+    function updateFilterOnLoad(callback) {
+        document.getElementById("id_min_distance").value = parseInt("{{ min_distance }}");
+        document.getElementById("id_max_distance").value = parseInt("{{ max_distance }}");
+        document.getElementById("id_is_transport_availability").value = "{{ is_transport_availability }}";
+        
+        const fields = [
+            ["difficulty", "{{ difficulty }}".split("")],
+            ["surface", "{{ surface }}".split("")],
+            ["direction", "{{ direction }}".split("")],
+            ["tag", "{{ tags }}".split("")]
+        ];
+
+        fields.forEach(field => {
+            setDropDownChoiceSelect(field[0], field[1], () => {
+                document.getElementById("drop-down-multiple-choice-button-" + field[0]).value = updateButton(field[0]);}
+            );
+        });
+
+        callback();
+    }
+
     function onload() {
-        update_rout_list(on_update_rout_list);
+        updateFilterOnLoad(() => {updateRouteList(onUpdateRouteList);});
 
         let min_distance_field = document.getElementById("id_min_distance");
         let max_distance_field = document.getElementById("id_max_distance");
@@ -299,10 +302,10 @@
         max_distance_field.addEventListener("change", on_change_max_distance);
 
         document.getElementById("id_is_transport_availability").addEventListener("change", () => {
-            update_rout_list(on_update_rout_list);
+            updateRouteList(onUpdateRouteList);
         });
 
-        ['difficulty', 'surface', 'direction', 'tag'].forEach(field => {
+        ["difficulty", "surface", "direction", "tag"].forEach(field => {
             placeMultipleChoiceContainer(field);
             set_drop_down_multiple_choice_close(field);
         });
