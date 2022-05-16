@@ -27,8 +27,8 @@ services:
       - "80:80"
     volumes:
       - ./config:/etc/nginx/conf.d/
-      - ./static:/static:ro
-      - ./images:/images:ro
+      - ./static:/static/:ro
+      - ./images:/images/:ro
     depends_on:
       - web
 
