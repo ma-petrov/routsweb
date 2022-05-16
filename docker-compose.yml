@@ -24,7 +24,7 @@ services:
   nginx:
     image: nginx
     ports:
-      - "8000:80"
+      - "80:80"
     volumes:
       - ./config:/etc/nginx/conf.d/
       - ./static:/static:ro
