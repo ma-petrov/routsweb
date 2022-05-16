@@ -14,4 +14,4 @@ jobs:
           ssh-keyscan -H ${{ secrets.DEPLOY_SERVER }} > ~/.ssh/known_hosts
         shell: bash
       - name: run remote script
-        run: ssh django@${{ secrets.DEPLOY_SERVER }} hostname
+        run: ssh django@${{ secrets.DEPLOY_SERVER }} sh -c "cd /home/django/routsweb\; git pull -f origin ${GITHUB_REF}\; git checkout ${GITHUB_REF}\; docker compose up --build -d"
