@@ -1,0 +1,17 @@
+---
+name: Continious-Integration
+on:
+  - push
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create SSH key
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa 
+          ssh-keyscan -H ${{ secrets.DEPLOY_SERVER }} > ~/.ssh/known_hosts
+        shell: bash
+      - name: run remote script
+        run: ssh django@${{ secrets.DEPLOY_SERVER }} sh -c "cd /home/django/routsweb\; git pull -f origin ${GITHUB_REF}\; git checkout ${GITHUB_REF}\; docker compose up --build -d"
