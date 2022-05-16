@@ -28,14 +28,17 @@ class RoutListView(generic.ListView):
         """
         
         distance_range = Rout.objects.aggregate(Min('distance'), Max('distance'), Max('distance_max'))
+        _min1 = distance_range['distance__min'] or 0
+        _max1 = distance_range['distance__max'] or 0
+        _max2 = distance_range['distance_max__max'] or 0
 
         _min_distance = request.GET.get('min_distance')
         if _min_distance == None:
-            _min_distance = distance_range['distance__min']
+            _min_distance = _min1
 
         _max_distance = request.GET.get('max_distance')
         if _max_distance == None:
-            _max_distance = max(distance_range['distance__max'], distance_range['distance_max__max'])
+            _max_distance = max(_max1, _max2)
 
         choice_params = dict()
         params = ['difficulty', 'surface', 'direction', 'tags']
