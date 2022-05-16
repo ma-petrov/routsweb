@@ -6,7 +6,7 @@ class Availability(models.Model):
     """
     Model
     """
-    name = models.CharField(max_length=5)
+    name = models.CharField(max_length=7)
 
     def __str__(self):
         """
@@ -28,6 +28,9 @@ class Difficulty(models.Model):
         return self.name
 
     def get_id(self):
+        """
+        Id of object.
+        """
         return self.id
 
 
@@ -43,6 +46,12 @@ class Surface(models.Model):
         """
         return self.name
 
+    def get_id(self):
+        """
+        Id of object.
+        """
+        return self.id
+
 
 class Direction(models.Model):
     """
@@ -56,6 +65,12 @@ class Direction(models.Model):
         """
         return self.name
 
+    def get_id(self):
+        """
+        Id of object.
+        """
+        return self.id
+
 
 class Tag(models.Model):
     """
@@ -68,6 +83,12 @@ class Tag(models.Model):
         String for representing the object.
         """
         return self.name
+
+    def get_id(self):
+        """
+        Id of object.
+        """
+        return self.id
 
 
 class Rout(models.Model):
@@ -137,8 +158,10 @@ class RouteCollections(models.Model):
         params.append(f'min_distance={str(self.min_distance)}')
         params.append(f'max_distance={str(self.max_distance)}')
 
-        for param in ['difficulty', 'surface', 'direction', 'tags']:
-            values = ''.join([str(d.get_id()) for d in self.difficulty.all()])
+        param_names = ['difficulty', 'surface', 'direction', 'tags']
+        field_names = [self.difficulty, self.surface, self.direction, self.tags]
+        for param, field in zip(param_names, field_names):
+            values = ''.join([str(value.get_id()) for value in field.all()])
             params.append(f'{param}={values}')
 
         params.append(f'is_transport_availability={self.is_transport_availability}')
