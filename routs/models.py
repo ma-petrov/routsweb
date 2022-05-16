@@ -2,6 +2,19 @@ from django.db import models
 from django.urls import reverse
 
 
+class Availability(models.Model):
+    """
+    Model
+    """
+    name = models.CharField(max_length=7)
+
+    def __str__(self):
+        """
+        String for representing the object.
+        """
+        return self.name
+
+
 class Difficulty(models.Model):
     """
     Difficulty represents is rout easy, medium or hard
@@ -13,6 +26,12 @@ class Difficulty(models.Model):
         String for representing the object.
         """
         return self.name
+
+    def get_id(self):
+        """
+        Id of object.
+        """
+        return self.id
 
 
 class Surface(models.Model):
@@ -27,6 +46,12 @@ class Surface(models.Model):
         """
         return self.name
 
+    def get_id(self):
+        """
+        Id of object.
+        """
+        return self.id
+
 
 class Direction(models.Model):
     """
@@ -40,6 +65,12 @@ class Direction(models.Model):
         """
         return self.name
 
+    def get_id(self):
+        """
+        Id of object.
+        """
+        return self.id
+
 
 class Tag(models.Model):
     """
@@ -52,6 +83,12 @@ class Tag(models.Model):
         String for representing the object.
         """
         return self.name
+
+    def get_id(self):
+        """
+        Id of object.
+        """
+        return self.id
 
 
 class Rout(models.Model):
@@ -92,3 +129,42 @@ class Rout(models.Model):
         Creates a string for the tags. This is required to display tags in Admin.
         """
         return ', '.join([tag.name for tag in self.tags.all()])
+
+
+class RouteCollections(models.Model):
+    """
+    Model of route collections. Collection is set of ruotes with similar features.
+    Contains filter data.
+    """
+    title = models.CharField(max_length=200, help_text="Название подборки")
+    min_distance = models.PositiveIntegerField(help_text="Минимальная длина маршрута")
+    max_distance = models.PositiveIntegerField(help_text="Максимальная длина маршрута")
+    difficulty = models.ManyToManyField(Difficulty, help_text="Сложность маршрутов")
+    surface = models.ManyToManyField(Surface, help_text="Тип покрытия")
+    direction = models.ManyToManyField(Direction, help_text="Направление. Маршрут попадет в подборку, если у него совпадает хотя бы одно направление")
+    tags = models.ManyToManyField(Tag, help_text="Особенности. Маршрут попадет в подборку, если у него совпадает хотя бы одна особенность")
+    is_transport_availability = models.ForeignKey(Availability, on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(upload_to='uploads/', null=True)
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return self.title
+
+    def get_url_params(self):
+        params = list()
+
+        params.append(f'min_distance={str(self.min_distance)}')
+        params.append(f'max_distance={str(self.max_distance)}')
+
+        param_names = ['difficulty', 'surface', 'direction', 'tags']
+        field_names = [self.difficulty, self.surface, self.direction, self.tags]
+        for param, field in zip(param_names, field_names):
+            values = ''.join([str(value.get_id()) for value in field.all()])
+            params.append(f'{param}={values}')
+
+        params.append(f'is_transport_availability={self.is_transport_availability}')
+
+        params_str = '&'.join(params)
+        return f'?{params_str}'

@@ -91,4 +91,3 @@ db.sqlite3
 # custom server run
 run
 images/uploads/*
-routs/migrations/*

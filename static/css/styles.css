@@ -151,6 +151,30 @@ a:hover {text-decoration: none;}
 
 .main-page-text {text-align: center;}
 
+.collection-card {
+    width: 192px;
+    height: 128px;
+    margin: 4px;
+    background-size: cover;
+    border-radius: var(--main-border-radius);
+    text-align: center;
+}
+
+.collection-card-tone {
+    width: inherit;
+    height: inherit;
+    border-radius: var(--main-border-radius);
+    background-color: #00000080;
+}
+
+.collection-card-link {
+    display: block;
+    color: white;
+}
+
+.collection-card-link:hover {color: white;}
+
+
 /*
  * detail view
  */
