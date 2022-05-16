@@ -1,0 +1,36 @@
+services:
+  database:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: '12345678'
+      POSTGRES_DB: 'kazantracks'
+      POSTGRES_USER: 'django'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      args:
+        - PORT=8000
+    environment:
+      DJANGO_DEBUG: False
+      DB_HOST: database
+      DB_PASSWORD: 12345678
+      DB_PORT: 5432
+    depends_on:
+      - database
+
+  nginx:
+    image: nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./config:/etc/nginx/conf.d/
+      - ./static:/static:ro
+    depends_on:
+      - web
+
+
+volumes:
+  db-data:

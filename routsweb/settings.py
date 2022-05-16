@@ -30,7 +30,7 @@ else:
     DEBUG = True
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'kazantracks.ru', 'www.kazantracks.ru', '194.67.90.160']
+ALLOWED_HOSTS = ['127.0.0.1', 'web', 'localhost', 'kazantracks.ru', 'www.kazantracks.ru', '194.67.90.160']
 
 
 # Application definition
@@ -79,32 +79,32 @@ WSGI_APPLICATION = 'routsweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+
+    DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'kazantracks',
+        'USER': 'django',
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
-
-# if DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': 'kazantracks',
-#             'USER': 'django',
-#             'PASSWORD': os.environ.get('DJANGO_MYSQL_PASSWORD'),
-#             'HOST': 'localhost',
-#         }
-#     }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
