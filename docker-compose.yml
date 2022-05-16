@@ -14,7 +14,7 @@ services:
       args:
         - PORT=8000
     environment:
-      DJANGO_DEBUG: False
+      DJANGO_DEBUG: "False"
       DB_HOST: database
       DB_PASSWORD: 12345678
       DB_PORT: 5432
@@ -28,6 +28,7 @@ services:
     volumes:
       - ./config:/etc/nginx/conf.d/
       - ./static:/static:ro
+      - ./images:/images:ro
     depends_on:
       - web
 
