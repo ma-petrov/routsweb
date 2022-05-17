@@ -97,8 +97,8 @@ class UpdateRoutListView(generic.ListView):
             Q(difficulty__in=difficulties) &
             Q(surface__in=surfaces) &
             Q(direction__in=directions) &
-            Q(tags__in=tags) &
-            Q(is_transport_availability__in=is_transport_availabilities)
+            Q(tags__in=tags) #&
+            # Q(is_transport_availability__in=is_transport_availabilities)
         ).distinct()
 
         return render(request, 'routs/update_rout_list.html', {'rout_list': route_list})
