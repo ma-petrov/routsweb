@@ -1,0 +1,34 @@
+---
+name: dev-deployment
+on:
+  pull_request:
+
+jobs:
+  dev-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: https://dev.kazantracks.ru
+    steps:
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
+      - name: deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_SERVER }}
+          username: django 
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -euf -o pipefail
+            cd ~/routsweb
+            if [[ "${{ github.repository_owner }}" == "Aklenor" ]]; then
+              REMOTE=aklenor
+            else
+              REMOTE=origin
+            fi
+            git fetch "${REMOTE}" "${{ github.head_ref }}"
+            git checkout "${REMOTE}/${{ github.head_ref }}"
+            export VIRTUAL_HOST=dev.kazantracks.ru
+            export LETSENCRYPT_HOST=$VIRTUAL_HOST
+            export DEPLOY_ENV=dev
+            docker compose --project-name dev up --build -d

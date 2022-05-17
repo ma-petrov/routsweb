@@ -1,0 +1,29 @@
+---
+name: prod-deployment
+on:
+  branches:    
+    - 'main'
+
+jobs:
+  prod-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+      url: https://kazantracks.ru
+    steps:
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
+      - name: deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_SERVER }}
+          username: django 
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -euf -o pipefail
+            cd ~/routsweb
+            git fetch origin main
+            export VIRTUAL_HOST=kazantracks.ru
+            export LETSENCRYPT_HOST=$VIRTUAL_HOST
+            export DEPLOY_ENV=prod
+            docker compose --project-name prod up --build -d
