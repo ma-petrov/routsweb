@@ -58,6 +58,7 @@ class RoutListView(generic.ListView):
             _is_transport_availability = 'unknown'
 
         form = FilterForm()
+
         return render(request, 'routs/rout_list.html', {
             'form': form,
             'min_distance': _min_distance,
