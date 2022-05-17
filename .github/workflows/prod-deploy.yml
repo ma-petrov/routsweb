@@ -22,14 +22,8 @@ jobs:
           script: |
             set -euf -o pipefail
             cd ~/routsweb
-            if [[ "${{ github.repository_owner }}" == "Aklenor" ]]; then
-              REMOTE=aklenor
-            else
-              REMOTE=origin
-            fi
-            git fetch "${REMOTE}" "${{ github.ref_name }}"
-            git checkout "${REMOTE}/${{ github.ref_name }}"
+            git fetch origin main
             export VIRTUAL_HOST=kazantracks.ru
             export LETSENCRYPT_HOST=$VIRTUAL_HOST
             export DEPLOY_ENV=prod
-            docker compose --project prod up --build -d
+            docker compose --project-name prod up --build -d

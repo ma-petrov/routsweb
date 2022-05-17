@@ -2,8 +2,6 @@
 name: dev-deployment
 on:
   pull_request:
-    types:
-      - opened
 
 jobs:
   dev-deploy:
@@ -23,15 +21,14 @@ jobs:
           script: |
             set -euf -o pipefail
             cd ~/routsweb
-            if [[ "${{ env.GITHUB_REPOSITORY_OWNER }}" == "Aklenor" ]]; then
+            if [[ "${{ github.repository_owner }}" == "Aklenor" ]]; then
               REMOTE=aklenor
             else
               REMOTE=origin
             fi
-            git fetch "${REMOTE}" "${{ github.base_ref }}"
-            git checkout "${REMOTE}/${{ github.base_ref }}"
-
+            git fetch "${REMOTE}" "${{ github.head_ref }}"
+            git checkout "${REMOTE}/${{ github.head_ref }}"
             export VIRTUAL_HOST=dev.kazantracks.ru
             export LETSENCRYPT_HOST=$VIRTUAL_HOST
             export DEPLOY_ENV=dev
-            docker compose --project dev up --build -d
+            docker compose --project-name dev up --build -d
