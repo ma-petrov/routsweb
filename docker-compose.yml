@@ -23,14 +23,24 @@ services:
 
   nginx:
     image: nginx
-    ports:
-      - "80:80"
+    environment:
+      VIRTUAL_HOST:
+      LETSENCRYPT_HOST:
     volumes:
       - ./config:/etc/nginx/conf.d/
       - ./static:/static/:ro
       - ./images:/images/:ro
     depends_on:
       - web
+    networks:
+      - nginx-proxy
+      - default
 
 volumes:
   db-data:
+    name: "${DEPLOY_ENV:-test}-routsweb-db"
+
+networks:
+  default:
+  nginx-proxy:
+    external: true
