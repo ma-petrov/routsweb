@@ -30,7 +30,7 @@ else:
     DEBUG = True
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'web', 'localhost', 'kazantracks.ru', 'www.kazantracks.ru', '194.67.90.160']
+ALLOWED_HOSTS = ['127.0.0.1', 'web', 'localhost', 'kazantracks.ru', 'dev.kazantracks.ru', 'www.kazantracks.ru', '194.67.90.160']
 CSRF_TRUSTED_ORIGINS = [f'http://{host}' for host in ALLOWED_HOSTS] + [f'https://{host}' for host in ALLOWED_HOSTS]
 
 
