@@ -7,15 +7,21 @@
 
 {% block content %}
     <p class="main-page-text" style="margin-top: 16px;">Каталог велосипедных маршрутов города Казани и его окрестностей</p>
+    
     <h3>Подборка маршрутов</h3>
-
-    {% for collection in route_collections %}
-        <div class="collection-card" id="url(/images/{{ collection.image }})">
-            <div class="collection-card-tone">
-                <a class="collection-card-link" href="/routs/rout-list/{{ collection.get_url_params }}"> {{ collection.title }} </a>
-            </div>
-        </div>
-    {% endfor %}
+    <div class="collection-container">
+        {% if route_collections %}
+            {% for collection in route_collections %}
+                <div class="collection-card" id="url(/images/{{ collection.image }})">
+                    <div class="collection-card-link-container">
+                        <a class="collection-card-link" href="/routs/rout-list/{{ collection.get_url_params }}"> {{ collection.title }} </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="message-nothing-was-found">Пока нет подборок</p>
+        {% endif %}
+    </div>
 
     <p class="main-page-text"><a href="{% url 'rout-list' %}">Список маршрутов</a></p>
     <p class="main-page-text"><a href="https://t.me/kazantracks">Telegram</a></p>
