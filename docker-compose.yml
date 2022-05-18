@@ -14,7 +14,7 @@ services:
       args:
         - PORT=8000
     environment:
-      DJANGO_DEBUG: "False"
+      DJANGO_DEBUG: "${DJANGO_DEBUG:-False}"
       DB_HOST: database
       DB_PASSWORD: 12345678
       DB_PORT: 5432
