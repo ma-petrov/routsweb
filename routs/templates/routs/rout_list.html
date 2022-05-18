@@ -66,14 +66,14 @@
 <div class="rout-list-container" id="rout-list-container"></div>
 
 <script>
-    function addRouteCardEventListeners() {
-        [...document.getElementsByClassName("route-card")].forEach(item => {
-            item.addEventListener("click", e => {
-                console.log(e.target.id);
-                location.href = e.target.id;
-            });
-        });
-    }
+    // function addRouteCardEventListeners() {
+    //     [...document.getElementsByClassName("route-card")].forEach(item => {
+    //         item.addEventListener("click", e => {
+    //             console.log(e.target.id);
+    //             location.href = e.target.id;
+    //         });
+    //     });
+    // }
 
     function isNaturalNumber(n) {
         n = n.toString();
@@ -161,14 +161,13 @@
 
     function updateRouteList(callback) {
         const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {callback(this, addRouteCardEventListeners);}
+        xhttp.onload = function() {callback(this);}
         xhttp.open("GET", generateUpdateRouteListUrl());
         xhttp.send();
     }
 
-    function onUpdateRouteList(xhttp, callback) {
+    function onUpdateRouteList(xhttp) {
         document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
-        callback();
     }
 
     function on_change_min_distance(e) {

@@ -1,23 +1,24 @@
 {% if rout_list %}
     {% for route in rout_list %}
-        <div class="route-card" id="{{ route.get_absolute_url }}">
-            <!-- <a href="{{ route.get_absolute_url }}">{{ route.title }}</a> -->
-            <strong> {{ route.title }} </strong>
-            ({{ route.distance }} 
-            {% if route.distance_max > 0 %}
-                - {{ route.distance_max }}
-            {% endif %}
-            km) |
-            <strong>Сложность</strong> {{ route.difficulty }} |
-            <strong>Покрытие</strong> {{ route.surface }} |
-            <strong>Направление</strong> {% for d in route.direction.all %} {{ d }} {% endfor %} |
-            <strong>Особенности</strong> {% for t in route.tags.all %} {{ t }} {% endfor %} |
-            <strong>Заброска</strong>
-            {% if route.is_transport_availability == True %}
-                Да
-            {% else %}
-                Нет
-            {% endif %}
+        <div class="route-card">
+            <a href="{{ route.get_absolute_url }}" class="route-card-link">
+                <strong> {{ route.title }} </strong>
+                ({{ route.distance }} 
+                {% if route.distance_max > 0 %}
+                    - {{ route.distance_max }}
+                {% endif %}
+                km) |
+                <strong>Сложность</strong> {{ route.difficulty }} |
+                <strong>Покрытие</strong> {{ route.surface }} |
+                <strong>Направление</strong> {% for d in route.direction.all %} {{ d }} {% endfor %} |
+                <strong>Особенности</strong> {% for t in route.tags.all %} {{ t }} {% endfor %} |
+                <strong>Заброска</strong>
+                {% if route.is_transport_availability == True %}
+                    Да
+                {% else %}
+                    Нет
+                {% endif %}
+            </a>
         </div>
     {% endfor %}
 {% else %}
