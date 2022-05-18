@@ -19,16 +19,16 @@ jobs:
           username: django 
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            set -euf -o pipefail
-            cd ~/routsweb
-            if [[ "${{ github.repository_owner }}" == "Aklenor" ]]; then
-              REMOTE=aklenor
-            else
-              REMOTE=origin
-            fi
-            git fetch "${REMOTE}" "${{ github.head_ref }}"
-            git checkout "${REMOTE}/${{ github.head_ref }}"
-            export VIRTUAL_HOST=dev.kazantracks.ru
-            export LETSENCRYPT_HOST=$VIRTUAL_HOST
-            export DEPLOY_ENV=dev
-            docker compose --project-name dev up --build -d
+            echo set -euf -o pipefail
+            echo cd ~/routsweb
+            echo if [[ "${{ github.repository_owner }}" == "Aklenor" ]]; then
+            echo   REMOTE=aklenor
+            echo else
+            echo   REMOTE=origin
+            echo fi
+            echo git fetch "${REMOTE}" "${{ github.head_ref }}"
+            echo git checkout "${REMOTE}/${{ github.head_ref }}"
+            echo export VIRTUAL_HOST=dev.kazantracks.ru
+            echo export LETSENCRYPT_HOST=$VIRTUAL_HOST
+            echo export DEPLOY_ENV=dev
+            echo docker compose --project-name dev up --build -d
