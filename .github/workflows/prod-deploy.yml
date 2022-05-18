@@ -24,7 +24,7 @@ jobs:
             set -euf -o pipefail
             cd ~/routsweb
             git fetch origin main
-            git checkout origin main
+            git checkout origin/main
             export VIRTUAL_HOST=kazantracks.ru
             export LETSENCRYPT_HOST=$VIRTUAL_HOST
             export DEPLOY_ENV=prod
