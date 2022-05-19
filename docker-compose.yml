@@ -28,7 +28,7 @@ services:
     volumes:
       - ./config:/etc/nginx/conf.d/
       - ./static:/static/
-      - ./images:/images/
+      - images:/images/
     depends_on:
       - web
     networks:
@@ -36,6 +36,8 @@ services:
       - default
 
 volumes:
+  images:
+    name: "${DEPLOY_ENV:-dev}-images"
   db-data:
     name: "${DEPLOY_ENV:-dev}-routsweb-db"
 
