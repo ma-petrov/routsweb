@@ -149,6 +149,7 @@ a:hover {text-decoration: none;}
 .collection-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .collection-card-background {
