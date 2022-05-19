@@ -151,16 +151,23 @@ a:hover {text-decoration: none;}
     flex-wrap: wrap;
 }
 
+.collection-card-background {
+    overflow: hidden;
+    background-size: cover;
+    width: 192px;
+    height: 128px;
+    margin: 4px;
+    border-radius: var(--main-border-radius);
+}
+
 .collection-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 192px;
-    height: 128px;
-    margin: 4px;
-    background-color: var(--main-dark-color);
-    background-size: cover;
-    border-radius: var(--main-border-radius);
+    width: inherit;
+    height: inherit;
+    background-color: #00000080;
+    /* border-radius: var(--main-border-radius); */
 }
 
 .collection-card-link-container {

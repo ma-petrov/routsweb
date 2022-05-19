@@ -12,9 +12,11 @@
     <div class="collection-container">
         {% if route_collections %}
             {% for collection in route_collections %}
-                <div class="collection-card" id="url(/images/{{ collection.image }})">
-                    <div class="collection-card-link-container">
-                        <a class="collection-card-link" href="/routs/rout-list/{{ collection.get_url_params }}"> {{ collection.title }} </a>
+                <div class="collection-card-background" id="url(/images/{{ collection.image }})">
+                    <div class="collection-card">
+                        <div class="collection-card-link-container">
+                            <a class="collection-card-link" href="/routs/rout-list/{{ collection.get_url_params }}"> {{ collection.title }} </a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -27,13 +29,38 @@
     <p class="main-page-text"><a href="https://t.me/kazantracks">Telegram</a></p>
 
 <script>
+    const collectionCards = document.getElementsByClassName('collection-card-background');
+
     window.onload = () => {
         document.getElementById("home-button").style.display = 'none';
         document.getElementById("back-button").style.display = 'none';
 
-        [...document.getElementsByClassName("collection-card")].forEach(item => {
+        [...document.getElementsByClassName("collection-card-background")].forEach(item => {
             item.style.backgroundImage = item.id;
         });
+    }
+
+    function resizeCards(collectionCards, parentWidth, n) {
+        let width = '192px';
+        if (n != 4) {
+            width = ((parentWidth - 8 * n) / n).toString() + 'px';
+        }
+        [...collectionCards].forEach(card => {card.style.width = width;});
+    }
+
+    window.onresize = () => {
+        const parentWidth = collectionCards[0].parentElement.offsetWidth;
+        let n = 4;
+        if (parentWidth < 800) {
+            n = 1;
+            if (parentWidth > 600) {
+                n = 3;
+            }
+            else if (parentWidth > 400) {
+                n = 2;
+            }
+        }
+        resizeCards(collectionCards, parentWidth, n);
     }
 </script>
 {% endblock %}
