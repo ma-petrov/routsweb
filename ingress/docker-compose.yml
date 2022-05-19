@@ -1,0 +1,35 @@
+services:
+  # actual Ningx which accessable from the Internet
+  nginx-proxy:
+    image: jwilder/nginx-proxy:1.0-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+    networks:
+      - nginx-proxy 
+
+  # SSL auto configuratein
+  acme:
+    image: nginxproxy/acme-companion:2.2
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - acme:/etc/acme.sh
+
+volumes:
+  certs:
+  vhost:
+  html:
+  acme:
+
+networks:
+  nginx-proxy: # network which will be used for services
+    driver: bridge
+    name: nginx-proxy
