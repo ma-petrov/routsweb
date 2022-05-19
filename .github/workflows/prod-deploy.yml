@@ -25,7 +25,4 @@ jobs:
             cd ~/routsweb
             git fetch origin main
             git checkout origin/main
-            export VIRTUAL_HOST=kazantracks.ru
-            export LETSENCRYPT_HOST=$VIRTUAL_HOST
-            export DEPLOY_ENV=prod
-            docker compose --project-name prod up --build -d
+            docker compose --env-file=.prod.env --project-name prod up --build -d

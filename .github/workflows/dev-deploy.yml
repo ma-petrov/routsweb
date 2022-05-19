@@ -28,7 +28,4 @@ jobs:
             fi
             git fetch "${REMOTE}" "${{ github.head_ref }}"
             git checkout "${REMOTE}/${{ github.head_ref }}"
-            export VIRTUAL_HOST=dev.kazantracks.ru
-            export LETSENCRYPT_HOST=$VIRTUAL_HOST
-            export DEPLOY_ENV=dev
-            docker compose --project-name dev up --build -d
+            docker compose --env-file=.dev.env --project-name dev up --build -d
