@@ -17,6 +17,9 @@ services:
       DJANGO_DEBUG: "${DJANGO_DEBUG:-False}"
       DB_HOST: database
       DB_PASSWORD: "${DB_PASS}"
+      LOG_LEVEL: debug
+    volumes:
+      - images:/usr/src/images/
     depends_on:
       - database
 

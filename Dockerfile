@@ -11,6 +11,7 @@ RUN pip install -r requirements.txt
 COPY --chown=django:django . ./
 
 ARG PORT=8000
+ARG LOG_LEVEL=info
 ENV PORT=$PORT
 
-CMD gunicorn --access-logfile - --workers 3 -b "0.0.0.0:$PORT" routsweb.wsgi:application
+CMD gunicorn --log-level "${LOG_LEVEL}" --access-logfile - --workers 3 -b "0.0.0.0:$PORT" routsweb.wsgi:application
