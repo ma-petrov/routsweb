@@ -146,10 +146,25 @@ a:hover {text-decoration: none;}
 
 .main-page-text {text-align: center;}
 
+.text {
+    margin: 4px;
+    font-size: medium;
+}
+
+.index-header {
+    margin-top: 8px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: large;
+    border-bottom: 1px solid var(--main-dark-color);
+}
+
 .collection-container {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: center; */
 }
 
 .collection-card-background {
@@ -167,8 +182,7 @@ a:hover {text-decoration: none;}
     justify-content: center;
     width: inherit;
     height: inherit;
-    background-color: #00000080;
-    /* border-radius: var(--main-border-radius); */
+    background-color: #000000A0;
 }
 
 .collection-card-link-container {
