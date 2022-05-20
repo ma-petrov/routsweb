@@ -33,30 +33,33 @@
     <p class="text"><a href="https://t.me/kazantracks">Telegram</a></p>
 
 <script>
-
     const collectionCards = document.getElementsByClassName('collection-card-background');
 
-    function applyResizing(collectionCards, parentWidth, n) {
-        let width = '192px';
-        if (n != 4) {
-            width = ((parentWidth - 8 * n) / n).toString() + 'px';
+    if (collectionCards !== undefined) {
+        function applyResizing(collectionCards, parentWidth, n) {
+            let width = '192px';
+            if (n != 4) {
+                width = ((parentWidth - 8 * n) / n).toString() + 'px';
+            }
+            [...collectionCards].forEach(card => {card.style.width = width;});
         }
-        [...collectionCards].forEach(card => {card.style.width = width;});
-    }
 
-    function resizeCollectionCards() {
-        const parentWidth = collectionCards[0].parentElement.offsetWidth;
-        let n = 4;
-        if (parentWidth < 800) {
-            n = 1;
-            if (parentWidth > 600) {
-                n = 3;
+        function resizeCollectionCards() {
+            const parentWidth = collectionCards[0].parentElement.offsetWidth;
+            let n = 4;
+            if (parentWidth < 800) {
+                n = 1;
+                if (parentWidth > 600) {
+                    n = 3;
+                }
+                else if (parentWidth > 400) {
+                    n = 2;
+                }
             }
-            else if (parentWidth > 400) {
-                n = 2;
-            }
+            applyResizing(collectionCards, parentWidth, n);
         }
-        applyResizing(collectionCards, parentWidth, n);
+
+        window.onresize = resizeCollectionCards;
     }
 
     window.onload = () => {
@@ -71,10 +74,5 @@
             item.style.backgroundImage = item.id;
         });
     }
-
-    if (collectionCards !== undefined) {
-        window.onresize = resizeCollectionCards;
-    }
-
 </script>
 {% endblock %}
