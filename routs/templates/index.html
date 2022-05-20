@@ -31,16 +31,7 @@
 <script>
     const collectionCards = document.getElementsByClassName('collection-card-background');
 
-    window.onload = () => {
-        document.getElementById("home-button").style.display = 'none';
-        document.getElementById("back-button").style.display = 'none';
-
-        [...document.getElementsByClassName("collection-card-background")].forEach(item => {
-            item.style.backgroundImage = item.id;
-        });
-    }
-
-    function resizeCards(collectionCards, parentWidth, n) {
+    function applyResizing(collectionCards, parentWidth, n) {
         let width = '192px';
         if (n != 4) {
             width = ((parentWidth - 8 * n) / n).toString() + 'px';
@@ -48,7 +39,7 @@
         [...collectionCards].forEach(card => {card.style.width = width;});
     }
 
-    window.onresize = () => {
+    function resizeCollectionCards() {
         const parentWidth = collectionCards[0].parentElement.offsetWidth;
         let n = 4;
         if (parentWidth < 800) {
@@ -60,7 +51,20 @@
                 n = 2;
             }
         }
-        resizeCards(collectionCards, parentWidth, n);
+        applyResizing(collectionCards, parentWidth, n);
     }
+
+    window.onload = () => {
+        resizeCollectionCards();
+
+        document.getElementById("home-button").style.display = 'none';
+        document.getElementById("back-button").style.display = 'none';
+
+        [...document.getElementsByClassName("collection-card-background")].forEach(item => {
+            item.style.backgroundImage = item.id;
+        });
+    }
+
+    window.onresize = resizeCollectionCards;
 </script>
 {% endblock %}
