@@ -441,3 +441,8 @@ a:hover {text-decoration: none;}
     text-align: center;
     font-size: medium;
 }
+
+@media (max-device-width : 1499px) {
+    .route-card-image-container {display: none;}
+    .route-card-delimeter {display: none;}
+}
