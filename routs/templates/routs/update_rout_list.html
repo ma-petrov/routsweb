@@ -1,68 +1,35 @@
 {% if rout_list %}
     {% for route in rout_list %}
         <div class="route-card">
-            <!-- <a href="{{ route.get_absolute_url }}" class="route-card-link">
-                <strong> {{ route.title }} </strong>
-                ({{ route.distance }} 
-                {% if route.distance_max > 0 %}
-                    - {{ route.distance_max }}
-                {% endif %}
-                km) |
-                <strong>Сложность</strong> {{ route.difficulty }} |
-                <strong>Покрытие</strong> {{ route.surface }} |
-                <strong>Направление</strong> {% for d in route.direction.all %} {{ d }} {% endfor %} |
-                <strong>Особенности</strong> {% for t in route.tags.all %} {{ t }} {% endfor %} |
-                <strong>Заброска</strong>
-                {% if route.is_transport_availability == True %}
-                    Да
-                {% else %}
-                    Нет
-                {% endif %}
-            </a> -->
-
             <div class="route-card-image-container">
                 <img class="route-card-image" src="{{ route.wallpaper_image.url }}">
             </div>
             <div class="route-card-delimeter"></div>
             <div class="route-card-data-container">
-                <a href="{{ route.get_absolute_url }}" class="route-card-link">
-                    <strong> {{ route.title }} </strong>
-                    ({{ route.distance }} 
-                    {% if route.distance_max > 0 %}
-                        - {{ route.distance_max }}
-                    {% endif %}
-                    km) |
-                    <strong>Сложность</strong> {{ route.difficulty }} |
-                    <strong>Покрытие</strong> {{ route.surface }} |
-                    <strong>Направление</strong> {% for d in route.direction.all %} {{ d }} {% endfor %} |
-                    <strong>Особенности</strong> {% for t in route.tags.all %} {{ t }} {% endfor %} |
-                    <strong>Заброска</strong>
-                    {% if route.is_transport_availability == True %}
-                        Да
-                    {% else %}
-                        Нет
-                    {% endif %}
-                </a>
+                <a href="{{ route.get_absolute_url }}" class="route-card-link"><strong> {{ route.title }} </strong></a>
+                <div class="route-card-statistic-container">
+                    <div class="route-card-statistic-element-container">
+                        <img class="route-card-icons" src="/images/icons/distance.png">
+                        <div class="route-card-statistic-element-text-container">
+                            {{ route.distance }} {% if route.distance_max > 0 %} - {{ route.distance_max }} {% endif %} km
+                        </div>
+                    </div>
+                    <div class="route-card-statistic-element-container">
+                        <img class="route-card-icons" src="/images/icons/difficulty.png">
+                        <div class="route-card-statistic-element-text-container">
+                            {{ route.difficulty }}
+                        </div>
+                    </div>
+                    <div class="route-card-statistic-element-container">
+                        <img class="route-card-icons" src="/images/icons/road.png">
+                        <div class="route-card-statistic-element-text-container">
+                            {{ route.surface }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     {% endfor %}
-
-    <!-- {% if is_paginated %}
-        <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
-            </span>
-        </div>
-    {% endif %} -->
-
     <div class="route-list-statistic">Найдено маршрутов - {{ route_list_length }}</div>
 {% else %}
     <p class="message-nothing-was-found">По запросу ничего не найдено</p>

@@ -396,15 +396,39 @@ a:hover {text-decoration: none;}
     overflow: hidden;
 }
 
+.route-card-statistic-container {
+    display: flex;
+}
+
+.route-card-statistic-element-container {
+    display: flex;
+    margin: 8px;
+    width: 184px;
+    height: 32px;
+}
+
+.route-card-statistic-element-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 8px;
+}
+
+.route-card-icons {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+}
+
 .route-card-link {
     margin-left: var(--main-margin);
     display: block;
     color: var(--very-dark-color);
-    font-size: medium;
+    font-size: large;
 }
 
 .route-card-link:hover {
-    color: var(--main-dark-color);
+    color: var(--very-dark-color);
 }
 
 .route-list-statistic {
