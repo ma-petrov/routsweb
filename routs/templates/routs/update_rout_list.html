@@ -1,7 +1,7 @@
 {% if rout_list %}
     {% for route in rout_list %}
         <div class="route-card">
-            <a href="{{ route.get_absolute_url }}" class="route-card-link">
+            <!-- <a href="{{ route.get_absolute_url }}" class="route-card-link">
                 <strong> {{ route.title }} </strong>
                 ({{ route.distance }} 
                 {% if route.distance_max > 0 %}
@@ -18,7 +18,32 @@
                 {% else %}
                     Нет
                 {% endif %}
-            </a>
+            </a> -->
+
+            <div class="route-card-image-container">
+                <img class="route-card-image" src="{{ route.wallpaper_image.url }}">
+            </div>
+            <div class="route-card-delimeter"></div>
+            <div class="route-card-data-container">
+                <a href="{{ route.get_absolute_url }}" class="route-card-link">
+                    <strong> {{ route.title }} </strong>
+                    ({{ route.distance }} 
+                    {% if route.distance_max > 0 %}
+                        - {{ route.distance_max }}
+                    {% endif %}
+                    km) |
+                    <strong>Сложность</strong> {{ route.difficulty }} |
+                    <strong>Покрытие</strong> {{ route.surface }} |
+                    <strong>Направление</strong> {% for d in route.direction.all %} {{ d }} {% endfor %} |
+                    <strong>Особенности</strong> {% for t in route.tags.all %} {{ t }} {% endfor %} |
+                    <strong>Заброска</strong>
+                    {% if route.is_transport_availability == True %}
+                        Да
+                    {% else %}
+                        Нет
+                    {% endif %}
+                </a>
+            </div>
         </div>
     {% endfor %}
 {% else %}
