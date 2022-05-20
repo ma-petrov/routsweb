@@ -9,6 +9,11 @@
     --topbar-button-size: 34px;
     --header-image-height: 300px;
     --main-margin: calc((var(--topbar-height) - var(--topbar-button-size))/2);
+    --half-margin: calc(var(--main-margin)/2);
+}
+
+body {
+    overflow: scroll;
 }
 
 input {outline:none;}
@@ -81,35 +86,25 @@ a:hover {text-decoration: none;}
 
     .data-container {max-width: var(--width-mobile);}
 
-    .topbar-button {margin-left: var(--main-margin);}
+    .topbar-button {margin-left: var(--half-margin);}
 
     #home-button {display: none}
 
     .rout-list-container {
-        margin-left: var(--main-margin);
-        margin-right: var(--main-margin);
+        margin-left: var(--half-margin);
+        margin-right: var(--half-margin);
     }
 
-    .header-text {margin-left: var(--main-margin);}
-
-    .feature-container {
-        margin-left: var(--main-margin);
-        margin-right: var(--main-margin);
-    }
-
-    .description-container {
-        margin-left: var(--main-margin);
-        margin-right: var(--main-margin);
-    }
+    .header-text {margin-left: var(--half-margin);}
 
     .route-list-header {
-        margin-left: var(--main-margin);
-        margin-right: var(--main-margin);
+        margin-left: var(--half-margin);
+        margin-right: var(--half-margin);
     }
 
     .submit-button-container {
-        margin-left: var(--main-margin);
-        margin-right: var(--main-margin);
+        margin-left: var(--half-margin);
+        margin-right: var(--half-margin);
     }
 }
 
@@ -203,9 +198,20 @@ a:hover {text-decoration: none;}
  */
 
 .header-container {
-    position: relative;
-    width: 100%;
+    margin-left: var(--half-margin);
+    margin-right: var(--half-margin);
+    width: calc(100% - 2*var(--half-margin));
     height: var(--header-image-height);
+}
+
+.feature-container {
+    margin-left: var(--half-margin);
+    margin-right: var(--half-margin);
+}
+
+.description-container {
+    margin-left: var(--half-margin);
+    margin-right: var(--half-margin);
 }
 
 .overlay-header-container {position: relative;}
