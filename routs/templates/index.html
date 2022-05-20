@@ -6,9 +6,11 @@
 {% block title %}<title>Веломаршруты</title>{% endblock %}
 
 {% block content %}
-    <p class="main-page-text" style="margin-top: 16px;">Каталог велосипедных маршрутов города Казани и его окрестностей</p>
+    <p class="text">Kazan Tracks - сайт с коллекцией велодсипедных и пешеходных маршрутов Казани и её окрестностей</p>
     
-    <h3>Подборка маршрутов</h3>
+    <div class="index-header">
+        <strong>Найди подходящий маршрут из категорий или посмотри всю <a href="{% url 'rout-list' %}">коллекцию</a></strong>
+    </div>
     <div class="collection-container">
         {% if route_collections %}
             {% for collection in route_collections %}
@@ -25,10 +27,13 @@
         {% endif %}
     </div>
 
-    <p class="main-page-text"><a href="{% url 'rout-list' %}">Список маршрутов</a></p>
-    <p class="main-page-text"><a href="https://t.me/kazantracks">Telegram</a></p>
+    <div class="index-header">
+        <strong>Маршрут пройден? Понравилось? Узнай больше</a></strong>
+    </div>
+    <p class="text"><a href="https://t.me/kazantracks">Telegram</a></p>
 
 <script>
+
     const collectionCards = document.getElementsByClassName('collection-card-background');
 
     function applyResizing(collectionCards, parentWidth, n) {
@@ -55,7 +60,9 @@
     }
 
     window.onload = () => {
-        resizeCollectionCards();
+        if (collectionCards !== undefined) {
+            resizeCollectionCards();
+        }
 
         document.getElementById("home-button").style.display = 'none';
         document.getElementById("back-button").style.display = 'none';
@@ -65,6 +72,9 @@
         });
     }
 
-    window.onresize = resizeCollectionCards;
+    if (collectionCards !== undefined) {
+        window.onresize = resizeCollectionCards;
+    }
+
 </script>
 {% endblock %}
