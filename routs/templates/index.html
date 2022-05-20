@@ -35,7 +35,7 @@
 <script>
     const collectionCards = document.getElementsByClassName('collection-card-background');
 
-    if (collectionCards !== undefined) {
+    if (collectionCards.length > 0) {
         function applyResizing(collectionCards, parentWidth, n) {
             let width = '192px';
             if (n != 4) {
@@ -63,7 +63,7 @@
     }
 
     window.onload = () => {
-        if (collectionCards !== undefined) {
+        if (collectionCards.length > 0) {
             resizeCollectionCards();
         }
 

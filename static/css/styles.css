@@ -341,6 +341,7 @@ a:hover {text-decoration: none;}
     border: 1px solid lightgray;
     border-radius: var(--main-border-radius);
 }
+
 /* 
  * Route list content
  */
@@ -369,6 +370,9 @@ a:hover {text-decoration: none;}
 }
 
 .message-nothing-was-found {
-    padding-top: 8px;
-    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: medium;
 }
