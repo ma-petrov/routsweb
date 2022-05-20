@@ -8,8 +8,6 @@ WORKDIR /usr/src/
 
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
-ARG IMAGE_VOLUME
-VOLUME "$IMAGE_VOLUME" /usr/src/images
 COPY --chown=django:django . ./
 
 ARG PORT=8000
