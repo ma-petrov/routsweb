@@ -406,3 +406,14 @@ a:hover {text-decoration: none;}
 .route-card-link:hover {
     color: var(--main-dark-color);
 }
+
+.route-list-statistic {
+    margin-top: 8px;
+    margin-bottom: 32px;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-top: 4px;
+    border-top: 1px solid var(--main-dark-color);
+    text-align: center;
+    font-size: medium;
+}

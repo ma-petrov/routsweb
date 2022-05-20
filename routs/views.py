@@ -102,7 +102,11 @@ class UpdateRoutListView(generic.ListView):
             Q(is_transport_availability__in=is_transport_availabilities)
         ).distinct()
 
-        return render(request, 'routs/update_rout_list.html', {'rout_list': route_list})
+        route_list_length = len(list(route_list))
+
+        return render(request, 'routs/update_rout_list.html', {
+            'rout_list': route_list, 'route_list_length': route_list_length
+        })
 
 
 class RoutDetailView(generic.DetailView):
