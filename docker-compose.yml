@@ -2,7 +2,7 @@ services:
   database:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: "${DB_PASS}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD:?please set database password}"
       POSTGRES_DB: 'kazantracks'
       POSTGRES_USER: 'django'
     volumes:
@@ -13,10 +13,11 @@ services:
       context: .
       args:
         - PORT=8000
+        - IMAGE_VOLUME="${DEPLOY_ENV:-dev}-images"
     environment:
       DJANGO_DEBUG: "${DJANGO_DEBUG:-False}"
       DB_HOST: database
-      DB_PASSWORD: "${DB_PASS}"
+      DB_PASSWORD:
       LOG_LEVEL: debug
     volumes:
       - uploads:/usr/src/images/uploads/
