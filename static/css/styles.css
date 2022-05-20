@@ -353,11 +353,12 @@ a:hover {text-decoration: none;}
  */
 
 .route-card {
-    width: calc(100% - 8px);
-    margin-top: 8px;
-    margin-left: 4px;
-    margin-right: 4px;
-    padding: 10px;
+    display: flex;
+    height: 128px;
+    width: calc(100% - var(--main-margin));
+    margin-top: var(--main-margin);
+    margin-left: var(--half-margin);
+    margin-right: var(--half-margin);
     border: 1px solid lightgray;
     border-radius: var(--main-border-radius);
 }
@@ -366,19 +367,42 @@ a:hover {text-decoration: none;}
     box-shadow: 0px 0px 5px lightgrey;
 }
 
-.route-card-link {
-    display: block;
-    color: black;
-}
-
-.route-card-link:hover {
-    color: black;
-}
-
 .message-nothing-was-found {
     margin-top: 8px;
     margin-bottom: 4px;
     margin-left: 4px;
     margin-right: 4px;
     font-size: medium;
+}
+
+.route-card-image-container {
+    margin: 6px;
+    width: 178px;
+    height: 114px;
+}
+
+.route-card-image {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    border-radius: var(--main-border-radius);
+}
+
+.route-card-data-container {
+    margin-top: 6px;
+    margin-right: 6px;
+    height: 114px;
+    border-left: 1px solid lightgray;
+    overflow: hidden;
+}
+
+.route-card-link {
+    margin-left: var(--main-margin);
+    display: block;
+    color: var(--very-dark-color);
+    font-size: medium;
+}
+
+.route-card-link:hover {
+    color: var(--main-dark-color);
 }
