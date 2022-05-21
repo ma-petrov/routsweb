@@ -2,7 +2,7 @@ services:
   database:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: "${DB_PASS}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD:?please set database password}"
       POSTGRES_DB: 'kazantracks'
       POSTGRES_USER: 'django'
     volumes:
@@ -16,22 +16,22 @@ services:
     environment:
       DJANGO_DEBUG: "${DJANGO_DEBUG:-False}"
       DB_HOST: database
-      DB_PASSWORD: "${DB_PASS}"
+      DB_PASSWORD:
       LOG_LEVEL: debug
     volumes:
-      - images:/usr/src/images/
+      - uploads:/usr/src/images/uploads/
     depends_on:
       - database
 
   nginx:
-    image: nginx
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
     environment:
       VIRTUAL_HOST:
       LETSENCRYPT_HOST:
     volumes:
-      - ./config:/etc/nginx/conf.d/
-      - ./static:/static/
-      - images:/images/
+      - uploads:/images/uploads
     depends_on:
       - web
     networks:
@@ -39,8 +39,8 @@ services:
       - default
 
 volumes:
-  images:
-    name: "${DEPLOY_ENV:-dev}-images"
+  uploads:
+    name: "${DEPLOY_ENV:-dev}-uploads"
   db-data:
     name: "${DEPLOY_ENV:-dev}-routsweb-db"
 
