@@ -155,6 +155,9 @@ class RouteCollections(models.Model):
         return self.title
 
     def get_url_params(self):
+        """
+        returns http request parameters
+        """
         params = list()
 
         params.append(f'min_distance={str(self.min_distance)}')
