@@ -24,13 +24,13 @@ services:
       - database
 
   nginx:
-    image: nginx
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
     environment:
       VIRTUAL_HOST:
       LETSENCRYPT_HOST:
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./static:/static/
       - uploads:/images/uploads
     depends_on:
       - web
