@@ -1,6 +1,8 @@
 services:
   database:
     image: postgres
+    healthcheck:
+      test: pg_isready
     environment:
       POSTGRES_PASSWORD: "${DB_PASSWORD:?please set database password}"
       POSTGRES_DB: 'kazantracks'
