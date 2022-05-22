@@ -25,6 +25,7 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 
 urlpatterns = [
+    path('healthz/', include('health_check.urls')),
     path('admin/', admin.site.urls),
     path('routs/', include('routs.urls')), # добавление дочернего сопоставителя адресов
     path('', RedirectView.as_view(url='/routs/', permanent=True)), # перенаправление запроса домашней страницы на адрес /routs/
