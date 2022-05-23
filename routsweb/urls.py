@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('routs/', include('routs.urls')), # добавление дочернего сопоставителя адресов
     path('', RedirectView.as_view(url='/routs/', permanent=True)), # перенаправление запроса домашней страницы на адрес /routs/
+    path('healthz/', include('watchman.urls')),
 ]
 
 # Используйте static() чтобы добавить соотношения для статических файлов
