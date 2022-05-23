@@ -486,3 +486,7 @@ a:hover {text-decoration: none;}
 .navigation-button:disabled {
     color: lightgrey;
 }
+
+.navigation-button:hover {
+    border: 1px solid darkgrey;
+}
