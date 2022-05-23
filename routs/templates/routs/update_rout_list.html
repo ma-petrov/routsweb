@@ -30,28 +30,31 @@
         </div>
     {% endfor %}
 
-    <div class="pagination">
-        <span class="step-links">
+    <div class="route-list-pagination">
+        <div class="pagination-buttons">
             {% if page_obj.has_previous %}
-                <input type="button" id="first-page-button" name="1" value="В начало">
-                <input type="button" id="previous-page-button" name="{{ page_obj.previous_page_number }}" value="Назад">
+                <input type="button" class="navigation-button" id="first-page-button" name="1" value="В начало">
+                <input type="button" class="navigation-button" id="previous-page-button" name="{{ page_obj.previous_page_number }}" value="Назад">
             {% else %}
-                <input type="button" id="first-page-button" value="В начало" disabled="disabled">
-                <input type="button" id="previous-page-button" value="Назад" disabled="disabled">
+                <input type="button" class="navigation-button" id="first-page-button" value="В начало" disabled="disabled">
+                <input type="button" class="navigation-button" id="previous-page-button" value="Назад" disabled="disabled">
             {% endif %}
-    
-            <span class="current-page">
+        </div>
+        <div class="pagination-current">
+            <!-- <div class="pagination-current">
                 Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
-            </span>
-    
+            </div> -->
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </div>
+        <div class="pagination-buttons">
             {% if page_obj.has_next %}
-                <input type="button" id="next-page-button" name="{{ page_obj.next_page_number }}" value="Вперед">
-                <input type="button" id="last-page-button" name="{{ page_obj.paginator.num_pages }}" value="В конец">
+                <input type="button" class="navigation-button" id="next-page-button" name="{{ page_obj.next_page_number }}" value="Вперед">
+                <input type="button" class="navigation-button" id="last-page-button" name="{{ page_obj.paginator.num_pages }}" value="В конец">
             {% else %}
-                <input type="button" id="next-page-button" value="Вперед" disabled="disabled">
-                <input type="button" id="last-page-button" value="В конец" disabled="disabled">
+                <input type="button" class="navigation-button" id="next-page-button" value="Вперед" disabled="disabled">
+                <input type="button" class="navigation-button" id="last-page-button" value="В конец" disabled="disabled">
             {% endif %}
-        </span>
+        </div>
     </div>
 
     <div class="route-list-statistic">Найдено маршрутов - {{ page_obj.paginator.count }}</div>

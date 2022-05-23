@@ -446,3 +446,43 @@ a:hover {text-decoration: none;}
     .route-card-image-container {display: none;}
     .route-card-delimeter {display: none;}
 }
+
+/*
+ * Pagination
+ */
+
+.route-list-pagination {
+    padding-top: 24px;
+    padding-bottom: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-current {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 200px;
+    font-size: medium;
+}
+
+.pagination-buttons {
+    display: flex;
+    width: 200px;
+}
+
+.navigation-button {
+    width: 92px;
+    height: 32px;
+    margin-left: 4px;
+    margin-right: 4px;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: var(--main-border-radius);
+    color: black;
+}
+
+.navigation-button:disabled {
+    color: lightgrey;
+}
