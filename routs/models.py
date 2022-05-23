@@ -105,6 +105,8 @@ class Rout(models.Model):
     tags = models.ManyToManyField(Tag, help_text="Select characteristics")
     description = models.CharField(max_length=1000)
     goggle_map_link = models.CharField(max_length=200)
+    google_map_foreign_link = models.CharField(max_length=200)
+    kommot_map_link = models.CharField(max_length=200)
     bike_map_link = models.CharField(max_length=200)
     kml_file_link = models.CharField(max_length=200)
     wallpaper_image = models.ImageField(upload_to='uploads/', null=True)
@@ -153,6 +155,9 @@ class RouteCollections(models.Model):
         return self.title
 
     def get_url_params(self):
+        """
+        returns http request parameters
+        """
         params = list()
 
         params.append(f'min_distance={str(self.min_distance)}')
