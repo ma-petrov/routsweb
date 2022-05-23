@@ -159,15 +159,29 @@
         return url;
     }
 
+    function openPage(callback, page) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {callback(this);};
+        xhttp.open("GET", generateUpdateRouteListUrl() + "&page=" + page);
+        xhttp.send();
+    }
+
     function updateRouteList(callback) {
         const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {callback(this);}
+        xhttp.onload = function() {callback(this);};
         xhttp.open("GET", generateUpdateRouteListUrl());
         xhttp.send();
     }
 
     function onUpdateRouteList(xhttp) {
         document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
+        ["first-page-button", "previous-page-button", "next-page-button", "last-page-button"].forEach(id => {
+            item = document.getElementById(id);
+            if (!item.disabled) {
+                let page = item.name;
+                item.addEventListener("click", () => {openPage(onUpdateRouteList, page);});
+            }
+        });
     }
 
     function on_change_min_distance(e) {

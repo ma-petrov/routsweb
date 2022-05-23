@@ -1,10 +1,10 @@
-from django.views import generic
 from django import forms
+from django.views import generic
 from django.shortcuts import render
+from django.db.models import Count, Q, Min, Max
+from django.core.paginator import Paginator
 from .forms import FilterForm
 from .models import Rout, Difficulty, Surface, Direction, Tag, RouteCollections
-from django import forms
-from django.db.models import Count, Q, Min, Max
 
 
 def index(request):
@@ -72,9 +72,8 @@ class RoutListView(generic.ListView):
 
 
 class UpdateRoutListView(generic.ListView):
-    model = Rout
-
     def get(self, request):
+        page = int(request.GET.get('page', 1))
         min_distance = int(request.GET.get('min_distance', 1))
         max_distance = int(request.GET.get('max_distance', 1000))
         difficulties = [int(i) for i in request.GET.get('difficulty')]
@@ -84,11 +83,11 @@ class UpdateRoutListView(generic.ListView):
         is_transport_availability = request.GET.get('is_transport_availability')
 
         if is_transport_availability == 'true':
-            is_transport_availabilities = [True]
+            transport_availabilities = [True]
         elif is_transport_availability == 'false':
-            is_transport_availabilities = [False]
+            transport_availabilities = [False]
         else:
-            is_transport_availabilities = [True, False]
+            transport_availabilities = [True, False]
 
         if min_distance == 0:
             min_distance = 1
@@ -99,14 +98,13 @@ class UpdateRoutListView(generic.ListView):
             Q(surface__in=surfaces) &
             Q(direction__in=directions) &
             Q(tags__in=tags) &
-            Q(is_transport_availability__in=is_transport_availabilities)
+            Q(is_transport_availability__in=transport_availabilities)
         ).distinct()
 
-        route_list_length = len(list(route_list))
+        # route_list = Rout.get_filtered_routes(min_distance, max_distance, difficulties, surfaces, directions, tags, transport_availabilities)
+        page_obj = Paginator(route_list, 10).page(page)
 
-        return render(request, 'routs/update_rout_list.html', {
-            'rout_list': route_list, 'route_list_length': route_list_length
-        })
+        return render(request, 'routs/update_rout_list.html', dict(rout_list=route_list, page_obj=page_obj))
 
 
 class RoutDetailView(generic.DetailView):

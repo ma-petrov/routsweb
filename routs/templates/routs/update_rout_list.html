@@ -1,5 +1,5 @@
-{% if rout_list %}
-    {% for route in rout_list %}
+{% if page_obj %}
+    {% for route in page_obj %}
         <div class="route-card">
             <div class="route-card-image-container">
                 <img class="route-card-image" src="{{ route.wallpaper_image.url }}">
@@ -29,7 +29,34 @@
             </div>
         </div>
     {% endfor %}
-    <div class="route-list-statistic">Найдено маршрутов - {{ route_list_length }}</div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <input type="button" id="first-page-button" name="1" value="В начало">
+                <input type="button" id="previous-page-button" name="{{ page_obj.previous_page_number }}" value="Назад">
+            {% else %}
+                <input type="button" id="first-page-button" value="В начало" disabled="disabled">
+                <input type="button" id="previous-page-button" value="Назад" disabled="disabled">
+            {% endif %}
+    
+            <span class="current-page">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+            </span>
+    
+            {% if page_obj.has_next %}
+                <input type="button" id="next-page-button" name="{{ page_obj.next_page_number }}" value="Вперед">
+                <input type="button" id="last-page-button" name="{{ page_obj.paginator.num_pages }}" value="В конец">
+            {% else %}
+                <input type="button" id="next-page-button" value="Вперед" disabled="disabled">
+                <input type="button" id="last-page-button" value="В конец" disabled="disabled">
+            {% endif %}
+        </span>
+    </div>
+
+    <div class="route-list-statistic">Найдено маршрутов - {{ page_obj.paginator.count }}</div>
 {% else %}
     <p class="message-nothing-was-found">По запросу ничего не найдено</p>
 {% endif %}
+
+

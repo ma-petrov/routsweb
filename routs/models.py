@@ -132,6 +132,19 @@ class Rout(models.Model):
         """
         return ', '.join([tag.name for tag in self.tags.all()])
 
+    def get_filtered_routes(cls, min_distance, max_distance, difficulties, surfaces, directions, tags, is_transport_availabilities):
+        """
+        Returns queryset of routes, filtered by params
+        """
+        return cls.objects.filter(
+            (Q(distance__range=(min_distance, max_distance)) | Q(distance_max__range=(min_distance, max_distance))) &
+            Q(difficulty__in=difficulties) &
+            Q(surface__in=surfaces) &
+            Q(direction__in=directions) &
+            Q(tags__in=tags) &
+            Q(is_transport_availability__in=is_transport_availabilities)
+        ).distinct()
+
 
 class RouteCollections(models.Model):
     """
