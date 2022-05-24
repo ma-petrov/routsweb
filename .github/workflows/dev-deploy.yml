@@ -13,7 +13,9 @@ jobs:
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v4
       - name: deploy
+        id: deploy
         uses: appleboy/ssh-action@master
+        continue-on-error: true
         with:
           host: ${{ secrets.DEPLOY_SERVER }}
           username: django 
@@ -29,3 +31,19 @@ jobs:
             git fetch "${REMOTE}" "${{ github.head_ref }}"
             git checkout "${REMOTE}/${{ github.head_ref }}"
             docker compose --env-file=.dev.env --project-name dev up --build -d
+      - name: send telegram message on push
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: "markdown"
+          disable_web_page_preview: true
+          message: |
+            `${{ github.actor }}` deployed to [dev](https://dev.kazantracks.ru) environment:
+
+            [Pull Request: ${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url }})
+
+            [Repository: ${{ github.event.repository.full_name }}](${{ github.event.repository.html_url }})
+
+            [Status: ${{ steps.deploy.outcome == 'success' && '✅' || '❌' }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
