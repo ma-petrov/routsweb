@@ -16,6 +16,7 @@ jobs:
         uses: rlespinasse/github-slug-action@v4
       - name: deploy
         uses: appleboy/ssh-action@master
+        id: deploy
         with:
           host: ${{ secrets.DEPLOY_SERVER }}
           username: django 
