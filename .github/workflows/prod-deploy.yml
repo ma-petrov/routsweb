@@ -26,3 +26,14 @@ jobs:
             git fetch origin main
             git checkout origin/main
             docker compose --env-file=.prod.env --project-name prod up --build -d
+      - name: send telegram message on push
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: "markdown"
+          disable_web_page_preview: true
+          message: |
+            `${{ github.actor }}` deployed to [prod](https://kazantracks.ru) environment:
+
+            [Status: ${{ steps.deploy.outcome == 'success' && '✅' || '❌' }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
