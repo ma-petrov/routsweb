@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.db.models import Count, Q, Min, Max
 
 
 class Availability(models.Model):
@@ -132,6 +133,7 @@ class Rout(models.Model):
         """
         return ', '.join([tag.name for tag in self.tags.all()])
 
+    @classmethod
     def get_filtered_routes(cls, min_distance, max_distance, difficulties, surfaces, directions, tags, is_transport_availabilities):
         """
         Returns queryset of routes, filtered by params

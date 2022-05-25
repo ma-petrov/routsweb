@@ -1,7 +1,6 @@
 from django import forms
 from django.views import generic
 from django.shortcuts import render
-from django.db.models import Count, Q, Min, Max
 from django.core.paginator import Paginator
 from .forms import FilterForm
 from .models import Rout, Difficulty, Surface, Direction, Tag, RouteCollections
@@ -92,16 +91,7 @@ class UpdateRoutListView(generic.ListView):
         if min_distance == 0:
             min_distance = 1
 
-        route_list = Rout.objects.filter(
-            (Q(distance__range=(min_distance, max_distance)) | Q(distance_max__range=(min_distance, max_distance))) &
-            Q(difficulty__in=difficulties) &
-            Q(surface__in=surfaces) &
-            Q(direction__in=directions) &
-            Q(tags__in=tags) &
-            Q(is_transport_availability__in=transport_availabilities)
-        ).distinct()
-
-        # route_list = Rout.get_filtered_routes(min_distance, max_distance, difficulties, surfaces, directions, tags, transport_availabilities)
+        route_list = Rout.get_filtered_routes(min_distance, max_distance, difficulties, surfaces, directions, tags, transport_availabilities)
         page_obj = Paginator(route_list, 10).page(page)
 
         return render(request, 'routs/update_rout_list.html', dict(rout_list=route_list, page_obj=page_obj))
