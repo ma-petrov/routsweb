@@ -1,6 +1,7 @@
 from django import forms
 from django.views import generic
 from django.shortcuts import render
+from django.db.models import Min, Max
 from django.core.paginator import Paginator
 from .forms import FilterForm
 from .models import Rout, Difficulty, Surface, Direction, Tag, RouteCollections
