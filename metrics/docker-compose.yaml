@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  ###############################################################
+  #                Our core monitoring stack                    #
+  ############################################################### 
+  prometheus:
+    image: prom/prometheus:main
+    ports:
+      - 9090:9090                                       # Prometheus listens on port 9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml # We mount a custom prometheus config
+      - prom-db:/prometheus
+
+  grafana:                                            # Garafana needs no config file since
+    image: grafana/grafana                            # we configure it once it's up
+    environment:
+      VIRTUAL_HOST:
+      VIRTUAL_PORT: 3000                              # Grafana listens on port 3000
+      LETSENCRYPT_HOST:
+    depends_on: [prometheus]                            
+    volumes:
+      - grafana:/var/lib/grafana
+    networks:
+      - default
+      - nginx-proxy
+
+  exporter:
+    image: bitnami/nginx-exporter:0.10.0
+    command: '-nginx.scrape-uri=http://nginx-proxy:8080/stub_status'
+    depends_on: [nginx-proxy]
+    networks:
+      - default
+      - nginx-proxy
+
+  alertmanager:
+    image: prom/alertmanager:main
+    volumes: 
+      - ./alertmanager.yaml:/alertmanager/config/alertmanager.yaml:rw
+      - am-data:/data:rw
+    command: --cluster.advertise-address=0.0.0.0:9093 --config.file=/alertmanager/config/alertmanager.yaml --log.level=debug
+
+
+  ###############################################################
+  #            Agent to collect runtime metrics                 #
+  ############################################################### 
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    volumes:                                          # Don't ask me why I mounted all these
+    - /:/rootfs:ro                                    # directories. I simply copied these
+    - /var/run:/var/run:ro                            # mounts from the documentation.
+    - /sys:/sys:ro
+    - /dev:/dev:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+
+volumes:
+  grafana:
+  am-data:
+  prom-db:
+
+networks:
+  default:
+  nginx-proxy:
+    external: true
