@@ -240,7 +240,7 @@ a:hover {text-decoration: none;}
 .feature-container {margin-top: 16px;}
 
 .description-container {
-    margin-top: 5%;
+    margin-top: 16px;
     margin-bottom: 5%;
 }
 
@@ -250,6 +250,57 @@ a:hover {text-decoration: none;}
     width: 100%;
     height: 400px;
     margin-bottom: 50%;
+}
+
+/*
+ * detail view (gallery)
+ */
+
+.gallery-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 8px);
+    height: 232px;
+    margin-left: 4px;
+    margin-right: 4px;
+    border-top: 1px solid var(--main-dark-color);
+    border-bottom: 1px solid var(--main-dark-color);
+    overflow-x: scroll;
+}
+
+.gallery-container-no-images {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100% - 8px);
+    height: 32px;
+    margin-left: 4px;
+    margin-right: 4px;
+    border-top: 1px solid var(--main-dark-color);
+    border-bottom: 1px solid var(--main-dark-color);
+    text-align: center;
+    font-size: medium;
+}
+
+.gallery-scroller-container {
+    display: flex;
+    /* justify-content: center; */
+    height: 168px;
+}
+
+.gallery-image-container {
+    width: 260px;
+    height: inherit;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.gallery-image {
+    width: 252px;
+    height: inherit;
+    object-fit: cover;
+    border-radius: var(--main-border-radius);
 }
 
 /* 

@@ -3,39 +3,57 @@
 {% block title %}<title>{{ rout.title }}</title>{% endblock %}
 
 {% block content %}
-<div class="header-container">
-    <div class="overlay-header-container">
-        <img class="wallpaper-image" alt="" src="{{ rout.wallpaper_image.url }}">
-        <div class="simple-linear">
+    <div class="header-container">
+        <div class="overlay-header-container">
+            <img class="wallpaper-image" alt="" src="{{ rout.wallpaper_image.url }}">
+            <div class="simple-linear">
+            </div>
+            <h3 class="header-text">{{ rout.title }}</h3>
         </div>
-        <h3 class="header-text">{{ rout.title }}</h3>
     </div>
-</div>
-<div class="feature-container">
-    <p><strong>Расстояние</strong> 
-        {{ rout.distance }}
-        {% if rout.distance_max > 0 %}
-            - {{ rout.distance_max }}
-        {% endif %}
-        km
-    </p>
-    <p><strong>Сложность</strong> {{ rout.difficulty }} </p>
-    <p><strong>Тип</strong> {{ rout.surface }} </p>
-    <p><strong>Направление</strong> {% for d in rout.direction.all %} #{{ d }} {% endfor %} </p>
-    <p><strong>Заброска транспортом</strong>
-        {% if rout.is_transport_availability %}
-            Да
-        {% else %}
-            Нет
-        {% endif %}
-    </p>
-    <p><strong>Особенности</strong> {% for t in rout.tags.all %} #{{ t }} {% endfor %} </p>
-</div>
-<div class="description-container">
-    <p class="text-justify">{{ rout.description }}</p>
-    <p>Трек на <a href="{{ rout.bike_map_link }}">BikeMap</a></p>
-    <p>Скачать трек в <a href="{{ rout.kml_file_link }}">формате KML</a></p>
-    <p><strong>На Google картах</strong></p>
-    <iframe class="google-map" src="{{ rout.goggle_map_link }}"></iframe>
-</div>
+    <div class="feature-container">
+        <p><strong>Расстояние</strong> 
+            {{ rout.distance }}
+            {% if rout.distance_max > 0 %}
+                - {{ rout.distance_max }}
+            {% endif %}
+            km
+        </p>
+        <p><strong>Сложность</strong> {{ rout.difficulty }} </p>
+        <p><strong>Тип</strong> {{ rout.surface }} </p>
+        <p><strong>Направление</strong> {% for d in rout.direction.all %} #{{ d }} {% endfor %} </p>
+        <p><strong>Заброска транспортом</strong>
+            {% if rout.is_transport_availability %}
+                Да
+            {% else %}
+                Нет
+            {% endif %}
+        </p>
+        <p><strong>Особенности</strong> {% for t in rout.tags.all %} #{{ t }} {% endfor %} </p>
+    </div>
+
+    {% if rout.images.all %}
+        <div class="gallery-container">
+            <div class="gallery-scroller-container">
+                {% for image in rout.images.all %}
+                    <div class="gallery-image-container">
+                        <img class="gallery-image" src="{{ image.image.url }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="gallery-container-no-images">
+            Нет изображений в галерее
+        </div>
+    {% endif %}
+
+    <div class="description-container">
+        <p class="text-justify">{{ rout.description }}</p>
+        <p>Скачать трек в <a href="{{ rout.kml_file_link }}">формате KML</a></p>
+        <p>Трек на <a href="{{ rout.bike_map_link }}">BikeMap</a></p>
+        <p>Трек на <a href="{{ rout.kommot_map_link }}">Komoot</a></p>
+        <p>Трек на <a href="{{ rout.google_map_foreign_link }}">Google картах</a></p>
+        <iframe class="google-map" src="{{ rout.goggle_map_link }}"></iframe>
+    </div>
 {% endblock %}
