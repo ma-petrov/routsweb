@@ -188,3 +188,8 @@ class RouteCollections(models.Model):
 
         params_str = '&'.join(params)
         return f'?{params_str}'
+
+
+class Gallery(models.Model):
+    image = models.ImageField(upload_to='uploads/')
+    rout = models.ForeignKey(Rout, on_delete=models.CASCADE, related_name='images')
