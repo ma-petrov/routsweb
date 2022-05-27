@@ -11,86 +11,18 @@
                 {{ form.min_distance }} | {{ form.max_distance }}
             </div>
         </div>
- 
-        <!-- <div class="filter-container">
-            <p>Сложность</p>
-            <div class="drop-down-multiple-choice-button-contaniner">
-                <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-difficulty" onclick="on_drop_down_multiple_choice_button('difficulty')" value="Все">
-            </div>
-            <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-difficulty" style="display: none;">
-                {{ form.difficulty }}
-            </div>
-        </div>
 
-        <div class="filter-container">
-            <p>Тип</p>
-            <div class="drop-down-multiple-choice-button-contaniner">
-                <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-surface" onclick="on_drop_down_multiple_choice_button('surface')" value="Все">
+        {% for filter_field in filter_views %}
+            <div class="filter-container">
+                <p>{{ filter_field.title }}</p>
+                <div class="drop-down-multiple-choice-button-contaniner">
+                    <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-{{ filter_field.field_id }}" value="Все">
+                </div>
+                <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-{{ filter_field.field_id }}" style="display: none;">
+                    {{ filter_field.form }}
+                </div>
             </div>
-            <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-surface" style="display: none;">
-                {{ form.surface }}
-            </div>
-        </div>
-
-        <div class="filter-container">
-            <p>Направление</p>
-            <div class="drop-down-multiple-choice-button-contaniner">
-                <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-direction" onclick="on_drop_down_multiple_choice_button('direction')" value="Все">
-            </div>
-            <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-direction" style="display: none;">
-                {{ form.direction }}
-            </div>
-        </div>
-
-        <div class="filter-container">
-            <p>Особенности</p>
-            <div class="drop-down-multiple-choice-button-contaniner">
-                <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-tag" onclick="on_drop_down_multiple_choice_button('tag')" value="Все">
-            </div>
-            <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-tag" style="display: none;">
-                {{ form.tag }}
-            </div>
-        </div> -->
-
-        <div class="filter-container">
-            <p>Сложность</p>
-            <div class="drop-down-multiple-choice-button-contaniner">
-                <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-difficulty" value="Все">
-            </div>
-            <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-difficulty" style="display: none;">
-                {{ form.difficulty }}
-            </div>
-        </div>
-
-        <div class="filter-container">
-            <p>Тип</p>
-            <div class="drop-down-multiple-choice-button-contaniner">
-                <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-surface" value="Все">
-            </div>
-            <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-surface" style="display: none;">
-                {{ form.surface }}
-            </div>
-        </div>
-
-        <div class="filter-container">
-            <p>Направление</p>
-            <div class="drop-down-multiple-choice-button-contaniner">
-                <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-direction" value="Все">
-            </div>
-            <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-direction" style="display: none;">
-                {{ form.direction }}
-            </div>
-        </div>
-
-        <div class="filter-container">
-            <p>Особенности</p>
-            <div class="drop-down-multiple-choice-button-contaniner">
-                <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-tag" value="Все">
-            </div>
-            <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-tag" style="display: none;">
-                {{ form.tag }}
-            </div>
-        </div>
+        {% endfor %}
 
         <div class="filter-container">
             <p>Заброска</p>
@@ -106,14 +38,7 @@
 <div class="rout-list-container" id="rout-list-container"></div>
 
 <script>
-    // function addRouteCardEventListeners() {
-    //     [...document.getElementsByClassName("route-card")].forEach(item => {
-    //         item.addEventListener("click", e => {
-    //             console.log(e.target.id);
-    //             location.href = e.target.id;
-    //         });
-    //     });
-    // }
+    const MULTIPLE_CHOICE_FIELD_IDS = ["difficulty", "surface", "direction", "tag"];
 
     function isNaturalNumber(n) {
         n = n.toString();
@@ -256,9 +181,7 @@
         }
     }
 
-    function placeMultipleChoiceContainer(field) {
-        const button = document.getElementById("drop-down-multiple-choice-button-" + field);
-        const choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
+    function placeMultipleChoiceContainer(choice, button) {
         const box = button.getBoundingClientRect();
         choice.style.top = (box.top + window.pageYOffset + 40).toString() + "px";
         choice.style.left = (box.left).toString() + "px";
@@ -284,37 +207,6 @@
         button.style.boxShadow = "0px 0px 0px lightgrey";
         button.value = updateButton(field);
     }
-
-    // function on_drop_down_multiple_choice_button(field) {
-    //     let choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
-    //     let button = document.getElementById("drop-down-multiple-choice-button-" + field);
-
-    //     is_choice_display.set(field, !is_choice_display.get(field));
-    //     if (is_choice_display.get(field)) {
-    //         openDropDownChoice(choice, button);
-    //     }
-    //     else {
-    //         closeDropDownChoice(choice, button, field);
-    //         updateRouteList(onUpdateRouteList);
-    //     }
-    // }
-
-    // function set_drop_down_multiple_choice_close(field) {
-    //     let choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
-    //     let button = document.getElementById("drop-down-multiple-choice-button-" + field);
-
-    //     document.addEventListener("click", (e) => {
-    //         let withinBoundariesChoice = e.composedPath().includes(choice);
-    //         let withinBoundariesButton = e.composedPath().includes(button);
-    //         if (!withinBoundariesChoice && !withinBoundariesButton) {
-    //             if (is_choice_display.get(field)) {
-    //                 is_choice_display.set(field, false);
-    //                 closeDropDownChoice(choice, button, field);
-    //                 updateRouteList(onUpdateRouteList);
-    //             }
-    //         }
-    //     })
-    // }
 
     function updateFilterOnLoad(callback) {
         document.getElementById("id_min_distance").value = parseInt("{{ min_distance }}");
@@ -351,18 +243,12 @@
             updateRouteList(onUpdateRouteList);
         });
 
-        ["difficulty", "surface", "direction", "tag"].forEach(field => {
-            placeMultipleChoiceContainer(field);
-            // set_drop_down_multiple_choice_close(field);
-
+        MULTIPLE_CHOICE_FIELD_IDS.forEach(field => {
             const choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
             const button = document.getElementById("drop-down-multiple-choice-button-" + field);
 
-            // multiple choice opening
-            document.getElementById("drop-down-multiple-choice-button-" + field).addEventListener("click", () => {
-                // let choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
-                // let button = document.getElementById("drop-down-multiple-choice-button-" + field);
-
+            /* multiple choice opening */
+            button.addEventListener("click", () => {
                 is_choice_display.set(field, !is_choice_display.get(field));
                 if (is_choice_display.get(field)) {
                     openDropDownChoice(choice, button);
@@ -373,7 +259,7 @@
                 }
             });
 
-            // multiple choice opening closing
+            /* multiple choice closing */
             document.addEventListener("click", (e) => {
                 const withinBoundariesChoice = e.composedPath().includes(choice);
                 const withinBoundariesButton = e.composedPath().includes(button);
@@ -386,17 +272,20 @@
                 }
             });
 
-            // const button = document.getElementById("drop-down-multiple-choice-button-" + field);
-            // const choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
-
-            // placing drop down container of multiple choice
-            const box = button.getBoundingClientRect();
-            choice.style.top = (box.top + window.pageYOffset + 40).toString() + "px";
-            choice.style.left = (box.left).toString() + "px";
+            /* placing drop down container of multiple choice */
+            placeMultipleChoiceContainer(choice, button);
         });
     }
 
     window.onload = onload();
+
+    window.onresize = () => {
+        MULTIPLE_CHOICE_FIELD_IDS.forEach(field => {
+            const choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
+            const button = document.getElementById("drop-down-multiple-choice-button-" + field);
+            placeMultipleChoiceContainer(choice, button);
+        });
+    };
 
 </script>
 {% endblock %}
