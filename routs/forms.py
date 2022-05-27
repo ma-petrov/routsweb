@@ -1,6 +1,10 @@
 from django import forms
 from .models import Rout, Difficulty, Surface, Direction, Tag
 
+class CustomeCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    def render(name, value):
+        print(f'name: {name}')
+        print(f'value:\n\n{value}\n')
 
 class FilterForm(forms.Form):
     def __init__(self):
@@ -16,6 +20,9 @@ class FilterForm(forms.Form):
 
         difficulty = self.create_choice_form('difficulty', Difficulty)
         self.fields.update(dict(difficulty=difficulty))
+
+        difficulty2 = self.create_choice_form_2('difficulty2', Difficulty)
+        self.fields.update(dict(difficulty2=difficulty2))
 
         surface = self.create_choice_form('surface', Surface)
         self.fields.update(dict(surface=surface))
@@ -42,3 +49,6 @@ class FilterForm(forms.Form):
         return forms.MultipleChoiceField(choices=self.get_choices(field, model), widget=forms.CheckboxSelectMultiple(
             attrs={'class': 'drop-down-multiple-choice-list-content'}
         ))
+
+    def create_choice_form_2(self, field, model):
+        return forms.MultipleChoiceField(choices=self.get_choices(field, model), widget=CustomeCheckboxSelectMultiple)
