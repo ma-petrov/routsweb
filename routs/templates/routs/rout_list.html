@@ -39,6 +39,8 @@
 
 <script>
     const MULTIPLE_CHOICE_FIELD_IDS = ["difficulty", "surface", "direction", "tag"];
+    const MULTIPLE_CHOICE_CHOICES = document.getElementsByClassName('drop-down-multiple-choice-list-container');
+    const MULTIPLE_CHOICE_BUTTONS = document.getElementsByClassName('drop-down-multiple-choice-button');
 
     function isNaturalNumber(n) {
         n = n.toString();
@@ -280,11 +282,14 @@
     window.onload = onload();
 
     window.onresize = () => {
-        MULTIPLE_CHOICE_FIELD_IDS.forEach(field => {
-            const choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
-            const button = document.getElementById("drop-down-multiple-choice-button-" + field);
-            placeMultipleChoiceContainer(choice, button);
-        });
+        // MULTIPLE_CHOICE_FIELD_IDS.forEach(field => {
+        //     const choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
+        //     const button = document.getElementById("drop-down-multiple-choice-button-" + field);
+        //     placeMultipleChoiceContainer(choice, button);
+        // });
+        for (let i = 0; i < 4; i++) {
+            placeMultipleChoiceContainer(MULTIPLE_CHOICE_CHOICES[i], MULTIPLE_CHOICE_BUTTONS[i]);
+        }
     };
 
 </script>
