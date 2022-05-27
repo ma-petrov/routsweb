@@ -21,7 +21,7 @@
         </p>
         <p><strong>Сложность</strong> {{ rout.difficulty }} </p>
         <p><strong>Тип</strong> {{ rout.surface }} </p>
-        <p><strong>Направление</strong> {% for d in rout.direction.all %} #{{ d }} {% endfor %} </p>
+        <p><strong>Направление</strong> {% for d in rout.direction.all %} {{ d }} {% endfor %} </p>
         <p><strong>Заброска транспортом</strong>
             {% if rout.is_transport_availability %}
                 Да
@@ -29,7 +29,7 @@
                 Нет
             {% endif %}
         </p>
-        <p><strong>Особенности</strong> {% for t in rout.tags.all %} #{{ t }} {% endfor %} </p>
+        <p><strong>Особенности</strong> {% for t in rout.tags.all %} {{ t }} {% endfor %} </p>
     </div>
 
     {% if rout.images.all %}
