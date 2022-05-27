@@ -59,8 +59,20 @@ class RoutListView(generic.ListView):
 
         form = FilterForm()
 
+        class FilterView():
+            def __init__(self, field_id, title, form):
+                self.field_id = field_id
+                self.title = title
+                self.form = form
+
+        fields = dict(difficulty='Сложность', surface='Тип', direction='Направление', tag='Особенности')
+        filter_views = list()
+        for field_id in fields.keys():
+            filter_views.append(FilterView(field_id, fields[field_id], form[field_id]))
+
         return render(request, 'routs/rout_list.html', {
             'form': form,
+            'filter_views': filter_views,
             'min_distance': _min_distance,
             'max_distance': _max_distance,
             'difficulty': choice_params['difficulty'],
