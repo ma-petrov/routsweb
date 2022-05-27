@@ -41,6 +41,12 @@
     const MULTIPLE_CHOICE_FIELD_IDS = ["difficulty", "surface", "direction", "tag"];
     const MULTIPLE_CHOICE_CHOICES = document.getElementsByClassName('drop-down-multiple-choice-list-container');
     const MULTIPLE_CHOICE_BUTTONS = document.getElementsByClassName('drop-down-multiple-choice-button');
+    const multipleChoiceWidget = [
+        new Map([["choice", MULTIPLE_CHOICE_CHOICES[0]], ["button", MULTIPLE_CHOICE_BUTTONS[0]]]),
+        new Map([["choice", MULTIPLE_CHOICE_CHOICES[1]], ["button", MULTIPLE_CHOICE_BUTTONS[1]]]),
+        new Map([["choice", MULTIPLE_CHOICE_CHOICES[2]], ["button", MULTIPLE_CHOICE_BUTTONS[2]]]),
+        new Map([["choice", MULTIPLE_CHOICE_CHOICES[3]], ["button", MULTIPLE_CHOICE_BUTTONS[3]]])
+    ]
 
     function isNaturalNumber(n) {
         n = n.toString();
@@ -282,14 +288,12 @@
     window.onload = onload();
 
     window.onresize = () => {
-        // MULTIPLE_CHOICE_FIELD_IDS.forEach(field => {
-        //     const choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
-        //     const button = document.getElementById("drop-down-multiple-choice-button-" + field);
-        //     placeMultipleChoiceContainer(choice, button);
-        // });
-        for (let i = 0; i < 4; i++) {
-            placeMultipleChoiceContainer(MULTIPLE_CHOICE_CHOICES[i], MULTIPLE_CHOICE_BUTTONS[i]);
-        }
+        // for (let i = 0; i < 4; i++) {
+        //     placeMultipleChoiceContainer(MULTIPLE_CHOICE_CHOICES[i], MULTIPLE_CHOICE_BUTTONS[i]);
+        // }
+        multipleChoiceWidget.forEach(widget => {
+            placeMultipleChoiceContainer(widget.get("choice"), widget.get("button"));
+        });
     };
 
 </script>
