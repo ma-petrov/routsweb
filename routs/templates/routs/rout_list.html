@@ -216,19 +216,12 @@
         }
     }
 
-    function getTopCoordinate(elem) {
-        let box = elem.getBoundingClientRect();
-        return (box.top + window.pageYOffset + 40).toString() + "px";
-    }
-
-    function setTopCoordinate(choice, button) {
-        choice.style.top = getTopCoordinate(button);
-    }
-
     function placeMultipleChoiceContainer(field) {
-        let button = document.getElementById("drop-down-multiple-choice-button-" + field);
-        let choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
-        setTopCoordinate(choice, button);
+        const button = document.getElementById("drop-down-multiple-choice-button-" + field);
+        const choice = document.getElementById("drop-down-multiple-choice-list-container-" + field);
+        const box = button.getBoundingClientRect();
+        choice.style.top = (box.top + window.pageYOffset + 40).toString() + "px";
+        choice.style.left = (box.left).toString() + "px";
     }
 
     // drop-down multiple choice
