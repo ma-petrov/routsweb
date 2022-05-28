@@ -349,7 +349,7 @@ a:hover {text-decoration: none;}
     width: 160px;
     height: inherit;
     line-height: 32px;
-    /* margin-left: 32px; */
+    font-weight: normal;
 }
 
 .distance-range-input-container {

@@ -142,17 +142,17 @@
         return url;
     }
 
-    function openPage(callback, page) {
+    // function openPage(callback, page) {
+    //     const xhttp = new XMLHttpRequest();
+    //     xhttp.onload = function() {callback(this);};
+    //     xhttp.open("GET", generateUpdateRouteListUrl() + "&page=" + page);
+    //     xhttp.send();
+    // }
+
+    function updateRouteList(callback, page) {
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function() {callback(this);};
         xhttp.open("GET", generateUpdateRouteListUrl() + "&page=" + page);
-        xhttp.send();
-    }
-
-    function updateRouteList(callback) {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {callback(this);};
-        xhttp.open("GET", generateUpdateRouteListUrl());
         xhttp.send();
     }
 
@@ -162,7 +162,7 @@
             item = document.getElementById(id);
             if (!item.disabled) {
                 let page = item.name;
-                item.addEventListener("click", () => {openPage(onUpdateRouteList, page);});
+                item.addEventListener("click", () => {updateRouteList(onUpdateRouteList, page);});
             }
         });
     }
@@ -226,7 +226,7 @@
     }
 
     window.onload = () => {
-        updateFilterOnLoad(() => {updateRouteList(onUpdateRouteList);});
+        updateFilterOnLoad(() => {updateRouteList(onUpdateRouteList, "1");});
 
         min_distance_field.addEventListener("change", () => {
             if (isNaturalNumber(min_distance_field.value)) {
@@ -234,7 +234,7 @@
                     max_distance_field.value = min_distance_field.value;
                 }
                 prev_min_distance = min_distance_field.value;
-                updateRouteList(onUpdateRouteList);
+                updateRouteList(onUpdateRouteList, "1");
             }
             else {
                 min_distance_field.value = prev_min_distance;
@@ -247,7 +247,7 @@
                     min_distance_field.value = max_distance_field.value;
                 }
                 prev_max_distance = max_distance_field.value;
-                updateRouteList(onUpdateRouteList);
+                updateRouteList(onUpdateRouteList, "1");
             }
             else {
                 max_distance_field.value = prev_max_distance;
@@ -266,7 +266,7 @@
                 }
                 else {
                     closeDropDownChoice(choice, button, field);
-                    updateRouteList(onUpdateRouteList);
+                    updateRouteList(onUpdateRouteList, "1");
                 }
             });
 
@@ -276,7 +276,7 @@
                     if (is_choice_display.get(field)) {
                         is_choice_display.set(field, false);
                         closeDropDownChoice(choice, button, field);
-                        updateRouteList(onUpdateRouteList);
+                        updateRouteList(onUpdateRouteList, "1");
                     }
                 }
             });
@@ -286,7 +286,7 @@
         });
 
         is_transport_availability.addEventListener("change", () => {
-            updateRouteList(onUpdateRouteList);
+            updateRouteList(onUpdateRouteList, "1");
         });
 
         [...document.getElementsByClassName("drop-down-multiple-choice-checkbox")].forEach(checkbox => {
