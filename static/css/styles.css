@@ -310,9 +310,22 @@ a:hover {text-decoration: none;}
 .drop-down-multiple-choice-list-container {
     position: absolute;
     width: 192px;
+    padding: 4px;
     background-color: white;
     border: 1px solid lightgray;
     border-radius: var(--main-border-radius);
+}
+
+.drop-down-multiple-choice-content {
+    display: flex;
+    width: 182px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.drop-down-multiple-choice-content:hover {
+    background-color: cornflowerblue;
+    color: white;
 }
 
 .drop-down-multiple-choice-button {
@@ -322,11 +335,6 @@ a:hover {text-decoration: none;}
     border: 1px solid lightgray;
     border-radius: var(--main-border-radius);
     text-align: left;
-}
-
-.drop-down-multiple-choice-content {
-    display: flex;
-    height: 32px;
 }
 
 .drop-down-multiple-choice-checkbox {
@@ -346,10 +354,10 @@ a:hover {text-decoration: none;}
 }
 
 .drop-down-multiple-choice-label {
-    width: 160px;
+    width: 152px;
     height: inherit;
     line-height: 32px;
-    /* margin-left: 32px; */
+    font-weight: normal;
 }
 
 .distance-range-input-container {
