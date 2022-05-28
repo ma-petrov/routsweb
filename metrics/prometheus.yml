@@ -3,11 +3,6 @@ global:
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
 
-alerting:
-  alertmanagers:
-    - static_configs:
-      - targets: ["alertmanager:9093"]
-
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 # rule_files:
 #   - /etc/prometheus/alert_rules.yml
@@ -26,4 +21,10 @@ scrape_configs:
     metrics_path: '/metrics'
     scrape_interval: 5s
     static_configs:
-      - targets: ['exporter:9113']
+      - targets: ['nginx-exporter:9113']
+
+  - job_name: 'node-exporter'
+    metrics_path: '/metrics'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['node-exporter:9100']
