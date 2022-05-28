@@ -184,7 +184,13 @@
         choice.style.display = "none";
         choice.style.boxShadow = "0px 0px 0px lightgrey";
         button.style.boxShadow = "0px 0px 0px lightgrey";
-        button.value = updateButton(field);
+        let newButtonValue = updateButton(field);
+        let isValueUpdated = false;
+        if (newButtonValue != button.value) {
+            button.value = newButtonValue;
+            isValueUpdated = true;
+        }
+        return isValueUpdated;
     }
 
     function updateFilterOnLoad(callback) {
@@ -258,8 +264,10 @@
                     openDropDownChoice(choice, button);
                 }
                 else {
-                    closeDropDownChoice(choice, button, field);
-                    updateRouteList(onUpdateRouteList, "1");
+                    let isValueUpdated = closeDropDownChoice(choice, button, field);
+                    if (isValueUpdated) {
+                        updateRouteList(onUpdateRouteList, "1");
+                    }
                 }
             });
 
@@ -268,8 +276,10 @@
                 if (!e.composedPath().includes(choice) && !e.composedPath().includes(button)) {
                     if (is_choice_display.get(field)) {
                         is_choice_display.set(field, false);
-                        closeDropDownChoice(choice, button, field);
-                        updateRouteList(onUpdateRouteList, "1");
+                        let isValueUpdated = closeDropDownChoice(choice, button, field);
+                        if (isValueUpdated) {
+                            updateRouteList(onUpdateRouteList, "1");
+                        }
                     }
                 }
             });
