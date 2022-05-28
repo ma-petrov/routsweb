@@ -6,8 +6,8 @@ services:
   ############################################################### 
   prometheus:
     image: prom/prometheus:main
-    ports:
-      - 9090:9090                                       # Prometheus listens on port 9090
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml # We mount a custom prometheus config
       - prom-db:/prometheus
@@ -16,9 +16,9 @@ services:
     image: grafana/grafana                            # we configure it once it's up
     environment:
       VIRTUAL_HOST:
-      VIRTUAL_PORT: 80                                # Grafana listens on port 3000
-      LETSENCRYPT_HOST:
-      GF_SERVER_DOMAIN: monitor.kazantracks.ru
+      VIRTUAL_PORT: 80
+      LETSENCRYPT_HOST: "${VIRTUAL_HOST}"
+      GF_SERVER_DOMAIN: "${VIRTUAL_HOST}"
       GF_SERVER_HTTP_PORT: 80
       GF_SERVER_PROTOCOL: http
     depends_on: [prometheus]                            
@@ -28,7 +28,10 @@ services:
       - default
       - nginx-proxy
 
-  exporter:
+  ###############################################################
+  #            Agents to collect runtime metric                 #
+  ############################################################### 
+  nginx-exporter:
     image: bitnami/nginx-exporter:0.10.0
     command: '-nginx.scrape-uri=http://nginx-proxy:8080/stub_status'
     depends_on: [nginx-proxy]
@@ -36,9 +39,16 @@ services:
       - default
       - nginx-proxy
 
-  ###############################################################
-  #            Agent to collect runtime metrics                 #
-  ############################################################### 
+  node-exporter: 
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    hostname: "${HOSTNAME}"
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    volumes:
+      - /:/host:ro
+
   cadvisor:
     image: google/cadvisor:latest
     container_name: cadvisor
