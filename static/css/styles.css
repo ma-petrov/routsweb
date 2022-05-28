@@ -141,6 +141,27 @@ a:hover {text-decoration: none;}
 
 .main-page-text {text-align: center;}
 
+.top-header-container {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    width: 800px;
+    height: 160px;
+}
+
+.top-header-text {
+    position: absolute;
+    top: 93px;
+    width: 400px;
+    padding-left: 4px;
+    font-size: 1.4em;
+}
+
+.top-header-image {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+}
+
 .text {
     margin: 4px;
     font-size: medium;

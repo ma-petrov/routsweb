@@ -6,7 +6,13 @@
 {% block title %}<title>Веломаршруты</title>{% endblock %}
 
 {% block content %}
-    <p class="text">Kazan Tracks - сайт с коллекцией велосипедных и пешеходных маршрутов Казани и её окрестностей</p>
+    
+    <div class="top-header-container">
+        <img class="top-header-image" src="/images/icons/index_header_image.svg">
+        <div class="top-header-text">
+            <strong>Kazan Tracks - сайт с коллекцией велосипедных и пешеходных маршрутов Казани и её окрестностей</strong>
+        </div>
+    </div>
     
     <div class="index-header">
         <strong>Найди подходящий маршрут из категорий или посмотри всю <a href="{% url 'rout-list' %}">коллекцию</a></strong>
