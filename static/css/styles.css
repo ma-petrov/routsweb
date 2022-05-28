@@ -310,8 +310,6 @@ a:hover {text-decoration: none;}
 .drop-down-multiple-choice-list-container {
     position: absolute;
     width: 192px;
-    padding: 5px;
-    padding-left: 9px;
     background-color: white;
     border: 1px solid lightgray;
     border-radius: var(--main-border-radius);
@@ -324,6 +322,34 @@ a:hover {text-decoration: none;}
     border: 1px solid lightgray;
     border-radius: var(--main-border-radius);
     text-align: left;
+}
+
+.drop-down-multiple-choice-content {
+    display: flex;
+    height: 32px;
+}
+
+.drop-down-multiple-choice-checkbox {
+    display: none;
+}
+
+.fake-checkbox-container {
+    width: 32px;
+    height: inherit;
+}
+
+.fake-checkbox {
+    width: 14px;
+    height: 14px;
+    margin: 9px;
+    object-fit: cover;
+}
+
+.drop-down-multiple-choice-label {
+    width: 160px;
+    height: inherit;
+    line-height: 32px;
+    /* margin-left: 32px; */
 }
 
 .distance-range-input-container {

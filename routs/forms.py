@@ -1,10 +1,22 @@
 from django import forms
 from .models import Rout, Difficulty, Surface, Direction, Tag
 
-class CustomeCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
-    def render(name, value):
-        print(f'name: {name}')
-        print(f'value:\n\n{value}\n')
+class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
+    def render(self, name=None, value=None, attrs=None, renderer=None):
+        elem = """
+        <div class="drop-down-multiple-choice-content">
+            <input type="checkbox" name="{name}" value="{value}" class="drop-down-multiple-choice-checkbox" id="id_{name}_{i}">
+            <div class="fake-checkbox-container">
+                <img class="fake-checkbox" id="fake_checkbox_id_{name}_{i}" src="/images/icons/fake_checkbox.png">
+            </div>
+            <div class="drop-down-multiple-choice-label">
+                <label for="id_{name}_{i}">{label}</label>
+            </div>
+        </div>
+        """
+        optgroups = [optgroup[1][0] for optgroup in self.get_context(name, value, attrs)["widget"]["optgroups"]]
+        content = ''.join([elem.format(i=i, name=o['name'], value=o['value'], label=o['label']) for i, o in enumerate(optgroups)])
+        return f'<div id="id_{name}">{content}</div>'
 
 class FilterForm(forms.Form):
     def __init__(self):
@@ -18,19 +30,19 @@ class FilterForm(forms.Form):
         max_distance.widget.attrs.update({'class': 'input-number'})
         self.fields.update(dict(max_distance=max_distance))
 
-        difficulty = self.create_choice_form('difficulty', Difficulty)
+        difficulty = self.create_choice_form_2('difficulty', Difficulty)
         self.fields.update(dict(difficulty=difficulty))
 
-        difficulty2 = self.create_choice_form_2('difficulty2', Difficulty)
-        self.fields.update(dict(difficulty2=difficulty2))
+        # difficulty2 = self.create_choice_form_2('difficulty', Difficulty)
+        # self.fields.update(dict(difficulty2=difficulty2))
 
-        surface = self.create_choice_form('surface', Surface)
+        surface = self.create_choice_form_2('surface', Surface)
         self.fields.update(dict(surface=surface))
 
-        direction = self.create_choice_form('direction', Direction)
+        direction = self.create_choice_form_2('direction', Direction)
         self.fields.update(dict(direction=direction))
 
-        tag = self.create_choice_form('tags', Tag)
+        tag = self.create_choice_form_2('tags', Tag)
         self.fields.update(dict(tag=tag))
 
         is_transport_availability = forms.BooleanField(required=False)
@@ -51,4 +63,4 @@ class FilterForm(forms.Form):
         ))
 
     def create_choice_form_2(self, field, model):
-        return forms.MultipleChoiceField(choices=self.get_choices(field, model), widget=CustomeCheckboxSelectMultiple)
+        return forms.MultipleChoiceField(choices=self.get_choices(field, model), widget=CustomCheckboxSelectMultiple)

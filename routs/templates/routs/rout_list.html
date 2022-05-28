@@ -12,8 +12,6 @@
             </div>
         </div>
 
-        {{ form.difficulty2 }}
-
         {% for filter_field in filter_views %}
             <div class="filter-container">
                 <p>{{ filter_field.title }}</p>
@@ -77,8 +75,8 @@
         for (let i = 0; i < checkboxes.length; i++) {
             n_max += 1;
             if (checkboxes[i].checked) {
-                value = labels[i].innerText.substring(1);
-                values += labels[i].innerText.substring(1) + ",";
+                value = labels[i].innerText;
+                values += ' ' + labels[i].innerText + ",";
                 n += 1;
             }
         }
@@ -217,6 +215,16 @@
         callback();
     }
 
+    function updateFakeCheckbox(checkbox) {
+        const fakeCheckbox = document.getElementById("fake_checkbox_" + checkbox.id);
+        if (checkbox.checked) {
+            fakeCheckbox.style.display = "block";
+        }
+        else {
+            fakeCheckbox.style.display = "none";
+        }
+    }
+
     window.onload = () => {
         updateFilterOnLoad(() => {updateRouteList(onUpdateRouteList);});
 
@@ -279,6 +287,14 @@
 
         is_transport_availability.addEventListener("change", () => {
             updateRouteList(onUpdateRouteList);
+        });
+
+        [...document.getElementsByClassName("drop-down-multiple-choice-checkbox")].forEach(checkbox => {
+            updateFakeCheckbox(checkbox);
+
+            checkbox.addEventListener("change", () => {
+                updateFakeCheckbox(checkbox);
+            });
         });
     };
 
