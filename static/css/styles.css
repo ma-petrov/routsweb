@@ -337,9 +337,9 @@ a:hover {text-decoration: none;}
     text-align: left;
 }
 
-.drop-down-multiple-choice-checkbox {
+/* .drop-down-multiple-choice-checkbox {
     display: none;
-}
+} */
 
 .fake-checkbox-container {
     width: 32px;

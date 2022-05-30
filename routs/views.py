@@ -46,11 +46,7 @@ class RoutListView(generic.ListView):
         for param, model in zip(params, models):
             _param = request.GET.get(param)
             if _param == None:
-                available_choices = [i[0] for i in Rout.objects.values_list(param).distinct()]
-                _param = ''
-                for choice in model.objects.values_list('id', 'name'):
-                    if choice[0] in available_choices:
-                        _param += str(choice[0])
+                _param = 'all'
             choice_params.update(dict({param: _param}))
 
         _is_transport_availability = request.GET.get('is_transport_availability')
@@ -65,7 +61,7 @@ class RoutListView(generic.ListView):
                 self.title = title
                 self.form = form
 
-        fields = dict(difficulty='Сложность', surface='Тип', direction='Направление', tag='Особенности')
+        fields = dict(difficulty='Сложность', surface='Тип', direction='Направление', tags='Особенности')
         filter_views = list()
         for field_id in fields.keys():
             filter_views.append(FilterView(field_id, fields[field_id], form[field_id]))
@@ -84,14 +80,21 @@ class RoutListView(generic.ListView):
 
 
 class UpdateRoutListView(generic.ListView):
+    def get_multiple_choice_search_param(self, request, param):
+        search_param = request.GET.get(param)
+        if search_param == None or search_param == 'all':
+            return Rout.get_available_choices(param)
+        else:
+            return [int(i) for i in search_param.split('_')]
+
     def get(self, request):
         page = int(request.GET.get('page', 1))
         min_distance = int(request.GET.get('min_distance', 1))
         max_distance = int(request.GET.get('max_distance', 1000))
-        difficulties = [int(i) for i in request.GET.get('difficulty')]
-        surfaces = [int(i) for i in request.GET.get('surface')]
-        directions = [int(i) for i in request.GET.get('direction')]
-        tags = [int(i) for i in request.GET.get('tag')]
+        difficulties = self.get_multiple_choice_search_param(request, 'difficulty')
+        surfaces = self.get_multiple_choice_search_param(request, 'surface')
+        directions = self.get_multiple_choice_search_param(request, 'direction')
+        tags = self.get_multiple_choice_search_param(request, 'tags')
         is_transport_availability = request.GET.get('is_transport_availability')
 
         if is_transport_availability == 'true':

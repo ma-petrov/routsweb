@@ -1,311 +1,45 @@
 {% extends "base_generic.html" %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 {% block title %}<title>Поиск маршрутов</title>{% endblock %}
 
 {% block content %}
-<div class="route-list-header">
-    <div>
-        <div class="filter-container">
-            <p>Протяженность (км)</p>
-            <div class="distance-range-input-container">
-                {{ form.min_distance }} | {{ form.max_distance }}
-            </div>
-        </div>
-
-        {% for filter_field in filter_views %}
+    <div class="route-list-header">
+        <div>
             <div class="filter-container">
-                <p>{{ filter_field.title }}</p>
-                <div class="drop-down-multiple-choice-button-contaniner">
-                    <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-{{ filter_field.field_id }}" value="Все">
-                </div>
-                <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-{{ filter_field.field_id }}" style="display: none;">
-                    {{ filter_field.form }}
+                <p>Протяженность (км)</p>
+                <div class="distance-range-input-container">
+                    {{ form.min_distance }} | {{ form.max_distance }}
                 </div>
             </div>
-        {% endfor %}
 
-        <div class="filter-container">
-            <p>Заброска</p>
-            {{ form.is_transport_availability }}
+            {% for filter_field in filter_views %}
+                <div class="filter-container">
+                    <p>{{ filter_field.title }}</p>
+                    <div class="drop-down-multiple-choice-button-contaniner">
+                        <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-{{ filter_field.field_id }}" value="Все">
+                    </div>
+                    <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-{{ filter_field.field_id }}" style="display: none;">
+                        {{ filter_field.form }}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="filter-container">
+                <p>Заброска</p>
+                {{ form.is_transport_availability }}
+            </div>
         </div>
     </div>
-</div>
 
-<!-- <input class="submit-button" id="submit-button" type="button" value="Найти" onclick="updateRouteList(onUpdateRouteList)"> -->
+    <!-- <input class="submit-button" id="submit-button" type="button" value="Найти" onclick="updateRouteList(onUpdateRouteList)"> -->
 
-<div class="filter-border"></div>
-    
-<div class="rout-list-container" id="rout-list-container"></div>
-
-<script>
-    const MULTIPLE_CHOICE_FIELDS = ["difficulty", "surface", "direction", "tag"];
-    const MULTIPLE_CHOICE_CHOICES = document.getElementsByClassName('drop-down-multiple-choice-list-container');
-    const MULTIPLE_CHOICE_BUTTONS = document.getElementsByClassName('drop-down-multiple-choice-button');
-    let widgets = []
-    for (let i = 0; i < 4; i++) {
-        widgets.push([
-                MULTIPLE_CHOICE_FIELDS[i],
-                new Map([["choice", MULTIPLE_CHOICE_CHOICES[i]], ["button", MULTIPLE_CHOICE_BUTTONS[i]]])
-            ]
-        );
-    }
-
-    const multipleChoiceWidgets = new Map(widgets);
-    const min_distance_field = document.getElementById("id_min_distance");
-    const max_distance_field = document.getElementById("id_max_distance");
-    const is_transport_availability = document.getElementById("id_is_transport_availability");
-
-    let prev_min_distance = min_distance_field.value;
-    let prev_max_distance = max_distance_field.value;
-
-    function isNaturalNumber(n) {
-        n = n.toString();
-        var n1 = Math.abs(n),
-            n2 = parseInt(n, 10);
-        return !isNaN(n1) && n2 === n1 && n1.toString() === n;
-    }
-
-    function updateButton(field) {
-        let checkboxes = document.getElementById("id_" + field).getElementsByTagName("input");
-        let labels = document.getElementById("id_" + field).getElementsByTagName("label");
-        let n = 0;
-        let n_max = 0;
-        let value = "";
-        let values = "";
-        for (let i = 0; i < checkboxes.length; i++) {
-            n_max += 1;
-            if (checkboxes[i].checked) {
-                value = labels[i].innerText;
-                values += ' ' + labels[i].innerText + ",";
-                n += 1;
-            }
-        }
-        if (n == 0 || n == n_max) {
-            return "Все";
-        }
-        else if (n == 1) {
-            return value;
-        }
-        else {
-            return "(" + n + ")" + values;
-        }
-    }
-
-    function getDropDownChoiceSelect(field) {
-        let url = "&" + field + "=";
-        let checkboxes = document.getElementById("id_" + field).getElementsByTagName("input");
-        let keys = "";
-        let keys_all = "";
-        for (let i = 0; i < checkboxes.length; i++) {
-            keys_all += checkboxes[i].value;
-            if (checkboxes[i].checked) {
-                keys += checkboxes[i].value;
-            }
-        }
-        if (keys == "") {
-            url += keys_all;
-        }
-        else {
-            url += keys;
-        }
-        return url;
-    }
-
-    function setDropDownChoiceSelect(field, values, callback) {
-        let checkboxes = document.getElementById("id_" + field).getElementsByTagName("input");
-        let is_all_checked = true;
-        for (let i = 0; i < checkboxes.length; i++) {
-            if (values.includes(checkboxes[i].value)) {
-                checkboxes[i].checked = true;
-            }
-            else {
-                checkboxes[i].checked = false;
-                is_all_checked = false;
-            }
-        }
-        if (is_all_checked) {
-            for (let i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = false;
-            }
-        }
-        callback();
-    }
-
-    function generateUpdateRouteListUrl() {
-        url = "/routs/update-rout-list";
-        url += "?min_distance=" + document.getElementById("id_min_distance").value;
-        url += "&max_distance=" + document.getElementById("id_max_distance").value;
-        ["difficulty", "surface", "direction", "tag"].forEach(field => {
-            url += getDropDownChoiceSelect(field);
-        });
-        url += "&is_transport_availability=" + is_transport_availability.value;
-        return url;
-    }
-
-    function updateRouteList(callback, page) {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {callback(this);};
-        xhttp.open("GET", generateUpdateRouteListUrl() + "&page=" + page);
-        xhttp.send();
-    }
-
-    function onUpdateRouteList(xhttp) {
-        document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
-        ["first-page-button", "previous-page-button", "next-page-button", "last-page-button"].forEach(id => {
-            item = document.getElementById(id);
-            if (!item.disabled) {
-                let page = item.name;
-                item.addEventListener("click", () => {updateRouteList(onUpdateRouteList, page);});
-            }
-        });
-    }
-
-    function placeMultipleChoiceContainer(choice, button) {
-        const box = button.getBoundingClientRect();
-        choice.style.top = (box.top + window.pageYOffset + 40).toString() + "px";
-        choice.style.left = (box.left).toString() + "px";
-    }
-
-    // drop-down multiple choice
-    let is_choice_display = new Map([
-        ['difficulty', false],
-        ['surface', false],
-        ['direction', false],
-        ['tag', false]
-    ]);
-
-    function openDropDownChoice(choice, button) {
-        choice.style.display = "block";
-        choice.style.boxShadow = "0px 0px 5px lightgrey";
-        button.style.boxShadow = "0px 0px 5px lightgrey";
-    }
-
-    function closeDropDownChoice(choice, button, field) {
-        choice.style.display = "none";
-        choice.style.boxShadow = "0px 0px 0px lightgrey";
-        button.style.boxShadow = "0px 0px 0px lightgrey";
-        let newButtonValue = updateButton(field);
-        let isValueUpdated = false;
-        if (newButtonValue != button.value) {
-            button.value = newButtonValue;
-            isValueUpdated = true;
-        }
-        return isValueUpdated;
-    }
-
-    function updateFilterOnLoad(callback) {
-        min_distance_field.value = parseInt("{{ min_distance }}");
-        max_distance_field.value = parseInt("{{ max_distance }}");
-        is_transport_availability.value = "{{ is_transport_availability }}";
+    <div class="filter-border"></div>
         
-        const fields = [
-            ["difficulty", "{{ difficulty }}".split("")],
-            ["surface", "{{ surface }}".split("")],
-            ["direction", "{{ direction }}".split("")],
-            ["tag", "{{ tags }}".split("")]
-        ];
+    <div class="rout-list-container" id="rout-list-container"></div>
 
-        fields.forEach(field => {
-            setDropDownChoiceSelect(field[0], field[1], () => {
-                document.getElementById("drop-down-multiple-choice-button-" + field[0]).value = updateButton(field[0]);
-            });
-        });
-
-        callback();
-    }
-
-    function updateFakeCheckbox(checkbox) {
-        const fakeCheckbox = document.getElementById("fake_checkbox_" + checkbox.id);
-        if (checkbox.checked) {
-            fakeCheckbox.style.display = "block";
-        }
-        else {
-            fakeCheckbox.style.display = "none";
-        }
-    }
-
-    window.onload = () => {
-        updateFilterOnLoad(() => {updateRouteList(onUpdateRouteList, "1");});
-
-        min_distance_field.addEventListener("change", () => {
-            if (isNaturalNumber(min_distance_field.value)) {
-                if (parseInt(max_distance_field.value, 10) < parseInt(min_distance_field.value, 10)) {
-                    max_distance_field.value = min_distance_field.value;
-                }
-                prev_min_distance = min_distance_field.value;
-                updateRouteList(onUpdateRouteList, "1");
-            }
-            else {
-                min_distance_field.value = prev_min_distance;
-            }
-        });
-
-        max_distance_field.addEventListener("change", () => {
-            if (isNaturalNumber(max_distance_field.value)) {
-                if (parseInt(max_distance_field.value, 10) < parseInt(min_distance_field.value, 10)) {
-                    min_distance_field.value = max_distance_field.value;
-                }
-                prev_max_distance = max_distance_field.value;
-                updateRouteList(onUpdateRouteList, "1");
-            }
-            else {
-                max_distance_field.value = prev_max_distance;
-            }
-        });
-
-        multipleChoiceWidgets.forEach((widget, field) => {
-            const choice = widget.get("choice");
-            const button = widget.get("button");
-
-            /* multiple choice opening */
-            button.addEventListener("click", () => {
-                is_choice_display.set(field, !is_choice_display.get(field));
-                if (is_choice_display.get(field)) {
-                    openDropDownChoice(choice, button);
-                }
-                else {
-                    let isValueUpdated = closeDropDownChoice(choice, button, field);
-                    if (isValueUpdated) {
-                        updateRouteList(onUpdateRouteList, "1");
-                    }
-                }
-            });
-
-            /* multiple choice closing */
-            document.addEventListener("click", (e) => {
-                if (!e.composedPath().includes(choice) && !e.composedPath().includes(button)) {
-                    if (is_choice_display.get(field)) {
-                        is_choice_display.set(field, false);
-                        let isValueUpdated = closeDropDownChoice(choice, button, field);
-                        if (isValueUpdated) {
-                            updateRouteList(onUpdateRouteList, "1");
-                        }
-                    }
-                }
-            });
-
-            /* placing drop down container of multiple choice */
-            placeMultipleChoiceContainer(choice, button);
-        });
-
-        is_transport_availability.addEventListener("change", () => {
-            updateRouteList(onUpdateRouteList, "1");
-        });
-
-        [...document.getElementsByClassName("drop-down-multiple-choice-checkbox")].forEach(checkbox => {
-            updateFakeCheckbox(checkbox);
-
-            checkbox.addEventListener("change", () => {
-                updateFakeCheckbox(checkbox);
-            });
-        });
-    };
-
-    window.onresize = () => {
-        multipleChoiceWidgets.forEach(widget => {
-            placeMultipleChoiceContainer(widget.get("choice"), widget.get("button"));
-        });
-    };
-
-</script>
+    <script src="{% static 'script/observer.js' %}"></script>
+    <script src="{% static 'script/route_list.js' %}"></script>
 {% endblock %}
