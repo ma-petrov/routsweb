@@ -147,6 +147,18 @@ class Rout(models.Model):
             Q(is_transport_availability__in=is_transport_availabilities)
         ).distinct()
 
+    @classmethod
+    def get_available_choices(cls, param):
+        if param not in ['difficulty', 'surface', 'direction', 'tags']:
+            raise Exception('Not multiple choice or exsisting field!')
+        model = dict(difficulty=Difficulty, surface=Surface, direction=Direction, tags=Tag)[param]
+        available_choices = [i[0] for i in cls.objects.values_list(param).distinct()]
+        search_params = list()
+        for choice in model.objects.values_list('id', 'name'):
+            if choice[0] in available_choices:
+                search_params.append(str(choice[0]))
+        return search_params
+
 
 class RouteCollections(models.Model):
     """
