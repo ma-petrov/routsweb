@@ -9,6 +9,23 @@ const MULTIPLE_CHOICE_OPEN = "MULTIPLE_CHOICE_OPEN";
 const MULTIPLE_CHOICE_CLOSE = "MULTIPLE_CHOICE_CLOSE";
 const MULTIPLE_CHOICE_IS_UPDATED = "MULTIPLE_CHOICE_IS_UPDATED";
 
+function isArraysEqual(a, b) {
+    let result = true
+    if (a.length != b.length) {
+        result = false;
+    }
+    else {
+        let i = 0;
+        while(result && i < a.length) {
+            if (a[i] != b[i]) {
+                result = false;
+            }
+            i += 1;
+        }
+    }
+    return result;
+}
+
 class CloseMultipleChoiceMessage extends Message {
     constructor(isChoiceChanged, checkedChoicesLabels) {
         super();
@@ -178,8 +195,9 @@ class MultipleChoice extends FilterChoice {
 
         let isChoiceChanged = false;
         let checkedChoices = this.getCheckedChoices();
-        if (checkedChoices != this.prevCeckedChoices) {
+        if (!isArraysEqual(checkedChoices, this.prevCeckedChoices)) {
             isChoiceChanged = true;
+            this.prevCeckedChoices = checkedChoices;
             this.notify(new Message(UPDATE, "1"));
         }
         this.notify(new CloseMultipleChoiceMessage(isChoiceChanged, this.getCheckedChoicesLabels()));
@@ -389,7 +407,6 @@ class Updater extends Observer {
 
     update(message) {
         if (message.event == UPDATE) {
-            console.log(this);
             this.request(message.data, this.onResponse);
         }
     }
