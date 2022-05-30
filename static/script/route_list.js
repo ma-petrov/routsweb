@@ -117,11 +117,13 @@ class DistanceChocie extends FilterChoice {
     }
 
     setChoice(searchParams) {
-        let minDistance = searchParams.get(this.field);
+        console.log("searchParams");
+
+        let minDistance = searchParams.get("min_distance");
         if (minDistance === null) {
             minDistance = "0";
         }
-        let maxDistance = searchParams.get(this.field);
+        let maxDistance = searchParams.get("max_distance");
         if (maxDistance === null) {
             maxDistance = "1000";
         }
@@ -192,15 +194,12 @@ class MultipleChoice extends FilterChoice {
 
         this.widget.style.display = "none";
         this.widget.style.boxShadow = "0px 0px 0px lightgrey";
-
-        let isChoiceChanged = false;
         let checkedChoices = this.getCheckedChoices();
         if (!isArraysEqual(checkedChoices, this.prevCeckedChoices)) {
-            isChoiceChanged = true;
             this.prevCeckedChoices = checkedChoices;
             this.notify(new Message(UPDATE, "1"));
         }
-        this.notify(new CloseMultipleChoiceMessage(isChoiceChanged, this.getCheckedChoicesLabels()));
+        this.notify(new Message(MULTIPLE_CHOICE_CLOSE, this.getCheckedChoicesLabels()));
     }
 
     getCheckedChoices() {
@@ -252,9 +251,14 @@ class MultipleChoice extends FilterChoice {
     setChoice(searchParams) {
         let searchParam = searchParams.get(this.field);
         if (searchParam === null) {
-            searchParam = ["all"];
+            searchParam = [];
         }
+        else {
+            searchParam = searchParam.split("_");
+        }
+        console.log("search params: " + searchParam);
         this.setCheckedChoices(searchParam);
+        this.notify(new Message(MULTIPLE_CHOICE_CLOSE, this.getCheckedChoicesLabels()));
     }
 }
 
@@ -288,11 +292,11 @@ class MultipleChoiceHeader extends Observer {
         this.widget.style.boxShadow = "0px 0px 5px lightgrey";
     }
 
-    close(data) {
+    close(checkedChoicesLabels) {
         /*
          * Changes style end text of header, when multiple choice is closed.
          */
-        this.widget.value = this.generateHeaderText(data.checkedChoicesLabels);
+        this.widget.value = this.generateHeaderText(checkedChoicesLabels);
         this.widget.style.boxShadow = "0px 0px 0px lightgrey";
     }
 
@@ -366,8 +370,9 @@ class IsTransportAvailability extends FilterChoice {
 }
 
 class Updater extends Observer {
-    setChoices(choices) {
-        this.choices = choices;
+    constructor() {
+        super();
+        this.choices = [];
     }
 
     updateFilterOnLoad() {
@@ -456,7 +461,7 @@ window.onload = () => {
     choices = [distanceChocie];
     multipleChoices.forEach(choice => {choices.push(choice)});
     choices.push(isTransportAvailability);
-    updater.setChoices(choices);
+    updater.choices = choices;
     updater.updateFilterOnLoad();
 }
 
