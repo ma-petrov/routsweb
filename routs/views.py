@@ -108,7 +108,7 @@ class UpdateRoutListView(generic.ListView):
             min_distance = 1
 
         route_list = Rout.get_filtered_routes(min_distance, max_distance, difficulties, surfaces, directions, tags, transport_availabilities)
-        page_obj = Paginator(route_list, 10).page(page)
+        page_obj = Paginator(route_list, 2).page(page)
 
         return render(request, 'routs/update_rout_list.html', dict(rout_list=route_list, page_obj=page_obj))
 

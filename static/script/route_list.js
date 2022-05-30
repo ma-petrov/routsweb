@@ -370,24 +370,26 @@ class Updater extends Observer {
 
     request(page, callback) {
         const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {callback(this);};
+        xhttp.onload = callback.bind(this, xhttp);
         xhttp.open("GET", this.generateUrl(page));
         xhttp.send();
     }
 
     onResponse(xhttp) {
         document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
-        ["first-page-button", "previous-page-button", "next-page-button", "last-page-button"].forEach(id => {
-            let item = document.getElementById(id);
+        let ids = ["first-page-button", "previous-page-button", "next-page-button", "last-page-button"];
+        for (let i = 0; i < 4; i++) {
+            let item = document.getElementById(ids[i]);
             if (!item.disabled) {
                 let page = item.name;
-                item.addEventListener("click", function() {this.request(page, this.onResponse);});
+                item.addEventListener("click", () => {this.request(page, this.onResponse)});
             }
-        });
+        }
     }
 
     update(message) {
         if (message.event == UPDATE) {
+            console.log(this);
             this.request(message.data, this.onResponse);
         }
     }
