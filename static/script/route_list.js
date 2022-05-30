@@ -10,57 +10,57 @@ const MULTIPLE_CHOICE_CLOSE = "MULTIPLE_CHOICE_CLOSE";
 const MULTIPLE_CHOICE_IS_UPDATED = "MULTIPLE_CHOICE_IS_UPDATED";
 
 function isArraysEqual(a, b) {
-    let result = true
+    /*
+     * Comparises two arrays.
+     * Params a, b are expected to be Array type.
+     * Returns true if arrays are equal, else - false. 
+     */
+
+    let isEqual = true
     if (a.length != b.length) {
-        result = false;
+        isEqual = false;
     }
     else {
         let i = 0;
-        while(result && i < a.length) {
+        while(isEqual && i < a.length) {
             if (a[i] != b[i]) {
-                result = false;
+                isEqual = false;
             }
             i += 1;
         }
     }
-    return result;
-}
-
-class FilterData {
-    /*
-     * Route parameters data.
-     */
-
-    constructor(
-        min_distance,
-        max_distance,
-        difficulty,
-        surface,
-        direction,
-        tags,
-        is_transport_availability,
-    ) {
-        this.min_distance = min_distance;
-        this.max_distance = max_distance;
-        this.difficulty = difficulty;
-        this.surface = surface;
-        this.direction = direction;
-        this.tags = tags;
-        this.is_transport_availability = is_transport_availability;
-    }
+    return isEqual;
 }
 
 class FilterChoice extends Observable {
+    /*
+     * Abstract class of filter choice.
+     * Filter choice is widget, that is used to setup
+     * specific routes data searching parameters.
+     */
+
     getSearchParams() {
+        /*
+         * Generates parameter for url request accoriding to filter choice value.
+         */
+
         throw "Method getSearchParams not implemented!";
     }
 
     setChoice() {
+        /*
+         * Sets filter choice value accoriding to request parameter.
+         */
+
         throw "Method setChoice not implemented!";
     }
 }
 
 class DistanceChocie extends FilterChoice {
+    /*
+     * Numeric range choice controller.
+     */
+
     constructor(minDistancewidgetId, maxDistancewidgetId, prevMinDistance, prevMaxDistance) {
         super();
 
@@ -97,10 +97,18 @@ class DistanceChocie extends FilterChoice {
     }
 
     getSearchParams() {
+        /*
+         * Generates parameter for url request accoriding to filter choice value.
+         */
+
         return `min_distance=${this.minDistance.value}&max_distance=${this.maxDistance.value}`;
     }
 
     setChoice(searchParams) {
+        /*
+         * Sets filter choice value accoriding request parameter.
+         */
+
         console.log("searchParams");
 
         let minDistance = searchParams.get("min_distance");
@@ -116,8 +124,12 @@ class DistanceChocie extends FilterChoice {
     }
 
     isNaturalNumber(n) {
+        /*
+         * Checks if n is natural number.
+         */
+
         n = n.toString();
-        var n1 = Math.abs(n),
+        let n1 = Math.abs(n),
             n2 = parseInt(n, 10);
         return !isNaN(n1) && n2 === n1 && n1.toString() === n;
     }
@@ -225,6 +237,10 @@ class MultipleChoice extends FilterChoice {
     }
 
     getSearchParams() {
+        /*
+         * Generates parameter for url request accoriding to filter choice value.
+         */
+
         let searchParam = `${this.field}=`;
         this.getCheckedChoices().forEach(choice => {
             searchParam += `${choice}_`;
@@ -233,6 +249,10 @@ class MultipleChoice extends FilterChoice {
     }
 
     setChoice(searchParams) {
+        /*
+         * Sets filter choice value accoriding request parameter.
+         */
+
         let searchParam = searchParams.get(this.field);
         if (searchParam === null) {
             searchParam = [];
@@ -240,7 +260,6 @@ class MultipleChoice extends FilterChoice {
         else {
             searchParam = searchParam.split("_");
         }
-        console.log("search params: " + searchParam);
         this.setCheckedChoices(searchParam);
         this.notify(new Message(MULTIPLE_CHOICE_CLOSE, this.getCheckedChoicesLabels()));
     }
@@ -316,7 +335,9 @@ class MultipleChoiceHeader extends Observer {
 
     update(message) {
         /*
-         * Treats messages.
+         * Message listener, updates appearance of multiple choice header,
+         * when recieve messages MULTIPLE_CHOICE_CLOSE, MULTIPLE_CHOICE_OPEN,
+         * updates position of according multiple choice widget when recieve RESIZE.
          */
         
         if (message.event == MULTIPLE_CHOICE_CLOSE) {
@@ -332,6 +353,10 @@ class MultipleChoiceHeader extends Observer {
 }
 
 class IsTransportAvailability extends FilterChoice {
+    /*
+     * Transport availability selector choice controller.
+     */
+
     constructor(widgetId) {
         super();
         this.widget = document.getElementById(widgetId);
@@ -341,10 +366,18 @@ class IsTransportAvailability extends FilterChoice {
     }
 
     getSearchParams() {
+        /*
+         * Generates parameter for url request accoriding to filter choice value.
+         */
+
         return `is_transport_availability=${this.widget.value}`;
     }
 
     setChoice(searchParams) {
+        /*
+         * Sets filter choice value accoriding request parameter.
+         */
+
         let searchParam = searchParams.get("is_transport_availability");
         if (searchParam === null) {
             searchParam = "unknown";
@@ -359,7 +392,11 @@ class Updater extends Observer {
         this.choices = [];
     }
 
-    updateFilterOnLoad() {
+    updateFilterChoices() {
+        /*
+         * Updates filter choices values and appearance according to request.
+         */
+
         let searchParams = new URLSearchParams(document.location.search);
         this.choices.forEach(choice => {
             choice.setChoice(searchParams);
@@ -368,6 +405,11 @@ class Updater extends Observer {
     }
 
     generateUrl(page) {
+        /*
+         * Retruns search parameters according to filter choices values.
+         * Param page is expected to be string with number of target page.
+         */
+
         let url = "/routs/update-rout-list/?";
         this.choices.forEach(choice => {
             url += choice.getSearchParams() + "&";
@@ -376,6 +418,13 @@ class Updater extends Observer {
     }
 
     request(page, callback) {
+        /*
+         * Retruns search parameters according to filter choices values.
+         * Params:
+         *     - page is expected to be string with number of target page;
+         *     - callback is expected to be function, that update content of searched routes.
+         */
+
         const xhttp = new XMLHttpRequest();
         xhttp.onload = callback.bind(this, xhttp);
         xhttp.open("GET", this.generateUrl(page));
@@ -383,6 +432,10 @@ class Updater extends Observer {
     }
 
     onResponse(xhttp) {
+        /*
+         * Updates content of searched routes, navigation buttons listeners.
+         */
+
         document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
         let ids = ["first-page-button", "previous-page-button", "next-page-button", "last-page-button"];
         for (let i = 0; i < 4; i++) {
@@ -395,6 +448,10 @@ class Updater extends Observer {
     }
 
     update(message) {
+        /*
+         * Messages listener, updates route list data, when recieve UPDATE message.
+         */
+
         if (message.event == UPDATE) {
             this.request(message.data, this.onResponse);
         }
@@ -442,11 +499,11 @@ window.onload = () => {
 
     onResize.notify(new Message(RESIZE, NaN));
 
-    choices = [distanceChocie];
+    let choices = [distanceChocie];
     multipleChoices.forEach(choice => {choices.push(choice)});
     choices.push(isTransportAvailability);
     updater.choices = choices;
-    updater.updateFilterOnLoad();
+    updater.updateFilterChoices();
 }
 
 window.onresize = () => {
