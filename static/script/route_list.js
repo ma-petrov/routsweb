@@ -26,22 +26,6 @@ function isArraysEqual(a, b) {
     return result;
 }
 
-class CloseMultipleChoiceMessage extends Message {
-    constructor(isChoiceChanged, checkedChoicesLabels) {
-        super();
-
-        class Data {
-            constructor(isChoiceChanged, checkedChoicesLabels) {
-                this.isChoiceChanged = isChoiceChanged;
-                this.checkedChoicesLabels = checkedChoicesLabels;
-            }
-        }
-        
-        this.event = MULTIPLE_CHOICE_CLOSE;
-        this.data = new Data(isChoiceChanged, checkedChoicesLabels);
-    }
-}
-
 class FilterData {
     /*
      * Route parameters data.
