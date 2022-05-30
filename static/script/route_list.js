@@ -368,6 +368,13 @@ class Updater extends Observer {
         return url + `page=${page}`;
     }
 
+    request(page, callback) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {callback(this);};
+        xhttp.open("GET", this.generateUrl(page));
+        xhttp.send();
+    }
+
     onResponse(xhttp) {
         document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
         ["first-page-button", "previous-page-button", "next-page-button", "last-page-button"].forEach(id => {
@@ -378,13 +385,6 @@ class Updater extends Observer {
                 console.log(item);
             }
         });
-    }
-
-    request(page, callback) {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {callback(this);};
-        xhttp.open("GET", this.generateUrl(page));
-        xhttp.send();
     }
 
     update(message) {
