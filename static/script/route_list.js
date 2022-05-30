@@ -381,7 +381,7 @@ class Updater extends Observer {
             let item = document.getElementById(id);
             if (!item.disabled) {
                 let page = item.name;
-                item.addEventListener("click", () => {this.request(page, this.onResponse);});
+                item.addEventListener("click", () => {this.update(new Message(UPDATE, "1"));});
             }
         });
     }
