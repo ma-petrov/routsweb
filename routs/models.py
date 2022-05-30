@@ -193,7 +193,7 @@ class RouteCollections(models.Model):
         param_names = ['difficulty', 'surface', 'direction', 'tags']
         field_names = [self.difficulty, self.surface, self.direction, self.tags]
         for param, field in zip(param_names, field_names):
-            values = ''.join([str(value.get_id()) for value in field.all()])
+            values = '_'.join([str(value.get_id()) for value in field.all()])
             params.append(f'{param}={values}')
 
         params.append(f'is_transport_availability={self.is_transport_availability}')
