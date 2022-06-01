@@ -109,14 +109,15 @@ class DistanceChocie extends FilterChoice {
          * Sets filter choice value accoriding request parameter.
          */
 
-        console.log("searchParams");
+        // console.log(`min_distance == ${searchParams.get("min_distance")}`);
+        // console.log(`max_distance == ${searchParams.get("max_distance")}`);
 
-        let minDistance = searchParams.get("min_distance");
-        if (minDistance === null) {
-            minDistance = "0";
+        let minDistance = searchParams.min_distance;
+        if (minDistance === undefined) {
+            minDistance = "1";
         }
-        let maxDistance = searchParams.get("max_distance");
-        if (maxDistance === null) {
+        let maxDistance = searchParams.max_distance;
+        if (maxDistance === undefined) {
             maxDistance = "1000";
         }
         this.minDistance.value = minDistance;
@@ -252,13 +253,11 @@ class MultipleChoice extends FilterChoice {
         /*
          * Sets filter choice value accoriding request parameter.
          */
+        // console.log(`this.field == ${searchParams.get(this.field)}`);
 
-        let searchParam = searchParams.get(this.field);
-        if (searchParam === null) {
+        let searchParam = searchParams[this.field];
+        if (searchParam === undefined) {
             searchParam = [];
-        }
-        else {
-            searchParam = searchParam.split("_");
         }
         this.setCheckedChoices(searchParam);
         this.notify(new Message(MULTIPLE_CHOICE_CLOSE, this.getCheckedChoicesLabels()));
@@ -378,8 +377,8 @@ class IsTransportAvailability extends FilterChoice {
          * Sets filter choice value accoriding request parameter.
          */
 
-        let searchParam = searchParams.get("is_transport_availability");
-        if (searchParam === null) {
+        let searchParam = searchParams.is_transport_availability;
+        if (searchParam === undefined) {
             searchParam = "unknown";
         }
         this.widget.value = searchParam;
@@ -397,9 +396,11 @@ class Updater extends Observer {
          * Updates filter choices values and appearance according to request.
          */
 
-        let searchParams = new URLSearchParams(document.location.search);
+        // let searchParams = new URLSearchParams(document.location.search);
+        // let searchParams = new URLSearchParams(SEARCH_PARAMS);
+        // console.log(SEARCH_PARAMS);
         this.choices.forEach(choice => {
-            choice.setChoice(searchParams);
+            choice.setChoice(SEARCH_PARAMS);
         });
         this.request("1", this.onResponse);
     }
