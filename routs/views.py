@@ -57,7 +57,7 @@ class BooleanSearchParam(SearchParam):
     def parse_search_param(self, request):
         value = request.GET.get(self.param)
         if value in ['true', 'false']:
-            return dict(true=True, false=False)[value]
+            return dict(true=[True], false=[False])[value]
         else:
             return [True, False]
 
