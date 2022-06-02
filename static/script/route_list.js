@@ -443,7 +443,7 @@ class Updater extends Observer {
          */
 
         document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
-        let ids = ["first-page-button", "previous-page-button", "next-page-button", "last-page-button"];
+        let ids = ["home-page-button", "prev-page-button", "next-page-button", "last-page-button"];
         for (let i = 0; i < 4; i++) {
             let item = document.getElementById(ids[i]);
             if (!item.disabled) {
