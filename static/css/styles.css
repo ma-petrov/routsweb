@@ -591,10 +591,6 @@ a:hover {text-decoration: none;}
 #next-page-button {background-image: url(/images/icons/pagination_next.png);}
 #last-page-button {background-image: url(/images/icons/pagination_last.png);}
 
-/* .navigation-button:enabled {
-    color: lightgrey;
-} */
-
 .navigation-button:hover {
     border: 1px solid darkgrey;
 }
