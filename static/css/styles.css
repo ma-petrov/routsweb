@@ -291,11 +291,23 @@ a:hover {text-decoration: none;}
     justify-content: center;
     width: calc(100% - 8px);
     height: 232px;
-    margin-left: 4px;
-    margin-right: 4px;
     border-top: 1px solid var(--main-dark-color);
     border-bottom: 1px solid var(--main-dark-color);
     overflow-x: scroll;
+}
+
+@media (max-device-width : 1499px) {
+    .gallery-container {
+        margin-left: var(--main-margin);
+        margin-right: var(--main-margin);
+    }
+}
+
+@media (min-device-width : 1500px) {
+    .gallery-container {
+        margin-left: var(--half-margin);
+        margin-right: var(--half-margin);
+    }
 }
 
 .gallery-container-no-images {
@@ -418,9 +430,6 @@ a:hover {text-decoration: none;}
     border-radius: var(--main-border-radius);
 }
 
-/*
- * mobile
- */
 @media (max-device-width : 1499px) {
     .route-list-header {
         border-bottom: 1px solid var(--main-dark-color);
