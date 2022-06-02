@@ -206,15 +206,20 @@ a:hover {text-decoration: none;}
     margin-right: var(--half-margin);
 }
 
-@media (min-device-width : 1500px) {
+@media (max-device-width : 1499px) {
     .header-container {
-        width: calc(100% - 2*var(--half-margin));
+        width: 100%;
+    }
+
+    .header-text {
+        padding-left: 8px;
+        padding-right: 8px;
     }
 }
 
 @media (min-device-width : 1500px) {
     .header-container {
-        width: 100%;
+        width: calc(100% - 2*var(--half-margin));
         margin-top: var(--main-margin);
         margin-left: var(--half-margin);
         margin-right: var(--half-margin);
@@ -225,11 +230,6 @@ a:hover {text-decoration: none;}
     .map-view-container {
         margin-left: var(--half-margin);
         margin-right: var(--half-margin);
-    }
-
-    .header-text {
-        padding-left: 8px;
-        padding-right: 8px;
     }
 }
 
