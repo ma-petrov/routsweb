@@ -570,9 +570,18 @@ a:hover {text-decoration: none;}
     font-size: medium;
 }
 
-.pagination-buttons {
-    display: flex;
-    width: 200px;
+@media (min-device-width : 1500px) {
+    .pagination-buttons {
+        display: flex;
+        width: 200px;
+    }
+}
+
+@media (max-device-width : 1499px) {
+    .pagination-buttons {
+        display: flex;
+        width: 100px;
+    }
 }
 
 .navigation-button {
