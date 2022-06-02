@@ -30,14 +30,14 @@
         </div>
     {% endfor %}
 
-    <div class="route-list-pagination">
+    <!-- <div class="route-list-pagination">
         <div class="pagination-buttons">
             {% if page_obj.has_previous %}
-                <input type="button" class="navigation-button" id="first-page-button" name="1" value="В начало">
-                <input type="button" class="navigation-button" id="previous-page-button" name="{{ page_obj.previous_page_number }}" value="Назад">
+                <input type="button" class="navigation-button" id="home-page-button" value="{{ pagination_buttons.home }}" name="1">
+                <input type="button" class="navigation-button" id="prev-page-button" value="{{ pagination_buttons.prev }}" name="{{ page_obj.previous_page_number }}">
             {% else %}
-                <input type="button" class="navigation-button" id="first-page-button" value="В начало" disabled="disabled">
-                <input type="button" class="navigation-button" id="previous-page-button" value="Назад" disabled="disabled">
+                <input type="button" class="navigation-button" id="home-page-button" value="{{ pagination_buttons.home }}" disabled="disabled">
+                <input type="button" class="navigation-button" id="prev-page-button" value="{{ pagination_buttons.prev }}" disabled="disabled">
             {% endif %}
         </div>
         <div class="pagination-current">
@@ -45,11 +45,29 @@
         </div>
         <div class="pagination-buttons">
             {% if page_obj.has_next %}
-                <input type="button" class="navigation-button" id="next-page-button" name="{{ page_obj.next_page_number }}" value="Вперед">
-                <input type="button" class="navigation-button" id="last-page-button" name="{{ page_obj.paginator.num_pages }}" value="В конец">
+                <input type="button" class="navigation-button" id="next-page-button" value="{{ pagination_buttons.next }}" name="{{ page_obj.next_page_number }}">
+                <input type="button" class="navigation-button" id="last-page-button" value="{{ pagination_buttons.last }}" name="{{ page_obj.paginator.num_pages }}">
             {% else %}
-                <input type="button" class="navigation-button" id="next-page-button" value="Вперед" disabled="disabled">
-                <input type="button" class="navigation-button" id="last-page-button" value="В конец" disabled="disabled">
+                <input type="button" class="navigation-button" id="next-page-button" value="{{ pagination_buttons.next }}" disabled="disabled">
+                <input type="button" class="navigation-button" id="last-page-button" value="{{ pagination_buttons.last }}" disabled="disabled">
+            {% endif %}
+        </div>
+    </div> -->
+
+    <div class="route-list-pagination">
+        <div class="pagination-buttons">
+            {% if page_obj.has_previous %}
+                <input type="button" class="navigation-button" id="home-page-button" name="1">
+                <input type="button" class="navigation-button" id="prev-page-button" name="{{ page_obj.previous_page_number }}">
+            {% endif %}
+        </div>
+        <div class="pagination-current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </div>
+        <div class="pagination-buttons">
+            {% if page_obj.has_next %}
+                <input type="button" class="navigation-button" id="next-page-button" name="{{ page_obj.next_page_number }}">
+                <input type="button" class="navigation-button" id="last-page-button" name="{{ page_obj.paginator.num_pages }}">
             {% endif %}
         </div>
     </div>

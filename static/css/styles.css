@@ -183,6 +183,7 @@ a:hover {text-decoration: none;}
 .collection-card-link-container {
     display: block;
     text-align: center;
+    padding: 8px;
 }
 
 .collection-card-link {
@@ -566,29 +567,30 @@ a:hover {text-decoration: none;}
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    width: 200px;
+    width: 160px;
     font-size: medium;
 }
 
 .pagination-buttons {
     display: flex;
-    width: 200px;
+    width: 80px;
 }
 
 .navigation-button {
-    width: 92px;
+    width: 32px;
     height: 32px;
     margin-left: 4px;
     margin-right: 4px;
     background-color: white;
     border: 1px solid lightgray;
     border-radius: var(--main-border-radius);
-    color: black;
+    background-size: cover;
 }
 
-.navigation-button:disabled {
-    color: lightgrey;
-}
+#home-page-button {background-image: url(/images/icons/pagination_home.png);}
+#prev-page-button {background-image: url(/images/icons/pagination_prev.png);}
+#next-page-button {background-image: url(/images/icons/pagination_next.png);}
+#last-page-button {background-image: url(/images/icons/pagination_last.png);}
 
 .navigation-button:hover {
     border: 1px solid darkgrey;

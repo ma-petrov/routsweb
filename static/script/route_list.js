@@ -443,14 +443,13 @@ class Updater extends Observer {
          */
 
         document.getElementById("rout-list-container").innerHTML = xhttp.responseText;
-        let ids = ["first-page-button", "previous-page-button", "next-page-button", "last-page-button"];
-        for (let i = 0; i < 4; i++) {
-            let item = document.getElementById(ids[i]);
-            if (!item.disabled) {
+        ["home-page-button", "prev-page-button", "next-page-button", "last-page-button"].forEach(id => {
+            let item = document.getElementById(id);
+            if (item !== null) {
                 let page = item.name;
                 item.addEventListener("click", () => {this.request(page, this.onResponse)});
             }
-        }
+        });
     }
 
     update(message) {
