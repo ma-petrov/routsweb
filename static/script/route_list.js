@@ -307,6 +307,7 @@ class MultipleChoiceHeader extends Observer {
          * Generates text from labels of checked choices;
          */
 
+        let text;
         if (checkedChoicesLabels[0] == "all") {
             text = "Все";
         }
