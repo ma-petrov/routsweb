@@ -308,18 +308,22 @@ class MultipleChoiceHeader extends Observer {
          */
 
         if (checkedChoicesLabels[0] == "all") {
-            return "Все";
+            text = "Все";
         }
         else if (checkedChoicesLabels.length == 1) {
-            return checkedChoicesLabels[0];
+            text = checkedChoicesLabels[0];
         }
         else {
             let value = `(${checkedChoicesLabels.length})`;
             checkedChoicesLabels.forEach(label => {
                 value += ` ${label},`;
             });
-            return value.substring(0, value.length - 1);
+            text = value.substring(0, value.length - 1);
         }
+        if (text.length > 25) {
+            text = text.substring(0, 23) + "...";
+        }
+        return text;
     }
 
     placeMultipleChoiceContainer() {
