@@ -30,7 +30,7 @@
         </div>
     {% endfor %}
 
-    <div class="route-list-pagination">
+    <!-- <div class="route-list-pagination">
         <div class="pagination-buttons">
             {% if page_obj.has_previous %}
                 <input type="button" class="navigation-button" id="first-page-button" name="1" value="В начало">
@@ -50,6 +50,30 @@
             {% else %}
                 <input type="button" class="navigation-button" id="next-page-button" value="Вперед" disabled="disabled">
                 <input type="button" class="navigation-button" id="last-page-button" value="В конец" disabled="disabled">
+            {% endif %}
+        </div>
+    </div> -->
+
+    <div class="route-list-pagination">
+        <div class="pagination-buttons">
+            {% if page_obj.has_previous %}
+                <input type="button" class="navigation-button" id="first-page-button" name="1">
+                <input type="button" class="navigation-button" id="previous-page-button" name="{{ page_obj.previous_page_number }}">
+            {% else %}
+                <input type="button" class="navigation-button" id="first-page-button" disabled="disabled">
+                <input type="button" class="navigation-button" id="previous-page-button" disabled="disabled">
+            {% endif %}
+        </div>
+        <div class="pagination-current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </div>
+        <div class="pagination-buttons">
+            {% if page_obj.has_next %}
+                <input type="button" class="navigation-button" id="next-page-button" name="{{ page_obj.next_page_number }}">
+                <input type="button" class="navigation-button" id="last-page-button" name="{{ page_obj.paginator.num_pages }}">
+            {% else %}
+                <input type="button" class="navigation-button" id="next-page-button" disabled="disabled">
+                <input type="button" class="navigation-button" id="last-page-button" disabled="disabled">
             {% endif %}
         </div>
     </div>

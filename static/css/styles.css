@@ -570,6 +570,11 @@ a:hover {text-decoration: none;}
     font-size: medium;
 }
 
+#first-page-button {initial-value: "В начало";}
+#previous-page-button {initial-value: "Назад";}
+#next-page-button {initial-value: "Вперед";}
+#last-page-button {initial-value: "В конец";}
+
 @media (min-device-width : 1500px) {
     .pagination-buttons {
         display: flex;
