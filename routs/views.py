@@ -109,10 +109,10 @@ class RoutListView(generic.ListView):
 
 class UpdateRoutListView(generic.ListView):
     def get(self, request):
-        if parse(request.META['HTTP_USER_AGENT']).is_mobile:
-            pagination_buttons = Bunch(dict(home="", prev="", next="", last=""))
-        else:
-            pagination_buttons = Bunch(dict(home="В начало", prev="Назад", next="Вперёд", last="В конец"))
+        # if parse(request.META['HTTP_USER_AGENT']).is_mobile:
+        #     pagination_buttons = Bunch(dict(home="", prev="", next="", last=""))
+        # else:
+        #     pagination_buttons = Bunch(dict(home="В начало", prev="Назад", next="Вперёд", last="В конец"))
 
         page = int(request.GET.get('page', 1))
 
@@ -123,8 +123,9 @@ class UpdateRoutListView(generic.ListView):
         route_list = Rout.get_filtered_routes(**params)
         page_obj = Paginator(route_list, 10).page(page)
 
-        context = dict(rout_list=route_list, page_obj=page_obj, pagination_buttons=pagination_buttons)
-        return render(request, 'routs/update_rout_list.html', context)
+        # context = dict(rout_list=route_list, page_obj=page_obj, pagination_buttons=pagination_buttons)
+        # return render(request, 'routs/update_rout_list.html', context)
+        return render(request, 'routs/update_rout_list.html', dict(rout_list=route_list, page_obj=page_obj))
 
 
 class RoutDetailView(generic.DetailView):
