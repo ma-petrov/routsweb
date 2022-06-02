@@ -193,7 +193,6 @@ a:hover {text-decoration: none;}
  */
 
 .header-container {
-    width: calc(100% - 2*var(--half-margin));
     height: var(--header-image-height);
 }
 
@@ -209,6 +208,13 @@ a:hover {text-decoration: none;}
 
 @media (min-device-width : 1500px) {
     .header-container {
+        width: calc(100% - 2*var(--half-margin));
+    }
+}
+
+@media (min-device-width : 1500px) {
+    .header-container {
+        width: 100%;
         margin-top: var(--main-margin);
         margin-left: var(--half-margin);
         margin-right: var(--half-margin);
