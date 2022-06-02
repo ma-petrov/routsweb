@@ -14,19 +14,10 @@
                     {{ form.min_distance }} | {{ form.max_distance }}
                 </div>
             </div>
-
-            {% for filter_field in filter_views %}
-                <div class="filter-container">
-                    <p>{{ filter_field.title }}</p>
-                    <div class="drop-down-multiple-choice-button-contaniner">
-                        <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-{{ filter_field.field_id }}" value="Все">
-                    </div>
-                    <div class="drop-down-multiple-choice-list-container" id="drop-down-multiple-choice-list-container-{{ filter_field.field_id }}" style="display: none;">
-                        {{ filter_field.form }}
-                    </div>
-                </div>
-            {% endfor %}
-
+            {{ form.difficulty }}
+            {{ form.surface }}
+            {{ form.direction }}
+            {{ form.tags }}
             <div class="filter-container">
                 <p>Заброска</p>
                 {{ form.is_transport_availability }}
@@ -40,6 +31,10 @@
         
     <div class="rout-list-container" id="rout-list-container"></div>
 
+    <script>
+        const SEARCH_PARAMS = JSON.parse('{{ search_params }}'.replaceAll('&quot;', '"'));
+        console.log(SEARCH_PARAMS);
+    </script>
     <script src="{% static 'script/observer.js' %}"></script>
     <script src="{% static 'script/route_list.js' %}"></script>
 {% endblock %}
