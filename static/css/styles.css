@@ -196,24 +196,24 @@ a:hover {text-decoration: none;}
     height: var(--header-image-height);
 }
 
-.feature-container {
-    margin-left: var(--half-margin);
-    margin-right: var(--half-margin);
-}
-
-.description-container {
-    margin-left: var(--half-margin);
-    margin-right: var(--half-margin);
-}
-
 @media (max-device-width : 1499px) {
     .header-container {
         width: 100%;
     }
 
+    .feature-container {
+        margin-left: var(--main-margin);
+        margin-right: var(--main-margin);
+    }
+    
+    .description-container {
+        margin-left: var(--main-margin);
+        margin-right: var(--main-margin);
+    }
+
     .header-text {
-        padding-left: 8px;
-        padding-right: 8px;
+        padding-left: var(--main-margin);
+        padding-right: var(--main-margin);
     }
 }
 
@@ -225,6 +225,16 @@ a:hover {text-decoration: none;}
         margin-right: var(--half-margin);
         border-radius: var(--main-border-radius);
         overflow: hidden;
+    }
+
+    .feature-container {
+        margin-left: var(--half-margin);
+        margin-right: var(--half-margin);
+    }
+    
+    .description-container {
+        margin-left: var(--half-margin);
+        margin-right: var(--half-margin);
     }
 
     .map-view-container {
