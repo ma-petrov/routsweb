@@ -183,6 +183,7 @@ a:hover {text-decoration: none;}
 .collection-card-link-container {
     display: block;
     text-align: center;
+    padding: 8px;
 }
 
 .collection-card-link {
@@ -566,7 +567,7 @@ a:hover {text-decoration: none;}
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    width: 200px;
+    width: 160px;
     font-size: medium;
 }
 
