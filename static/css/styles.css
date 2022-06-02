@@ -126,12 +126,6 @@ a:hover {text-decoration: none;}
         margin-left: 4px;
     }
 
-    .header-container {
-        margin-top: var(--main-margin);
-        border-radius: var(--main-border-radius);
-        overflow: hidden;
-    }
-
     .header-text {margin-left: 10px;}
 }
 
@@ -199,8 +193,6 @@ a:hover {text-decoration: none;}
  */
 
 .header-container {
-    margin-left: var(--half-margin);
-    margin-right: var(--half-margin);
     width: calc(100% - 2*var(--half-margin));
     height: var(--header-image-height);
 }
@@ -213,6 +205,21 @@ a:hover {text-decoration: none;}
 .description-container {
     margin-left: var(--half-margin);
     margin-right: var(--half-margin);
+}
+
+@media (min-device-width : 1500px) {
+    .header-container {
+        margin-top: var(--main-margin);
+        margin-left: var(--half-margin);
+        margin-right: var(--half-margin);
+        border-radius: var(--main-border-radius);
+        overflow: hidden;
+    }
+
+    .map-view-container {
+        margin-left: var(--half-margin);
+        margin-right: var(--half-margin);
+    }
 }
 
 .overlay-header-container {position: relative;}
