@@ -226,6 +226,11 @@ a:hover {text-decoration: none;}
         margin-left: var(--half-margin);
         margin-right: var(--half-margin);
     }
+
+    .header-text {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
 }
 
 .overlay-header-container {position: relative;}
