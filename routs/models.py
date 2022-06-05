@@ -29,12 +29,6 @@ class Difficulty(models.Model):
         """
         return self.name
 
-    def get_id(self):
-        """
-        Id of object.
-        """
-        return self.id
-
 
 class Surface(models.Model):
     """
@@ -47,12 +41,6 @@ class Surface(models.Model):
         String for representing the object.
         """
         return self.name
-
-    def get_id(self):
-        """
-        Id of object.
-        """
-        return self.id
 
 
 class Direction(models.Model):
@@ -67,12 +55,6 @@ class Direction(models.Model):
         """
         return self.name
 
-    def get_id(self):
-        """
-        Id of object.
-        """
-        return self.id
-
 
 class Tag(models.Model):
     """
@@ -85,12 +67,6 @@ class Tag(models.Model):
         String for representing the object.
         """
         return self.name
-
-    def get_id(self):
-        """
-        Id of object.
-        """
-        return self.id
 
 
 class Rout(models.Model):
