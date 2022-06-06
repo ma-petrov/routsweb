@@ -70,8 +70,8 @@ a:hover {text-decoration: none;}
     .data-content {width: 100%;}
 }
 @media (min-device-width : 1500px) {
-    .topbar-content {width: 800px;}
-    .data-content {width: 800px;}
+    .topbar-content {max-width: 800px;}
+    .data-content {max-width: 800px;}
 }
 
 .topbar-buttons-container {
