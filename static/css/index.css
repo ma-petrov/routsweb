@@ -16,16 +16,10 @@
 }
 
 .index-header-pic {
+    width: 300px;
     height: 150px;
     object-fit: cover;
 }
-@media (max-device-width : 1499px) {
-    .index-header-pic {width: inherit;}
-}
-@media (min-device-width : 1500px) {
-    .index-header-pic {width: 300px;}
-}
-
 
 .index-header-text-container {
     display: flex;
