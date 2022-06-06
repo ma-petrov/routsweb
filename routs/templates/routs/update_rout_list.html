@@ -1,58 +1,36 @@
 {% if page_obj %}
     {% for route in page_obj %}
-        <div class="route-card">
-            <div class="route-card-image-container">
-                <img class="route-card-image" src="{{ route.wallpaper_image.url }}">
-            </div>
-            <div class="route-card-data-container">
-                <a href="{{ route.get_absolute_url }}" class="route-card-link"><strong> {{ route.title }} </strong></a>
-                <div class="route-card-statistic-container">
-                    <div class="route-card-statistic-element-container">
-                        <img class="route-card-icons" src="/images/icons/distance.png">
-                        <div class="route-card-statistic-element-text-container">
-                            {{ route.distance }} {% if route.distance_max > 0 %} - {{ route.distance_max }} {% endif %} km
+        <a href="{{ route.get_absolute_url }}">
+            <div class="route-card">
+                <div class="route-card-image-container">
+                    <img class="route-card-image" src="{{ route.wallpaper_image.url }}">
+                </div>
+                <div class="route-card-data-container">
+                    <p class="route-card-link"></p><strong> {{ route.title }} </strong></p>
+                    <div class="route-card-statistic-container">
+                        <div class="route-card-statistic-element-container">
+                            <img class="route-card-icons" src="/images/icons/distance.png">
+                            <div class="route-card-statistic-element-text-container">
+                                {{ route.distance }} {% if route.distance_max > 0 %} - {{ route.distance_max }} {% endif %} km
+                            </div>
                         </div>
-                    </div>
-                    <div class="route-card-statistic-element-container">
-                        <img class="route-card-icons" src="/images/icons/difficulty.png">
-                        <div class="route-card-statistic-element-text-container">
-                            {{ route.difficulty }}
+                        <div class="route-card-statistic-element-container">
+                            <img class="route-card-icons" src="/images/icons/difficulty.png">
+                            <div class="route-card-statistic-element-text-container">
+                                {{ route.difficulty }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="route-card-statistic-element-container">
-                        <img class="route-card-icons" src="/images/icons/surface.png">
-                        <div class="route-card-statistic-element-text-container">
-                            {{ route.surface }}
+                        <div class="route-card-statistic-element-container">
+                            <img class="route-card-icons" src="/images/icons/surface.png">
+                            <div class="route-card-statistic-element-text-container">
+                                {{ route.surface }}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     {% endfor %}
-
-    <!-- <div class="route-list-pagination">
-        <div class="pagination-buttons">
-            {% if page_obj.has_previous %}
-                <input type="button" class="navigation-button" id="home-page-button" value="{{ pagination_buttons.home }}" name="1">
-                <input type="button" class="navigation-button" id="prev-page-button" value="{{ pagination_buttons.prev }}" name="{{ page_obj.previous_page_number }}">
-            {% else %}
-                <input type="button" class="navigation-button" id="home-page-button" value="{{ pagination_buttons.home }}" disabled="disabled">
-                <input type="button" class="navigation-button" id="prev-page-button" value="{{ pagination_buttons.prev }}" disabled="disabled">
-            {% endif %}
-        </div>
-        <div class="pagination-current">
-            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
-        </div>
-        <div class="pagination-buttons">
-            {% if page_obj.has_next %}
-                <input type="button" class="navigation-button" id="next-page-button" value="{{ pagination_buttons.next }}" name="{{ page_obj.next_page_number }}">
-                <input type="button" class="navigation-button" id="last-page-button" value="{{ pagination_buttons.last }}" name="{{ page_obj.paginator.num_pages }}">
-            {% else %}
-                <input type="button" class="navigation-button" id="next-page-button" value="{{ pagination_buttons.next }}" disabled="disabled">
-                <input type="button" class="navigation-button" id="last-page-button" value="{{ pagination_buttons.last }}" disabled="disabled">
-            {% endif %}
-        </div>
-    </div> -->
 
     <div class="route-list-pagination">
         <div class="pagination-buttons">

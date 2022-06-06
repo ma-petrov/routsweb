@@ -80,16 +80,10 @@ a:hover {text-decoration: none;}
 }
 
 .topbar-button {
-    height: inherit;
-    width: var(--topbar-button-size);
-    background-color: var(--very-dark-color);
-    border: 1px solid var(--very-dark-color);
-    border-radius: var(--main-border-radius);
-}
-
-.topbar-button-background {
-    height: inherit;
-    width: inherit;
+    width: 30px;
+    height: 30px;
+    margin-top: calc(var(--margin) * 0.5);
+    margin-left: var(--margin);
     object-fit: cover;
 }
 
