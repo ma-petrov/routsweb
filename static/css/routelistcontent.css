@@ -1,62 +1,53 @@
 .route-list-content {
-    width: calc(100% - var(--margin) * 2);
+    border-top: 1px solid black;
+    margin-top: calc(var(--margin) * 2);
+    margin-bottom: var(--margin);
     margin-left: var(--margin);
     margin-right: var(--margin);
 }
 .route-list-content a {color: black}
 .route-list-content a:visited {color: black}
-.route-list-content a:active {color: var(--accent-color)}
+.route-list-content a:active {color: black}
 
 .route-card {
     display: flex;
     width: inherit;
-    height: 128px;
-    margin-top: calc(var(--margin) * 2);
-    background-color: white;
-    border: 1px solid white;
-    border-radius: var(--radius);
-    box-shadow: 0px 5px 10px var(--dark-color);
-}
-
-.route-card:hover {border: 1px solid var(--dark-color);}
-
-.message-nothing-was-found {
-    margin-top: 8px;
-    margin-bottom: 4px;
-    margin-left: 4px;
-    margin-right: 4px;
-    font-size: medium;
-}
-
-.route-card-image-container {
-    margin: 6px;
-    width: 178px;
-    height: 114px;
+    height: 140;
+    border-bottom: 1px solid black;
 }
 
 .route-card-image {
-    width: inherit;
-    height: inherit;
-    object-fit: cover;
-    border-radius: var(--main-border-radius);
+    margin: var(--margin);;
+    height: 100px;
+    width: 160px;
+    border-radius: calc(var(--margin) * 0.5);
+}
+.route-card:hover .route-card-image {
+    margin: calc(var(--margin) - 2px);
+    height: 104px;
+    width: 164px;
+}
+@media (max-device-width : 1499px) {
+    .route-card-image {display: none;}
 }
 
+.route-card-header {font-size: 24px;}
+.route-card:hover .route-card-header {color: var(--accent-color);}
+
 .route-card-data-container {
-    margin-top: 6px;
-    margin-right: 6px;
-    height: 114px;
-    border-left: 1px solid lightgray;
+    margin: var(--margin);
+    height: 100px;
     overflow: hidden;
 }
 
 .route-card-statistic-container {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .route-card-statistic-element-container {
     display: flex;
-    margin: 8px;
-    width: 184px;
+    width: 100px;
     height: 32px;
 }
 
@@ -64,7 +55,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 8px;
 }
 
 .route-card-icons {
@@ -93,11 +83,6 @@
     border-top: 1px solid var(--main-dark-color);
     text-align: center;
     font-size: medium;
-}
-
-@media (max-device-width : 1499px) {
-    .route-card-image-container {display: none;}
-    .route-card-delimeter {display: none;}
 }
 
 /*

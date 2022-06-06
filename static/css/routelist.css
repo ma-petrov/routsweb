@@ -1,13 +1,18 @@
 .route-list-header {
     display: flex;
     flex-wrap: wrap;
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
 }
 
 .filter-container {
-    margin-top: calc(var(--margin) * 0.5);
+    margin: var(--margin);
+}
+
+.filter-item-title {
+    font-size: 16px;
     margin-bottom: calc(var(--margin) * 0.5);
-    margin-left: var(--margin);
-    margin-right: var(--margin);
 }
 
 @media (max-device-width : 1499px) {
@@ -18,15 +23,15 @@
     }
 }
 @media (min-device-width : 1500px) {
-    .filter-container {width: 180px;}
+    .filter-container {width: 240px;}
 }
 
 .drop-down-multiple-choice-list-container {
     position: absolute;
-    width: 168px;
+    width: 228px;
     padding: calc(var(--margin) * 0.5);
-    background-color: var(--light-color);
-    border: 1px solid lightgray;
+    background-color: white;
+    border: 1px solid white;
     border-radius: calc(var(--radius) * 0.5);
 }
 
@@ -42,12 +47,13 @@
 }
 
 .drop-down-multiple-choice-button {
-    width: 180px;
+    width: 240px;
     height: 32px;
-    background-color: var(--light-color);
+    background-color: white;
     border: 1px solid var(--dark-color);
     border-radius: calc(var(--radius) * 0.5);
     text-align: left;
+    font-size: 12px;
 }
 
 .fake-checkbox-container {
@@ -71,28 +77,45 @@
 
 .distance-range-input-container {
     display: flex;
-    justify-content: space-between;
-    width: 180px;
-    height: 32px;
+    justify-content: center;
+    width: 238px;
+    height: 30px;
+    background-color: white;
     border: 1px solid var(--dark-color);
     border-radius: calc(var(--radius) * 0.5);
 }
 .distance-range-input-container:hover {border: 1px solid darkgrey;}
 .drop-down-multiple-choice-button:hover {border: 1px solid darkgrey;}
 
+.input-number-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 115px;
+    height: 30px;
+    padding-left: calc(var(--margin) * 0.5);
+    padding-right: calc(var(--margin) * 0.5);
+}
+#input-number-container-min {
+    border-right: 1px solid var(--dark-color);
+}
+
 .input-number {
-    width: 80px;
+    width: calc(100% - var(--margin));;
     border: 0px solid;
-    padding: 5px;
-    background-color: var(--light-color);
+    background-color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 12px;
 }
 
 .boolean-choice {
-    width: 178px;
-    height: 30px;
+    width: 240px;
+    height: 32px;
     background-color: white;
-    border: 1px solid lightgray;
+    border: 1px solid var(--dark-color);
     border-radius: calc(var(--radius) * 0.5);
+    font-size: 12px;
 }
 
 @media (min-device-width : 1500px) {

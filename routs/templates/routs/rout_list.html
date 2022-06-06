@@ -11,9 +11,14 @@
 {% block content %}
     <div class="route-list-header">
         <div class="filter-container">
-            <p>Протяженность (км)</p>
+            <div class="filter-item-title">Протяженность (км)</div>
             <div class="distance-range-input-container">
-                {{ form.min_distance }} | {{ form.max_distance }}
+                <div class="input-number-container" id="input-number-container-min">
+                    {{ form.min_distance }}
+                </div>
+                <div class="input-number-container">
+                    {{ form.max_distance }}
+                </div>
             </div>
         </div>
         {{ form.difficulty }}
@@ -21,12 +26,10 @@
         {{ form.direction }}
         {{ form.tags }}
         <div class="filter-container">
-            <p>Заброска</p>
+            <div class="filter-item-title">Заброска</div>
             {{ form.is_transport_availability }}
         </div>
     </div>
-
-    <div class="filter-border"></div>
         
     <div class="rout-list-container" id="rout-list-container"></div>
 
