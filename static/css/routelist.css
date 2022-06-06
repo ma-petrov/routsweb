@@ -3,7 +3,10 @@
     flex-wrap: wrap;
     background-color: white;
     border-radius: 10px;
-    margin: 10px;
+    margin-top: calc(var(--margin) * 2);
+    margin-bottom: var(--margin);
+    margin-left: var(--margin);
+    margin-right: var(--margin);
 }
 
 .filter-container {
@@ -54,7 +57,8 @@
     height: 32px;
     background-color: white;
     border: 1px solid var(--dark-color);
-    border-radius: calc(var(--radius) * 0.5);
+    /* border-radius: calc(var(--radius) * 0.5); */
+    border-radius: 5px;
     text-align: left;
     font-size: 12px;
 }
