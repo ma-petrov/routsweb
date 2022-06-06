@@ -87,6 +87,14 @@ def index(request):
     return render(request, 'index.html', {'route_collections': route_collections})
 
 
+def develop(request):
+    """
+    Develop page rendering
+    """
+
+    return render(request, 'routs/develop.html')
+
+
 class RoutListView(generic.ListView):
     model = Rout
 

@@ -2,9 +2,9 @@ const collectionCards = document.getElementsByClassName("collection-card-backgro
 
 if (collectionCards.length > 0) {
     function applyResizing(collectionCards, parentWidth, n) {
-        let width = "192px";
+        let width = "180px";
         if (n != 4) {
-            width = ((parentWidth - 8 * n) / n).toString() + "px";
+            width = ((parentWidth - 10 * n) / n).toString() + "px";
         }
         [...collectionCards].forEach(card => {card.style.width = width;});
     }

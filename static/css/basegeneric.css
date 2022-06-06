@@ -1,0 +1,123 @@
+:root {
+    --main-dark-color: #404040;
+    --very-dark-color: #202020;
+    --title-light-color: #E0E0E0;
+    --width-desktop: 40%;
+    --width-mobile: 100%;
+    --main-border-radius: 5px;
+    --topbar-height: 39px;
+    --topbar-button-size: 39px;
+    --header-image-height: 300px;
+    --main-margin: calc((var(--topbar-height) - var(--topbar-button-size))/2);
+    --half-margin: calc(var(--main-margin)/2);
+
+    --light-color: #F0F0F0;
+    --dark-color: #C0C0C0;
+    --accent-color: #228B22;
+
+    --margin: 10px;
+    --radius: 10px;
+}
+
+body {
+    overflow: scroll;
+    background-color: var(--light-color);
+    font-family: 'Antipasto Pro';
+	font-style: normal;
+	font-weight: normal;
+    margin: 0px;
+}
+
+input {outline:none;}
+
+ul {padding-left: 0;}
+
+li {
+    list-style-type: none;
+    padding: 0px;
+}
+
+a {text-decoration: none;}
+a:hover {text-decoration: none;}
+
+
+
+
+
+.topbar-container {
+    display: flex;
+    justify-content: center;
+    width: inherit;
+    height: var(--topbar-height);
+    border-bottom: 1px solid var(--dark-color);
+}
+
+.topbar-content {
+    display: flex;
+    flex-direction: row;
+    width: 800px;
+    height: inherit;
+}
+
+.topbar-buttons-container {
+    width: 200px;
+    height: inherit;
+}
+
+.topbar-button {
+    height: inherit;
+    width: var(--topbar-button-size);
+    background-color: var(--very-dark-color);
+    border: 1px solid var(--very-dark-color);
+    border-radius: var(--main-border-radius);
+}
+
+.topbar-button-background {
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+}
+
+.topbar-title-container a {color: black}
+.topbar-title-container a:visited {color: black}
+.topbar-title-container a:active {color: var(--accent-color)}
+
+.topbar-title-container {
+    width: 400px;
+    height: inherit;
+    line-height: var(--topbar-height);
+    text-align: center;
+    color: black;
+    font-family: 'Antipasto Pro';
+	font-style: normal;
+	font-weight: normal;
+    font-size: 24px;
+}
+
+.data-container {
+    display: flex;
+    justify-content: center;
+    width: inherit;
+}
+
+.bottom-text {
+    width: inherit;
+    margin-top: calc(var(--margin) * 5);
+    text-align: center;
+    font-size: 16px;
+    color: #A0A0A0;
+}
+
+.bottom-text a {color: #A0A0A0}
+.bottom-text a:visited {color: #A0A0A0}
+.bottom-text a:active {color: var(--accent-color)}
+
+@media (max-device-width : 799px) {
+    .topbar-content {width: inherit;}
+    .data-content {width: inherit;}
+}
+
+@media (min-device-width : 800px) {
+    .topbar-content {width: 800px;}
+    .data-content {width: 800px;}
+}

@@ -4,30 +4,46 @@
         {% block title %}{% endblock %}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-
-        <!-- Добавление дополнительного статического CSS файла -->
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
         {% load static %}
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+        <link rel="stylesheet" href="{% static 'css/basegeneric.css' %}">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Deprecated -->
+        {% block static %}{% endblock %}
     </head>
 
     <body>
         <div class="topbar-container">
-            <p class="topbar-title"><strong><a href="/">kazantracks</a></strong></p>
+            <div class="topbar-content">
+                <div class="topbar-buttons-container">
+                    <button class="topbar-button" id="home-button" onclick="document.location='/'">
+                        <img class="topbar-button-background" src="/images/icons/home_icon.svg">
+                    </button>
+                    <button class="topbar-button" id="back-button" onclick="history.back();">
+                        <img class="topbar-button-background" src="/images/icons/back_icon.svg">
+                    </button>
+                </div>
+                <div class="topbar-title-container">
+                    <a href="/">kazantracks</a></strong></p>
+                </div>
+                <div class="topbar-buttons-container">
 
-            <div class="topbar">
-                <button class="topbar-button" id="home-button" onclick="document.location='/'">
-                    <img class="topbar-button-background" src="/images/icons/home_icon.svg">
-                </button>
-                <button class="topbar-button" id="back-button" onclick="history.back();">
-                    <img class="topbar-button-background" src="/images/icons/back_icon.svg">
-                </button>
+                </div>
             </div>
         </div>
+
         <div class="data-container">
-        {% block content %}{% endblock %}
+            <div class="data-content">
+                {% block content %}{% endblock %}
+
+                <div class="bottom-text">
+                    2022 kazantracks,
+                    <a href="{% url 'develop' %}">Сообщить об ошибке</a>
+                    <!-- <a href="https://github.com/Aklenor">Aklenor</a>,
+                    <a href="https://github.com/Aklenor">Aklenor</a>,
+                    <a href="https://github.com/ma-petrov">clipdecliprepeat</a> -->
+                </div>
+            </div>
         </div>
     </body>
 </html>
