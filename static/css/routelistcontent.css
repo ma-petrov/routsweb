@@ -3,6 +3,9 @@
     margin-left: var(--margin);
     margin-right: var(--margin);
 }
+.route-list-content a {color: black}
+.route-list-content a:visited {color: black}
+.route-list-content a:active {color: var(--accent-color)}
 
 .route-card {
     display: flex;
