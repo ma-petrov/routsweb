@@ -1,5 +1,10 @@
 {% extends "base_generic.html" %}
 
+{% block static %}
+    {% load static %}
+        <link rel="stylesheet" href="{% static 'css/routedetail.css' %}">
+{% endblock %}
+
 {% block title %}<title>{{ rout.title }}</title>{% endblock %}
 
 {% block content %}
