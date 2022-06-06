@@ -27,11 +27,21 @@
 }
 
 .index-header-text {
-    width: 500px;
     height: 80px;
     font-size: 30px;
     line-height: 40px;
     text-align: center;
+}
+
+@media (max-device-width : 1499px) {
+    .index-header-text {
+        margin-left: var(--margin);
+        margin-right: var(--margin);
+    }
+}
+
+@media (min-device-width : 1500px) {
+    .index-header-text {width: 500px;}
 }
 
 .index-paragraph-header {
