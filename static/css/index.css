@@ -32,14 +32,12 @@
     line-height: 40px;
     text-align: center;
 }
-
 @media (max-device-width : 1499px) {
     .index-header-text {
         margin-left: var(--margin);
         margin-right: var(--margin);
     }
 }
-
 @media (min-device-width : 1500px) {
     .index-header-text {width: 500px;}
 }
@@ -49,7 +47,6 @@
     margin-right: var(--margin);
     border-bottom: 1px solid black;
     font-size: 24px;
-    line-height: 40px;
 }
 #index-collection-header {
     margin-bottom: var(--margin);
@@ -61,6 +58,16 @@
 #index-info-header {
     margin-top: calc(var(--margin) * 2);
     margin-bottom: calc(var(--margin) * 2);
+}
+@media (max-device-width : 1499px) {
+    .index-paragraph-header {
+        line-height: 30px;
+    }
+}
+@media (min-device-width : 1500px) {
+    .index-paragraph-header {
+        line-height: 40px;
+    }
 }
 
 .index-route-list-href {color: var(--accent-color);}
@@ -95,6 +102,7 @@
     height: 120px;
     margin: var(--margin);
     border-radius: var(--radius);
+    box-shadow: 0px 5px 10px #505050;
 }
 
 .collection-card {
