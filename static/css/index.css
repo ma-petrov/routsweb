@@ -1,9 +1,9 @@
 .index-header-container {width: inherit;}
 @media (max-device-width : 1499px) {
-    .index-header-container {height: 300px;}
+    .index-header-container {height: 350px;}
 }
 @media (min-device-width : 1500px) {
-    .index-header-container {height: 350px;}
+    .index-header-container {height: 300px;}
 }
 
 .index-header-pic-container {
