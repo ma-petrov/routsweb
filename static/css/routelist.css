@@ -33,10 +33,10 @@
     border-radius: calc(var(--radius) * 0.5);
 }
 @media (max-device-width : 1499px) {
-    .boolean-choice {width: 148px}
+    .drop-down-multiple-choice-list-container {width: 148px}
 }
 @media (min-device-width : 1500px) {
-    .boolean-choice {width: 228px}
+    .drop-down-multiple-choice-list-container {width: 228px}
 }
 
 .drop-down-multiple-choice-content {
@@ -59,10 +59,10 @@
     font-size: 12px;
 }
 @media (max-device-width : 1499px) {
-    .boolean-choice {width: 160px}
+    .drop-down-multiple-choice-button {width: 160px}
 }
 @media (min-device-width : 1500px) {
-    .boolean-choice {width: 240px}
+    .drop-down-multiple-choice-button {width: 240px}
 }
 
 .fake-checkbox-container {
@@ -96,10 +96,10 @@
 .distance-range-input-container:hover {border: 1px solid darkgrey;}
 .drop-down-multiple-choice-button:hover {border: 1px solid darkgrey;}
 @media (max-device-width : 1499px) {
-    .boolean-choice {width: 158px}
+    .distance-range-input-container {width: 158px}
 }
 @media (min-device-width : 1500px) {
-    .boolean-choice {width: 238px}
+    .distance-range-input-container {width: 238px}
 }
 
 .input-number-container {
@@ -114,10 +114,10 @@
     border-right: 1px solid var(--dark-color);
 }
 @media (max-device-width : 1499px) {
-    .boolean-choice {width: 75px}
+    .input-number-container {width: 75px}
 }
 @media (min-device-width : 1500px) {
-    .boolean-choice {width: 115px}
+    .input-number-container {width: 115px}
 }
 
 .input-number {
