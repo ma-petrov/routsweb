@@ -13,7 +13,12 @@
         <div class="filter-container">
             <div class="filter-item-title">Протяженность (км)</div>
             <div class="distance-range-input-container">
-                {{ form.min_distance }} | {{ form.max_distance }}
+                <div class="input-number-container" id="input-number-container-min">
+                    {{ form.min_distance }}
+                </div>
+                <div class="input-number-container">
+                    {{ form.max_distance }}
+                </div>
             </div>
         </div>
         {{ form.difficulty }}

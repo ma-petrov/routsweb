@@ -31,6 +31,9 @@ body {
 
 input {outline:none;}
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;}
+
 ul {padding-left: 0;}
 
 li {

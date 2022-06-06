@@ -47,8 +47,7 @@
 
 .route-card-statistic-element-container {
     display: flex;
-    margin-left: var(--margin);
-    width: 180px;
+    width: 100px;
     height: 32px;
 }
 
