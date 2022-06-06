@@ -1,0 +1,138 @@
+.route-list-header {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--dark-color);
+}
+
+.filter-container {
+    margin-top: calc(var(--margin) * 0.5);
+    margin-bottom: calc(var(--margin) * 0.5);
+    margin-left: var(--margin);
+    margin-right: var(--margin);
+}
+
+@media (max-device-width : 1499px) {
+    .filter-container {
+        display: flex;
+        justify-content: space-between;
+        width: calc(inherit - var(--margin) * 2);
+    }
+}
+@media (min-device-width : 1500px) {
+    .filter-container {width: 240px;}
+}
+
+.drop-down-multiple-choice-list-container {
+    position: absolute;
+    width: 240px;
+    padding: 4px;
+    background-color: var(--light-color);
+    border: 1px solid lightgray;
+    border-radius: var(--main-border-radius);
+}
+
+.drop-down-multiple-choice-content {
+    display: flex;
+    width: 240px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.drop-down-multiple-choice-content:hover {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.drop-down-multiple-choice-button {
+    width: 240px;
+    height: 32px;
+    background-color: var(--light-color);
+    border: 1px solid lightgray;
+    border-radius: var(--main-border-radius);
+    text-align: left;
+}
+
+.fake-checkbox-container {
+    width: 32px;
+    height: inherit;
+}
+
+.fake-checkbox {
+    width: 14px;
+    height: 14px;
+    margin: 9px;
+    object-fit: cover;
+}
+
+.drop-down-multiple-choice-label {
+    width: 152px;
+    height: inherit;
+    line-height: 32px;
+    font-weight: normal;
+}
+
+.distance-range-input-container {
+    width: 240px;
+    height: 32px;
+    border: 1px solid lightgray;
+    border-radius: var(--main-border-radius);
+}
+
+.distance-range-input-container:hover {
+    border: 1px solid darkgrey;
+}
+
+.drop-down-multiple-choice-button:hover {
+    border: 1px solid darkgrey;
+}
+
+.input-number {
+    width: 89px;
+    border: 0px solid;
+    padding: 5px;
+}
+
+.boolean-choice {
+    width: 192px;
+    height: 32px;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: var(--main-border-radius);
+}
+
+@media (min-device-width : 1500px) {
+
+    .submit-button-container {
+        text-align: left;
+        border-bottom: 1px solid gray;
+    }
+
+    .submit-button {
+        background-color: transparent;
+        width: 192px;
+        height: 32px;
+        border: 1px solid var(--very-dark-color);
+        border-radius: var(--main-border-radius);
+        margin: 4px;
+        padding: 0px;
+        background-color: var(--very-dark-color);
+        color: white;
+    }
+
+    .submit-button:active {
+        margin: 5px;
+        width: 190px;
+        height: 30px;
+    }
+
+    .filter-border {
+        margin-top: 4px;
+        margin-left: 4px;
+        margin-right: 4px;
+        width: calc(100% - 8px);
+        border: 1px solid var(--main-dark-color);
+        border-left: 0px;
+        border-right: 0px;
+        border-bottom: 0px;
+    }
+}
