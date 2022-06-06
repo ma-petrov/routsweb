@@ -53,6 +53,12 @@ a:hover {text-decoration: none;}
     border-bottom: 1px solid var(--dark-color);
 }
 
+.topbar-content {
+    display: flex;
+    flex-direction: row;
+    height: inherit;
+}
+
 .data-container {
     display: flex;
     justify-content: center;
@@ -63,17 +69,9 @@ a:hover {text-decoration: none;}
     .topbar-content {width: 100%;}
     .data-content {width: 100%;}
 }
-
 @media (min-device-width : 1500px) {
     .topbar-content {width: 800px;}
     .data-content {width: 800px;}
-}
-
-.topbar-content {
-    display: flex;
-    flex-direction: row;
-    width: 800px;
-    height: inherit;
 }
 
 .topbar-buttons-container {
