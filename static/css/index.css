@@ -122,6 +122,7 @@
 .collection-card-link {
     display: block;
     color: white;
+    font-size: 20px;
 }
 
 .collection-card-link:hover {color: white;}
