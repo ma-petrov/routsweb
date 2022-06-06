@@ -3,6 +3,7 @@
 {% block static %}
     {% load static %}
         <link rel="stylesheet" href="{% static 'css/routelist.css' %}">
+        <link rel="stylesheet" href="{% static 'css/routelistcontent.css' %}">
 {% endblock %}
 
 {% block title %}<title>Поиск маршрутов</title>{% endblock %}
@@ -24,8 +25,6 @@
             {{ form.is_transport_availability }}
         </div>
     </div>
-
-    <!-- <input class="submit-button" id="submit-button" type="button" value="Найти" onclick="updateRouteList(onUpdateRouteList)"> -->
 
     <div class="filter-border"></div>
         
