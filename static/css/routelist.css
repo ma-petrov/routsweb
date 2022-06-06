@@ -1,13 +1,17 @@
 .route-list-header {
     display: flex;
     flex-wrap: wrap;
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
 }
 
 .filter-container {
-    margin-top: calc(var(--margin) * 0.5);
-    margin-bottom: calc(var(--margin) * 0.5);
-    margin-left: var(--margin);
-    margin-right: var(--margin);
+    margin: var(--margin);
+}
+
+.filter-item-title {
+    font-size: 16px;
 }
 
 @media (max-device-width : 1499px) {
@@ -18,12 +22,12 @@
     }
 }
 @media (min-device-width : 1500px) {
-    .filter-container {width: 180px;}
+    .filter-container {width: 240px;}
 }
 
 .drop-down-multiple-choice-list-container {
     position: absolute;
-    width: 168px;
+    width: 240px;
     padding: calc(var(--margin) * 0.5);
     background-color: var(--light-color);
     border: 1px solid lightgray;
@@ -42,7 +46,7 @@
 }
 
 .drop-down-multiple-choice-button {
-    width: 180px;
+    width: 240px;
     height: 32px;
     background-color: var(--light-color);
     border: 1px solid var(--dark-color);
@@ -72,7 +76,7 @@
 .distance-range-input-container {
     display: flex;
     justify-content: space-between;
-    width: 180px;
+    width: 240px;
     height: 32px;
     border: 1px solid var(--dark-color);
     border-radius: calc(var(--radius) * 0.5);
@@ -88,7 +92,7 @@
 }
 
 .boolean-choice {
-    width: 178px;
+    width: 240px;
     height: 30px;
     background-color: white;
     border: 1px solid lightgray;

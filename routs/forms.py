@@ -18,7 +18,7 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
 
         widget = '''
         <div class="filter-container">
-            <p>{title}</p>
+            <div class="filter-item-title">{title}</div>
             <div class="drop-down-multiple-choice-button-contaniner">
                 <input type="button" class="drop-down-multiple-choice-button" id="drop-down-multiple-choice-button-{name}" value="Все">
             </div>
