@@ -31,14 +31,13 @@
     .route-card-image {display: none;}
 }
 
+.route-card-header {font-size: 24px;}
+.route-card:hover .route-card-header {color: var(--accent-color);}
+
 .route-card-data-container {
     margin: var(--margin);
     height: 100px;
     overflow: hidden;
-}
-
-.route-card-header {
-    font-size: 24px;
 }
 
 .route-card-statistic-container {

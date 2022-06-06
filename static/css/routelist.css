@@ -4,6 +4,7 @@
     background-color: white;
     border-radius: 10px;
     margin: 10px;
+    box-shadow: 0px 5px 10px #A0A0A0;
 }
 
 .filter-container {
@@ -12,6 +13,7 @@
 
 .filter-item-title {
     font-size: 16px;
+    margin-bottom: calc(var(--margin) * 0.5);
 }
 
 @media (max-device-width : 1499px) {
@@ -78,6 +80,7 @@
     justify-content: space-between;
     width: 240px;
     height: 32px;
+    background-color: var(--light-color);
     border: 1px solid var(--dark-color);
     border-radius: calc(var(--radius) * 0.5);
 }
@@ -89,13 +92,15 @@
     border: 0px solid;
     padding: 5px;
     background-color: var(--light-color);
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .boolean-choice {
     width: 240px;
     height: 30px;
-    background-color: white;
-    border: 1px solid lightgray;
+    background-color: var(--light-color);
+    border: 1px solid var(--dark-color);
     border-radius: calc(var(--radius) * 0.5);
 }
 
