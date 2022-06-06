@@ -1,16 +1,27 @@
 {% extends "base_generic.html" %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% block static %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
 
 {% block title %}<title>Веломаршруты</title>{% endblock %}
 
 {% block content %}
-    <p class="text">Kazan Tracks - сайт с коллекцией велосипедных и пешеходных маршрутов Казани и её окрестностей</p>
-    
-    <div class="index-header">
-        <strong>Найди подходящий маршрут из категорий или посмотри всю <a href="{% url 'rout-list' %}">коллекцию</a></strong>
+    <div class="index-header-container">
+        <div class="index-header-pic-container">
+            <img class="index-header-pic" src="/images/icons/index_header_pic.png">
+        </div>
+        <div class="index-header-text-container">
+            <div class="index-header-text">Велосипедные и пешеходные маршруты Казани</div>
+        </div>
     </div>
+
+    <div class="index-paragraph-header" id="index-collection-header">
+        Найди подходящий маршрут из категорий или посмотри всю
+        <a class="index-route-list-href" href="{% url 'rout-list' %}">коллекцию</a>
+    </div>
+
     <div class="collection-container">
         {% if route_collections %}
             {% for collection in route_collections %}
@@ -27,10 +38,37 @@
         {% endif %}
     </div>
 
-    <div class="index-header">
-        <strong>Маршрут пройден? Понравилось? Узнай больше</a></strong>
+    <div class="index-paragraph-header" id="index-useful-header">
+        Полезное
     </div>
-    <p class="text"><a href="https://t.me/kazantracks">Telegram</a></p>
+    <div class="index-list-item">
+        <img class="index-list-item-image" src="/images/icons/location.png">
+        <a class="index-list-item-href" href="{% url 'develop' %}">Как пользоваться GPS треком</a>
+    </div>
+    <div class="index-list-item">
+        <img class="index-list-item-image" src="/images/icons/advise_2.png">
+        <a class="index-list-item-href" href="{% url 'develop' %}">Советы перед выездом</a>
+    </div>
+
+    <div class="index-paragraph-header" id="index-info-header">
+        Маршрут пройден? Понравилось? Узнай больше
+    </div>
+    <div class="index-list-item">
+        <img class="index-list-item-image" src="/images/icons/goals_2.png">
+        <a class="index-list-item-href" href="{% url 'develop' %}">Цели проекта</a>
+    </div>
+    <div class="index-list-item">
+        <img class="index-list-item-image" src="/images/icons/coin_2.png">
+        <a class="index-list-item-href" href="{% url 'develop' %}">Поддержать проект</a>
+    </div>
+    <div class="index-list-item">
+        <img class="index-list-item-image" src="/images/icons/message.png">
+        <a class="index-list-item-href" href="{% url 'develop' %}">Предложить маршрут</a>
+    </div>
+    <div class="index-list-item">
+        <img class="index-list-item-image" src="/images/icons/direct.png">
+        <a class="index-list-item-href" href="{% url 'develop' %}">Написать автору</a>
+    </div>
 
     <script src="{% static 'script/index.js' %}"></script>
 {% endblock %}

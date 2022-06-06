@@ -1,0 +1,104 @@
+.route-list-header {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filter-container {
+    margin-top: calc(var(--margin) * 0.5);
+    margin-bottom: calc(var(--margin) * 0.5);
+    margin-left: var(--margin);
+    margin-right: var(--margin);
+}
+
+@media (max-device-width : 1499px) {
+    .filter-container {
+        display: flex;
+        justify-content: space-between;
+        width: calc(100% - var(--margin) * 2);
+    }
+}
+@media (min-device-width : 1500px) {
+    .filter-container {width: 180px;}
+}
+
+.drop-down-multiple-choice-list-container {
+    position: absolute;
+    width: 168px;
+    padding: calc(var(--margin) * 0.5);
+    background-color: var(--light-color);
+    border: 1px solid lightgray;
+    border-radius: calc(var(--radius) * 0.5);
+}
+
+.drop-down-multiple-choice-content {
+    display: flex;
+    height: 32px;
+    border-radius: calc(var(--radius) * 0.5);
+}
+
+.drop-down-multiple-choice-content:hover {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.drop-down-multiple-choice-button {
+    width: 180px;
+    height: 32px;
+    background-color: var(--light-color);
+    border: 1px solid var(--dark-color);
+    border-radius: calc(var(--radius) * 0.5);
+    text-align: left;
+}
+
+.fake-checkbox-container {
+    width: 32px;
+    height: inherit;
+}
+
+.fake-checkbox {
+    width: 14px;
+    height: 14px;
+    margin: 9px;
+    object-fit: cover;
+}
+
+.drop-down-multiple-choice-label {
+    height: inherit;
+    line-height: 32px;
+    margin-top: 5px;
+    margin-top: 5px;
+}
+
+.distance-range-input-container {
+    display: flex;
+    justify-content: space-between;
+    width: 180px;
+    height: 32px;
+    border: 1px solid var(--dark-color);
+    border-radius: calc(var(--radius) * 0.5);
+}
+.distance-range-input-container:hover {border: 1px solid darkgrey;}
+.drop-down-multiple-choice-button:hover {border: 1px solid darkgrey;}
+
+.input-number {
+    width: 80px;
+    border: 0px solid;
+    padding: 5px;
+    background-color: var(--light-color);
+}
+
+.boolean-choice {
+    width: 178px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: calc(var(--radius) * 0.5);
+}
+
+@media (min-device-width : 1500px) {
+    .filter-border {
+        margin: var(--margin);
+        width: calc(100% - var(--margin) * 2);
+        border-bottom: 1px solid var(--dark-color);
+    }
+}

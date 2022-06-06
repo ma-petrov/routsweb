@@ -1,0 +1,131 @@
+.index-header-container {width: inherit;}
+@media (max-device-width : 1499px) {
+    .index-header-container {height: 350px;}
+}
+@media (min-device-width : 1500px) {
+    .index-header-container {height: 300px;}
+}
+
+.index-header-pic-container {
+    display: flex;
+    justify-content: center;
+    width: inherit;
+    height: 150px;
+    margin-top: 15px;
+    object-fit: cover;
+}
+
+.index-header-pic {
+    width: 300px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.index-header-text-container {
+    display: flex;
+    justify-content: center;
+    width: inherit;
+    height: 80px;
+    margin-top: 10px;
+}
+
+.index-header-text {
+    height: 80px;
+    font-size: 30px;
+    line-height: 40px;
+    text-align: center;
+}
+@media (max-device-width : 1499px) {
+    .index-header-text {
+        margin-left: var(--margin);
+        margin-right: var(--margin);
+    }
+}
+@media (min-device-width : 1500px) {
+    .index-header-text {width: 500px;}
+}
+
+.index-paragraph-header {
+    margin-left: var(--margin);
+    margin-right: var(--margin);
+    border-bottom: 1px solid black;
+    font-size: 24px;
+}
+#index-collection-header {
+    margin-bottom: var(--margin);
+}
+#index-useful-header {
+    margin-top: var(--margin);
+    margin-bottom: calc(var(--margin) * 2);
+}
+#index-info-header {
+    margin-top: calc(var(--margin) * 2);
+    margin-bottom: calc(var(--margin) * 2);
+}
+@media (max-device-width : 1499px) {
+    .index-paragraph-header {
+        line-height: 30px;
+        padding-bottom: calc(var(--margin) * 0.5);
+    }
+}
+@media (min-device-width : 1500px) {
+    .index-paragraph-header {line-height: 40px;}
+}
+
+.index-route-list-href {color: var(--accent-color);}
+
+.index-list-item {
+    display: flex;
+    height: 40px;
+}
+
+.index-list-item-image {
+    width: 20px;
+    height: 20px;
+    margin: var(--margin);
+    object-fit: cover;
+}
+
+.index-list-item-href {
+    color: var(--accent-color);
+    font-size: 24px;
+    line-height: 40px;
+}
+
+.collection-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.collection-card-background {
+    overflow: hidden;
+    background-size: cover;
+    width: 180px;
+    height: 120px;
+    margin: var(--margin);
+    border-radius: var(--radius);
+    box-shadow: 0px 5px 10px #505050;
+}
+
+.collection-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: inherit;
+    height: inherit;
+    background-color: #000000A0;
+}
+
+.collection-card-link-container {
+    display: block;
+    text-align: center;
+    padding: var(--margin);
+}
+
+.collection-card-link {
+    display: block;
+    color: white;
+    font-size: 16px;
+}
+
+.collection-card-link:hover {color: white;}

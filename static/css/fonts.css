@@ -1,0 +1,16 @@
+/* Regular */
+@font-face {
+	font-family: 'Antipasto Pro';
+	font-style: normal;
+	font-weight: normal;
+	src:
+        local('Antipasto Pro'),
+		url('AntipastoPro-Regular.woff2') format('woff2'), 
+		url('AntipastoPro-Regular.woff') format('woff'),
+		url('AntipastoPro-Regular.ttf') format('ttf'),
+		url('AntipastoPro-Regular.eot') format('eot');
+		/* url('/static/fonts/AntipastoPro/AntipastoPro-Regular.woff2') format('woff2'), 
+		url('/static/fonts/AntipastoPro/AntipastoPro-Regular.woff') format('woff'),
+		url('/static/fonts/AntipastoPro/AntipastoPro-Regular.ttf') format('ttf'),
+		url('/static/fonts/AntipastoPro/AntipastoPro-Regular.eot') format('eot'); */
+}

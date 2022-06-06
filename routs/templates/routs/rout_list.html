@@ -1,31 +1,30 @@
 {% extends "base_generic.html" %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% block static %}
+    {% load static %}
+        <link rel="stylesheet" href="{% static 'css/routelist.css' %}">
+        <link rel="stylesheet" href="{% static 'css/routelistcontent.css' %}">
+{% endblock %}
 
 {% block title %}<title>Поиск маршрутов</title>{% endblock %}
 
 {% block content %}
     <div class="route-list-header">
-        <div>
-            <div class="filter-container">
-                <p>Протяженность (км)</p>
-                <div class="distance-range-input-container">
-                    {{ form.min_distance }} | {{ form.max_distance }}
-                </div>
-            </div>
-            {{ form.difficulty }}
-            {{ form.surface }}
-            {{ form.direction }}
-            {{ form.tags }}
-            <div class="filter-container">
-                <p>Заброска</p>
-                {{ form.is_transport_availability }}
+        <div class="filter-container">
+            <p>Протяженность (км)</p>
+            <div class="distance-range-input-container">
+                {{ form.min_distance }} | {{ form.max_distance }}
             </div>
         </div>
+        {{ form.difficulty }}
+        {{ form.surface }}
+        {{ form.direction }}
+        {{ form.tags }}
+        <div class="filter-container">
+            <p>Заброска</p>
+            {{ form.is_transport_availability }}
+        </div>
     </div>
-
-    <!-- <input class="submit-button" id="submit-button" type="button" value="Найти" onclick="updateRouteList(onUpdateRouteList)"> -->
 
     <div class="filter-border"></div>
         

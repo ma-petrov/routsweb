@@ -180,7 +180,7 @@ class MultipleChoice extends FilterChoice {
          */
 
         this.widget.style.display = "block";
-        this.widget.style.boxShadow = "0px 0px 5px lightgrey";
+        this.widget.style.boxShadow = "0px 0px 5px #505050";
     }
 
     close() {
@@ -190,7 +190,7 @@ class MultipleChoice extends FilterChoice {
          */
 
         this.widget.style.display = "none";
-        this.widget.style.boxShadow = "0px 0px 0px lightgrey";
+        this.widget.style.boxShadow = "0px 0px 0px #505050";
         let checkedChoices = this.getCheckedChoices();
         if (!isArraysEqual(checkedChoices, this.prevCeckedChoices)) {
             this.prevCeckedChoices = checkedChoices;
@@ -291,7 +291,7 @@ class MultipleChoiceHeader extends Observer {
          * Changes style of element, when multiple choice is opened.
          */
 
-        this.widget.style.boxShadow = "0px 0px 5px lightgrey";
+        this.widget.style.boxShadow = "0px 0px 5px #505050";
     }
 
     close(checkedChoicesLabels) {
@@ -299,7 +299,7 @@ class MultipleChoiceHeader extends Observer {
          * Changes style end text of header, when multiple choice is closed.
          */
         this.widget.value = this.generateHeaderText(checkedChoicesLabels);
-        this.widget.style.boxShadow = "0px 0px 0px lightgrey";
+        this.widget.style.boxShadow = "0px 0px 0px #505050";
     }
 
     generateHeaderText(checkedChoicesLabels) {
