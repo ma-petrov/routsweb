@@ -9,12 +9,6 @@
 .filter-container {
     margin: var(--margin);
 }
-
-.filter-item-title {
-    font-size: 16px;
-    margin-bottom: calc(var(--margin) * 0.5);
-}
-
 @media (max-device-width : 1499px) {
     .filter-container {
         display: flex;
@@ -26,13 +20,23 @@
     .filter-container {width: 240px;}
 }
 
+.filter-item-title {
+    font-size: 16px;
+    margin-bottom: calc(var(--margin) * 0.5);
+}
+
 .drop-down-multiple-choice-list-container {
     position: absolute;
-    width: 228px;
     padding: calc(var(--margin) * 0.5);
     background-color: white;
     border: 1px solid white;
     border-radius: calc(var(--radius) * 0.5);
+}
+@media (max-device-width : 1499px) {
+    .boolean-choice {width: 148px}
+}
+@media (min-device-width : 1500px) {
+    .boolean-choice {width: 228px}
 }
 
 .drop-down-multiple-choice-content {
@@ -47,13 +51,18 @@
 }
 
 .drop-down-multiple-choice-button {
-    width: 240px;
     height: 32px;
     background-color: white;
     border: 1px solid var(--dark-color);
     border-radius: calc(var(--radius) * 0.5);
     text-align: left;
     font-size: 12px;
+}
+@media (max-device-width : 1499px) {
+    .boolean-choice {width: 160px}
+}
+@media (min-device-width : 1500px) {
+    .boolean-choice {width: 240px}
 }
 
 .fake-checkbox-container {
@@ -86,18 +95,29 @@
 }
 .distance-range-input-container:hover {border: 1px solid darkgrey;}
 .drop-down-multiple-choice-button:hover {border: 1px solid darkgrey;}
+@media (max-device-width : 1499px) {
+    .boolean-choice {width: 158px}
+}
+@media (min-device-width : 1500px) {
+    .boolean-choice {width: 238px}
+}
 
 .input-number-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 115px;
     height: 30px;
     padding-left: calc(var(--margin) * 0.5);
     padding-right: calc(var(--margin) * 0.5);
 }
 #input-number-container-min {
     border-right: 1px solid var(--dark-color);
+}
+@media (max-device-width : 1499px) {
+    .boolean-choice {width: 75px}
+}
+@media (min-device-width : 1500px) {
+    .boolean-choice {width: 115px}
 }
 
 .input-number {
@@ -110,18 +130,15 @@
 }
 
 .boolean-choice {
-    width: 240px;
     height: 32px;
     background-color: white;
     border: 1px solid var(--dark-color);
     border-radius: calc(var(--radius) * 0.5);
     font-size: 12px;
 }
-
+@media (max-device-width : 1499px) {
+    .boolean-choice {width: 160px}
+}
 @media (min-device-width : 1500px) {
-    .filter-border {
-        margin: var(--margin);
-        width: calc(100% - var(--margin) * 2);
-        border-bottom: 1px solid var(--dark-color);
-    }
+    .boolean-choice {width: 240px}
 }
