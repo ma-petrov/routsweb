@@ -1,5 +1,5 @@
 .route-list-content {
-    border-top: 1px solid black;
+    border-top: 1px solid #808080;
     margin-top: calc(var(--margin) * 2);
     margin-bottom: var(--margin);
     margin-left: var(--margin);
@@ -12,33 +12,44 @@
 .route-card {
     display: flex;
     width: inherit;
-    height: 140;
-    border-bottom: 1px solid black;
+    height: 160;
+    border-bottom: 1px solid #808080;
 }
 
 .route-card-image {
-    margin: var(--margin);;
+    margin-top: calc(var(--margin) * 2);
+    margin-bottom: calc(var(--margin) * 2);
+    margin-left: var(--margin);
+    margin-right: var(--margin);
     height: 100px;
     width: 160px;
     border-radius: calc(var(--margin) * 0.5);
+    box-shadow: 0px 5px 10px #808080;
 }
 .route-card:hover .route-card-image {
-    margin: calc(var(--margin) - 2px);
+    margin-top: calc(var(--margin) * 2 - 2px);
+    margin-bottom: calc(var(--margin) * 2 - 2px);
+    margin-left: calc(var(--margin) - 2px);
+    margin-right: calc(var(--margin) - 2px);
     height: 104px;
     width: 164px;
+    box-shadow: 0px 6px 12px #808080;
 }
 @media (max-device-width : 1499px) {
     .route-card-image {display: none;}
 }
 
-.route-card-header {font-size: 24px;}
-.route-card:hover .route-card-header {color: var(--accent-color);}
-
 .route-card-data-container {
-    margin: var(--margin);
+    margin: calc(var(--margin) * 2);
     height: 100px;
     overflow: hidden;
 }
+
+.route-card-header {
+    height: 50px;
+    font-size: 24px;
+}
+.route-card:hover .route-card-header {color: var(--accent-color);}
 
 .route-card-statistic-container {
     display: flex;
@@ -75,12 +86,9 @@
 }
 
 .route-list-statistic {
-    margin-top: 8px;
-    margin-bottom: 32px;
-    margin-left: 4px;
-    margin-right: 4px;
-    padding-top: 4px;
-    border-top: 1px solid var(--main-dark-color);
+    margin: var(--margin);
+    padding-top: calc(var(--margin) * 2);
+    border-top: 1px solid #808080;
     text-align: center;
     font-size: medium;
 }
@@ -90,8 +98,8 @@
  */
 
 .route-list-pagination {
-    padding-top: 24px;
-    padding-bottom: 16px;
+    padding-top: var(--margin);
+    padding-bottom: var(--margin);
     display: flex;
     justify-content: center;
 }

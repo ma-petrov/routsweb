@@ -49,11 +49,16 @@ a:hover {text-decoration: none;}
 
 
 .topbar-container {
+    position: fixed;
     display: flex;
     justify-content: center;
-    width: inherit;
+    top: 0px;
+    left: 0px;
+    width: 100%;
     height: var(--topbar-height);
     border-bottom: 1px solid var(--dark-color);
+    background-color: var(--light-color);
+    box-shadow: 0px 0px 10px #A0A0A0;
 }
 
 .topbar-content {
@@ -66,6 +71,7 @@ a:hover {text-decoration: none;}
     display: flex;
     justify-content: center;
     width: inherit;
+    margin-top: 40px;
 }
 
 @media (max-device-width : 1499px) {
