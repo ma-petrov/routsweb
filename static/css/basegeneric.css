@@ -5,7 +5,6 @@
     --width-desktop: 40%;
     --width-mobile: 100%;
     --main-border-radius: 5px;
-    --topbar-height: 39px;
     --topbar-button-size: 39px;
     --header-image-height: 300px;
     --main-margin: calc((var(--topbar-height) - var(--topbar-button-size))/2);
@@ -15,6 +14,7 @@
     --dark-color: #C0C0C0;
     --accent-color: #228B22;
 
+    --topbar-height: 39px;
     --margin: 10px;
     --radius: 10px;
 }
@@ -55,11 +55,16 @@ a:hover {text-decoration: none;}
     top: 0px;
     left: 0px;
     width: 100%;
-    height: var(--topbar-height);
     border-bottom: 1px solid var(--dark-color);
     background-color: #F0F0F0A0;
     backdrop-filter: blur(5px);
     /* box-shadow: 0px 0px 10px #A0A0A0; */
+}
+@media (max-device-width : 1499px) {
+    .topbar-container {height: calc(var(--topbar-height) + 10px);}
+}
+@media (min-device-width : 1500px) {
+    .topbar-container {height: var(--topbar-height);}
 }
 
 .topbar-content {
@@ -72,15 +77,16 @@ a:hover {text-decoration: none;}
     display: flex;
     justify-content: center;
     width: inherit;
-    margin-top: 40px;
 }
 
 @media (max-device-width : 1499px) {
     .topbar-content {width: 100%;}
+    .data-container{margin-top: calc(var(--topbar-height) + 11px);}
     .data-content {width: 100%;}
 }
 @media (min-device-width : 1500px) {
     .topbar-content {max-width: 800px;}
+    .data-container{margin-top: calc(var(--topbar-height) + 1px);}
     .data-content {max-width: 800px;}
 }
 
@@ -104,13 +110,18 @@ a:hover {text-decoration: none;}
 .topbar-title-container {
     width: 400px;
     height: inherit;
-    line-height: var(--topbar-height);
     text-align: center;
     color: black;
     font-family: 'Antipasto Pro';
 	font-style: normal;
 	font-weight: normal;
     font-size: 24px;
+}
+@media (max-device-width : 1499px) {
+    .topbar-title-container {line-height: calc(var(--topbar-height) + 10px);}
+}
+@media (min-device-width : 1500px) {
+    .topbar-title-container {line-height: var(--topbar-height);}
 }
 
 .bottom-text {
