@@ -9,7 +9,11 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     def render(self, name=None, value=None, attrs=None, renderer=None):
         choice = '''
         <div class="drop-down-multiple-choice-content">
-            <input type="checkbox" name="{name}" value="{value}" class="drop-down-multiple-choice-checkbox" id="id_{name}_{i}">
+            <div class="multiple-choice-checkbox-container">
+                <div class="multiple-choice-checkbox-container-2">
+                    <input type="checkbox" name="{name}" value="{value}" class="drop-down-multiple-choice-checkbox" id="id_{name}_{i}">
+                </div>
+            </div>
             <div class="drop-down-multiple-choice-label">
                 <label for="id_{name}_{i}">{label}</label>
             </div>
