@@ -1,6 +1,6 @@
 .index-header-container {width: inherit;}
 @media (max-device-width : 1499px) {
-    .index-header-container {height: 250px;}
+    .index-header-container {height: 210px;}
 }
 @media (min-device-width : 1500px) {
     .index-header-container {height: 300px;}
@@ -14,7 +14,6 @@
 }
 @media (max-device-width : 1499px) {
     .index-header-pic-container {
-        width: 200px;
         height: 100px;
     }
 }
