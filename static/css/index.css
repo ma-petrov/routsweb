@@ -1,6 +1,6 @@
 .index-header-container {width: inherit;}
 @media (max-device-width : 1499px) {
-    .index-header-container {height: 350px;}
+    .index-header-container {height: 250px;}
 }
 @media (min-device-width : 1500px) {
     .index-header-container {height: 300px;}
@@ -9,40 +9,72 @@
 .index-header-pic-container {
     display: flex;
     justify-content: center;
-    width: inherit;
-    height: 150px;
-    margin-top: 15px;
     object-fit: cover;
 }
+@media (max-device-width : 1499px) {
+    .index-header-pic-container {
+        width: 200px;
+        height: 100px;
+    }
+}
+@media (min-device-width : 1500px) {
+    .index-header-pic-container {
+        width: inherit;
+        height: 150px;
+        margin-top: 15px;
+    }
+}
 
-.index-header-pic {
-    width: 300px;
-    height: 150px;
-    object-fit: cover;
+.index-header-pic {object-fit: cover;}
+@media (max-device-width : 1499px) {
+    .index-header-pic {
+        width: 200px;
+        height: 100px;
+    }
+}
+@media (min-device-width : 1500px) {
+    .index-header-pic {
+        width: 300px;
+        height: 150px;
+    }
 }
 
 .index-header-text-container {
     display: flex;
     justify-content: center;
     width: inherit;
-    height: 80px;
-    margin-top: 10px;
+}
+@media (max-device-width : 1499px) {
+    .index-header-text-container  {
+        height: 60px;
+        /* margin-top: 10px; */
+    }
+}
+@media (min-device-width : 1500px) {
+    .index-header-text-container  {
+        height: 80px;
+        margin-top: 10px;
+    }
 }
 
 .index-header-text {
     height: 80px;
-    font-size: 30px;
-    line-height: 40px;
     text-align: center;
 }
 @media (max-device-width : 1499px) {
     .index-header-text {
         margin-left: var(--margin);
         margin-right: var(--margin);
+        font-size: 20px;
+        line-height: 30px;
     }
 }
 @media (min-device-width : 1500px) {
-    .index-header-text {width: 500px;}
+    .index-header-text {
+        width: 500px;
+        font-size: 30px;
+        line-height: 40px;
+    }
 }
 
 .index-paragraph-header {
