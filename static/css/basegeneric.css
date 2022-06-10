@@ -39,6 +39,7 @@ a:hover {text-decoration: none;}
 
 
 .topbar-container {
+    z-index: +1;
     position: fixed;
     display: flex;
     justify-content: center;
