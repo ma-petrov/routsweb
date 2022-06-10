@@ -1,5 +1,5 @@
 .route-list-content {
-    border-top: 1px solid black;
+    border-top: 1px solid #808080;
     margin-top: calc(var(--margin) * 2);
     margin-bottom: var(--margin);
     margin-left: var(--margin);
@@ -12,12 +12,12 @@
 .route-card {
     display: flex;
     width: inherit;
-    height: 140;
-    border-bottom: 1px solid black;
+    height: 160;
+    border-bottom: 1px solid #808080;
 }
 
 .route-card-image {
-    margin: var(--margin);;
+    margin: var(--margin);
     height: 100px;
     width: 160px;
     border-radius: calc(var(--margin) * 0.5);
@@ -31,14 +31,17 @@
     .route-card-image {display: none;}
 }
 
-.route-card-header {font-size: 24px;}
-.route-card:hover .route-card-header {color: var(--accent-color);}
-
 .route-card-data-container {
     margin: var(--margin);
     height: 100px;
     overflow: hidden;
 }
+
+.route-card-header {
+    font-size: 24px;
+    margin-bottom: var(--margin);
+}
+.route-card:hover .route-card-header {color: var(--accent-color);}
 
 .route-card-statistic-container {
     display: flex;
@@ -63,24 +66,10 @@
     object-fit: cover;
 }
 
-.route-card-link {
-    margin-left: var(--main-margin);
-    display: block;
-    color: var(--very-dark-color);
-    font-size: large;
-}
-
-.route-card-link:hover {
-    color: var(--very-dark-color);
-}
-
 .route-list-statistic {
-    margin-top: 8px;
-    margin-bottom: 32px;
-    margin-left: 4px;
-    margin-right: 4px;
-    padding-top: 4px;
-    border-top: 1px solid var(--main-dark-color);
+    margin: var(--margin);
+    padding-top: calc(var(--margin) * 2);
+    border-top: 1px solid #808080;
     text-align: center;
     font-size: medium;
 }
@@ -90,8 +79,8 @@
  */
 
 .route-list-pagination {
-    padding-top: 24px;
-    padding-bottom: 16px;
+    padding-top: var(--margin);
+    padding-bottom: var(--margin);
     display: flex;
     justify-content: center;
 }

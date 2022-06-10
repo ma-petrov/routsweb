@@ -1,22 +1,12 @@
 :root {
-    --main-dark-color: #404040;
-    --very-dark-color: #202020;
-    --title-light-color: #E0E0E0;
-    --width-desktop: 40%;
-    --width-mobile: 100%;
-    --main-border-radius: 5px;
-    --topbar-height: 39px;
-    --topbar-button-size: 39px;
-    --header-image-height: 300px;
-    --main-margin: calc((var(--topbar-height) - var(--topbar-button-size))/2);
-    --half-margin: calc(var(--main-margin)/2);
-
     --light-color: #F0F0F0;
     --dark-color: #C0C0C0;
     --accent-color: #228B22;
 
     --margin: 10px;
     --radius: 10px;
+    --topbar-height: 39px;
+    --wallpaper-image-height: 300px;
 }
 
 body {
@@ -49,11 +39,22 @@ a:hover {text-decoration: none;}
 
 
 .topbar-container {
+    z-index: +1;
+    position: fixed;
     display: flex;
     justify-content: center;
-    width: inherit;
-    height: var(--topbar-height);
+    top: 0px;
+    left: 0px;
+    width: 100%;
     border-bottom: 1px solid var(--dark-color);
+    background-color: #F0F0F0C0;
+    backdrop-filter: blur(3px);
+}
+@media (max-device-width : 1499px) {
+    .topbar-container {height: calc(var(--topbar-height) + 10px);}
+}
+@media (min-device-width : 1500px) {
+    .topbar-container {height: var(--topbar-height);}
 }
 
 .topbar-content {
@@ -70,10 +71,12 @@ a:hover {text-decoration: none;}
 
 @media (max-device-width : 1499px) {
     .topbar-content {width: 100%;}
+    .data-container{margin-top: calc(var(--topbar-height) + 11px);}
     .data-content {width: 100%;}
 }
 @media (min-device-width : 1500px) {
     .topbar-content {max-width: 800px;}
+    .data-container{margin-top: calc(var(--topbar-height) + 1px);}
     .data-content {max-width: 800px;}
 }
 
@@ -85,9 +88,19 @@ a:hover {text-decoration: none;}
 .topbar-button {
     width: 30px;
     height: 30px;
-    margin-top: calc(var(--margin) * 0.5);
-    margin-left: calc(var(--margin) * 0.5);
     object-fit: cover;
+}
+@media (max-device-width : 1499px) {
+    .topbar-button {
+        margin-top: var(--margin);
+        margin-left: var(--margin);
+    }
+}
+@media (min-device-width : 1500px) {
+    .topbar-button {
+        margin-top: calc(var(--margin) * 0.5);
+        margin-left: calc(var(--margin) * 0.5);
+    }
 }
 
 .topbar-title-container a {color: black}
@@ -97,13 +110,18 @@ a:hover {text-decoration: none;}
 .topbar-title-container {
     width: 400px;
     height: inherit;
-    line-height: var(--topbar-height);
     text-align: center;
     color: black;
     font-family: 'Antipasto Pro';
 	font-style: normal;
 	font-weight: normal;
     font-size: 24px;
+}
+@media (max-device-width : 1499px) {
+    .topbar-title-container {line-height: calc(var(--topbar-height) + 10px);}
+}
+@media (min-device-width : 1500px) {
+    .topbar-title-container {line-height: var(--topbar-height);}
 }
 
 .bottom-text {
