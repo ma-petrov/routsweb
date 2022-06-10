@@ -17,37 +17,29 @@
 }
 
 .route-card-image {
-    margin-top: calc(var(--margin) * 2);
-    margin-bottom: calc(var(--margin) * 2);
-    margin-left: var(--margin);
-    margin-right: var(--margin);
+    margin: var(--margin);
     height: 100px;
     width: 160px;
     border-radius: calc(var(--margin) * 0.5);
-    /* box-shadow: 0px 5px 10px #808080; */
 }
 .route-card:hover .route-card-image {
-    margin-top: calc(var(--margin) * 2 - 2px);
-    margin-bottom: calc(var(--margin) * 2 - 2px);
-    margin-left: calc(var(--margin) - 2px);
-    margin-right: calc(var(--margin) - 2px);
+    margin: calc(var(--margin) - 2px);
     height: 104px;
     width: 164px;
-    /* box-shadow: 0px 6px 12px #808080; */
 }
 @media (max-device-width : 1499px) {
     .route-card-image {display: none;}
 }
 
 .route-card-data-container {
-    margin: calc(var(--margin) * 2);
+    margin: var(--margin);
     height: 100px;
     overflow: hidden;
 }
 
 .route-card-header {
-    height: 50px;
     font-size: 24px;
+    margin-bottom: var(--margin);
 }
 .route-card:hover .route-card-header {color: var(--accent-color);}
 
@@ -72,17 +64,6 @@
     width: 32px;
     height: 32px;
     object-fit: cover;
-}
-
-.route-card-link {
-    margin-left: var(--main-margin);
-    display: block;
-    color: var(--very-dark-color);
-    font-size: large;
-}
-
-.route-card-link:hover {
-    color: var(--very-dark-color);
 }
 
 .route-list-statistic {
