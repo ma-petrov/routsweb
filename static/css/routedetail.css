@@ -1,55 +1,13 @@
-/*
- * detail view
- */
-
- .header-container {
-    height: var(--header-image-height);
+.header-container {
+    height: var(--wallpaper-image-height);
 }
-
 @media (max-device-width : 1499px) {
-    .header-container {
-        width: 100%;
-    }
-
-    .feature-container {
-        margin-left: var(--main-margin);
-        margin-right: var(--main-margin);
-    }
-    
-    .description-container {
-        margin-left: var(--main-margin);
-        margin-right: var(--main-margin);
-    }
-
-    .header-text {
-        padding-left: var(--main-margin);
-        padding-right: var(--main-margin);
-    }
+    .header-container {width: 100%;}
 }
-
 @media (min-device-width : 1500px) {
     .header-container {
         width: calc(100% - 2*var(--half-margin));
-        margin-top: var(--main-margin);
-        margin-left: var(--half-margin);
-        margin-right: var(--half-margin);
-        border-radius: var(--main-border-radius);
-        overflow: hidden;
-    }
-
-    .feature-container {
-        margin-left: var(--half-margin);
-        margin-right: var(--half-margin);
-    }
-    
-    .description-container {
-        margin-left: var(--half-margin);
-        margin-right: var(--half-margin);
-    }
-
-    .map-view-container {
-        margin-left: var(--half-margin);
-        margin-right: var(--half-margin);
+        margin: var(--margin);
     }
 }
 
@@ -58,37 +16,61 @@
 .wallpaper-image {
     position: absolute;
     width: 100%;
-    height: var(--header-image-height);
+    height: var(--wallpaper-image-height);
     object-fit: cover;
+}
+@media (min-device-width : 1500px) {
+    .wallpaper-image {border-radius: var(--radius);}
 }
 
 .simple-linear {
     position: absolute;
     width: 100%;
     height: 150px;
-    top: calc(var(--header-image-height) - 150px);
+    top: calc(var(--wallpaper-image-height) - 150px);
     background: linear-gradient(#00000000, black);
+}
+@media (min-device-width : 1500px) {
+    .simple-linear {
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+    }
 }
 
 .header-text {
     position: absolute;
-    bottom: calc(0px - var(--header-image-height));
-    color: var(--title-light-color);
+    bottom: calc(0px - var(--wallpaper-image-height));
+    padding: var(--margin);
+    color: var(--light-color);
+}
+@media (max-device-width : 1499px) {
+    .header-text {font-size: 24px;}
+}
+@media (min-device-width : 1500px) {
+    .header-text {font-size: 30px;}
 }
 
-.feature-container {margin-top: 16px;}
+.feature-container {margin: var(--margin);}
+.description-container {margin: var(--margin);}
+.text-justify {text-align: justify;}
 
-.description-container {
-    margin-top: 16px;
-    margin-bottom: 5%;
+.map-view-container {
+    height: 400px;
 }
-
-.text-justify { text-align: justify;}
+@media (max-device-width : 1499px) {
+    .map-view-container {width: 100%;}
+}
+@media (min-device-width : 1500px) {
+    .map-view-container {
+        width: calc(100% - var(--margin) * 2);
+        margin-left: var(--margin);
+        margin-right: var(--margin);
+    }
+}
 
 .google-map {
-    width: 100%;
-    height: 400px;
-    margin-bottom: 50%;
+    width: inherit;
+    height: inherit;
 }
 
 /*
@@ -99,25 +81,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: calc(100% - 8px);
+    width: calc(100% - var(--margin) * 2);
     height: 232px;
+    margin: var(--margin);
     border-top: 1px solid var(--main-dark-color);
     border-bottom: 1px solid var(--main-dark-color);
     overflow-x: scroll;
-}
-
-@media (max-device-width : 1499px) {
-    .gallery-container {
-        margin-left: var(--main-margin);
-        margin-right: var(--main-margin);
-    }
-}
-
-@media (min-device-width : 1500px) {
-    .gallery-container {
-        margin-left: var(--half-margin);
-        margin-right: var(--half-margin);
-    }
 }
 
 .gallery-container-no-images {
@@ -126,8 +95,7 @@
     justify-content: center;
     width: calc(100% - 8px);
     height: 32px;
-    margin-left: 4px;
-    margin-right: 4px;
+    margin: var(--margin);
     border-top: 1px solid var(--main-dark-color);
     border-bottom: 1px solid var(--main-dark-color);
     text-align: center;
@@ -143,13 +111,13 @@
 .gallery-image-container {
     width: 260px;
     height: inherit;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: calc(var(--margin) * 0.5);
+    padding-right: calc(var(--margin) * 0.5);
 }
 
 .gallery-image {
     width: 252px;
     height: inherit;
     object-fit: cover;
-    border-radius: var(--main-border-radius);
+    border-radius: var(--radius);
 }

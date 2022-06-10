@@ -1,22 +1,12 @@
 :root {
-    --main-dark-color: #404040;
-    --very-dark-color: #202020;
-    --title-light-color: #E0E0E0;
-    --width-desktop: 40%;
-    --width-mobile: 100%;
-    --main-border-radius: 5px;
-    --topbar-button-size: 39px;
-    --header-image-height: 300px;
-    --main-margin: calc((var(--topbar-height) - var(--topbar-button-size))/2);
-    --half-margin: calc(var(--main-margin)/2);
-
     --light-color: #F0F0F0;
     --dark-color: #C0C0C0;
     --accent-color: #228B22;
 
-    --topbar-height: 39px;
     --margin: 10px;
     --radius: 10px;
+    --topbar-height: 39px;
+    --wallpaper-image-height: 300px;
 }
 
 body {
