@@ -97,9 +97,19 @@ a:hover {text-decoration: none;}
 .topbar-button {
     width: 30px;
     height: 30px;
-    margin-top: calc(var(--margin) * 0.5);
-    margin-left: calc(var(--margin) * 0.5);
     object-fit: cover;
+}
+@media (max-device-width : 1499px) {
+    .topbar-button {
+        margin-top: var(--margin);
+        margin-left: var(--margin);
+    }
+}
+@media (min-device-width : 1500px) {
+    .topbar-button {
+        margin-top: calc(var(--margin) * 0.5);
+        margin-left: calc(var(--margin) * 0.5);
+    }
 }
 
 .topbar-title-container a {color: black}
