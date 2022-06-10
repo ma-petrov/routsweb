@@ -134,7 +134,7 @@
     height: 120px;
     margin: var(--margin);
     border-radius: var(--radius);
-    box-shadow: 0px 5px 10px #505050;
+    /* box-shadow: 0px 5px 10px #505050; */
 }
 
 .collection-card {
