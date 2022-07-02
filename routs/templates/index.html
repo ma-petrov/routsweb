@@ -25,13 +25,13 @@
     <div class="collection-container">
         {% if route_collections %}
             {% for collection in route_collections %}
-                <div class="collection-card-background" id="url(/images/{{ collection.image }})">
-                    <div class="collection-card">
-                        <div class="collection-card-link-container">
-                            <a class="collection-card-link" href="/routs/rout-list/?collection={{ collection.id }}"> {{ collection.title }} </a>
+                <a class="collection-card-link" href="/routs/rout-list/?collection={{ collection.id }}">
+                    <div class="collection-card-background" id="url(/images/{{ collection.image }})">
+                        <div class="collection-card">
+                            <div class="collection-card-link-container">{{ collection.title }}</div>
                         </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
         {% else %}
             <p class="message-nothing-was-found">Пока нет подборок</p>

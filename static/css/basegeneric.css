@@ -31,10 +31,11 @@ li {
     padding: 0px;
 }
 
-a {text-decoration: none;}
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
 a:hover {text-decoration: none;}
-
-
 
 
 

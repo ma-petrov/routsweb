@@ -153,9 +153,8 @@
 }
 
 .collection-card-link {
-    display: block;
     color: white;
     font-size: 16px;
 }
-
 .collection-card-link:hover {color: white;}
+.collection-card-link:visited {color: white;}
