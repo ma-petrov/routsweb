@@ -129,7 +129,7 @@ class Rout(models.Model):
             Q(direction__in=kw['direction']) &
             Q(tags__in=kw['tags']) &
             Q(is_transport_availability__in=kw['is_transport_availability'])
-        ).distinct()
+        ).distinct().order_by('id')
 
     @classmethod
     def get_distance_range(cls):
