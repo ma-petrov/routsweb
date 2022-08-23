@@ -1,4 +1,5 @@
 from json import dumps
+from datetime import datetime
 from django.db import models
 from django.urls import reverse
 from django.db.models import Count, Q, Min, Max
@@ -222,3 +223,39 @@ class RouteCollections(models.Model):
 class Gallery(models.Model):
     image = models.ImageField(upload_to='uploads/')
     rout = models.ForeignKey(Rout, on_delete=models.CASCADE, related_name='images')
+
+
+
+class UserAction(models.Model):
+    """
+    Model of user actions list.
+    """
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        """
+        String for representing the object.
+        """
+        return self.name
+
+
+class UserBehaviourData(models.Model):
+    """
+    Model of user behaviour data.
+    """
+    user_id = models.PositiveIntegerField(help_text="User idenitificator", null=True)
+    action_id = models.ForeignKey(UserAction, on_delete=models.SET_NULL, null=True)
+    action_dttm = models.DateTimeField()
+    data = models.CharField(max_length=2048)
+
+    def __str__(self):
+        """
+        String for representing the object.
+        """
+        return f'user (id == {self.user_id}) made {self.action_id.name} on {self.action_dttm}'
+
+    @classmethod
+    def add_website_open_action(cls):
+        # print(UserAction.objects.get_or_create(name='website_open')[0].id)
+        user_action = UserAction.objects.get_or_create(name='website_open')[0].id
+        cls.objects.create(action_id=UserAction(user_action), action_dttm=datetime.now())
