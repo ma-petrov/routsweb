@@ -1,11 +1,10 @@
-from user_agents import parse
 from django import forms
 from django.views import generic
 from django.shortcuts import render
 from django.db.models import Min, Max
 from django.core.paginator import Paginator
 from .forms import FilterForm
-from .models import Rout, Difficulty, Surface, Direction, Tag, RouteCollections
+from .models import Rout, Difficulty, Surface, Direction, Tag, RouteCollections, UserBehaviourData
 from .utils import Bunch
 
 
@@ -83,6 +82,8 @@ def index(request):
     Home page rendering
     """
     route_collections = RouteCollections.objects.all()
+
+    UserBehaviourData.add_website_open_action()
 
     return render(request, 'index.html', {'route_collections': route_collections})
 
