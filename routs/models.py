@@ -1,8 +1,8 @@
 from json import dumps
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db import models
 from django.urls import reverse
-from django.db.models import Count, Q, Min, Max
+from django.db.models import Count, Q, F, Min, Max
 from .utils import Bunch
 
 class Availability(models.Model):
@@ -10,6 +10,9 @@ class Availability(models.Model):
     Model
     """
     name = models.CharField(max_length=7)
+
+    class Meta:
+        verbose_name_plural = 'Availabilities'
 
     def __str__(self):
         """
@@ -23,6 +26,9 @@ class Difficulty(models.Model):
     Difficulty represents is rout easy, medium or hard
     """
     name = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name_plural = 'Difficulties'
 
     def __str__(self):
         """
@@ -95,6 +101,10 @@ class Rout(models.Model):
     CHOICE_PARAMS = ['difficulty', 'surface', 'direction', 'tags']
     BOOLEAN_PARAMS = ['is_transport_availability']
     FILTER_PARAMS = NUMERIC_PARAMS + CHOICE_PARAMS + BOOLEAN_PARAMS
+
+    class Meta:
+        ordering = ['title']
+        verbose_name_plural = 'Routes'
   
 
     def __str__(self):
@@ -199,6 +209,10 @@ class RouteCollections(models.Model):
     is_transport_availability = models.ForeignKey(Availability, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='uploads/', null=True)
 
+    class Meta:
+        ordering = ['title']
+        verbose_name_plural = 'Route collections'
+
     def __str__(self):
         """
         String for representing the Model object.
@@ -248,6 +262,10 @@ class UserBehaviourData(models.Model):
     action_dttm = models.DateTimeField()
     data = models.CharField(max_length=2048)
 
+    class Meta:
+        ordering = ['action_dttm']
+        verbose_name_plural = 'User behaviour data'
+
     def __str__(self):
         """
         String for representing the object.
@@ -255,7 +273,20 @@ class UserBehaviourData(models.Model):
         return f'user (id == {self.user_id}) made {self.action_id.name} on {self.action_dttm}'
 
     @classmethod
-    def add_website_open_action(cls):
-        # print(UserAction.objects.get_or_create(name='website_open')[0].id)
-        user_action = UserAction.objects.get_or_create(name='website_open')[0].id
-        cls.objects.create(action_id=UserAction(user_action), action_dttm=datetime.now())
+    def add_request_index_action(cls, headers):
+        user_action = UserAction.objects.get_or_create(name='request_index')[0].id
+        cls.objects.create(action_id=UserAction(user_action), action_dttm=datetime.now(), data=str(headers))
+
+
+    @classmethod
+    def get_prometheus_metrics(cls, action):
+        """
+        Retruns flag, if metric exists, and prometheus exposition of specified action for the last 90 days
+        """
+        dttm_cutoff = datetime.now() - timedelta(days=90)
+        return cls.objects.select_related('action_id')\
+                  .filter(Q(action_id__name=action) & Q(action_dttm__gte=dttm_cutoff))\
+                  .values('user_id', 'action_id__name', 'action_dttm', 'data')
+
+
+
