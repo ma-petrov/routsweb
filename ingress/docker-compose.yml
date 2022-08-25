@@ -1,6 +1,9 @@
 services:
   traefik:
     image: traefik:v2.8
+    restart: unless-stopped
+    extra_hosts:
+      host: host-gateway
     command:
       - --api.dashboard=true
       - --providers.docker
