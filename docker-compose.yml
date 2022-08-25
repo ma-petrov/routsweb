@@ -23,10 +23,11 @@ services:
     expose:
       - 8000
     labels:
-      - "traefik.http.routers.kt-web.rule=Host(`${VIRTUAL_HOST}`)"
-      - "traefik.http.routers.kt-web.tls.certresolver=letsencrypt"
-      - "traefik.http.services.kt-web.loadbalancer.healthcheck.hostname=web"
-      - "traefik.http.services.kt-web.loadbalancer.healthcheck.path=/healthz"
+      - "traefik.http.routers.kt-web-${DEPLOY_ENV}.rule=Host(`${VIRTUAL_HOST}`)"
+      - "traefik.http.routers.kt-web-${DEPLOY_ENV}.tls.certresolver=letsencrypt"
+      - "traefik.http.services.kt-web-${DEPLOY_ENV}.loadbalancer.healthcheck.hostname=web"
+      - "traefik.http.services.kt-web-${DEPLOY_ENV}.loadbalancer.healthcheck.path=/healthz"
+      - "traefik.docker.network=ingress"
     volumes:
       - uploads:/usr/src/images/uploads/
     depends_on:
@@ -40,8 +41,9 @@ services:
       context: .
       dockerfile: nginx.Dockerfile
     labels:
-      - "traefik.http.routers.kt-static.rule=(Host(`${VIRTUAL_HOST}`) && PathPrefix(`/static/`, `/images/`))"
-      - "traefik.http.routers.kt-static.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.kt-static-${DEPLOY_ENV}.rule=(Host(`${VIRTUAL_HOST}`) && PathPrefix(`/static/`, `/images/`, `/favicon.ico`))"
+      - "traefik.http.routers.kt-static-${DEPLOY_ENV}.tls.certresolver=letsencrypt"
+      - "traefik.docker.network=ingress"
     volumes:
       - uploads:/images/uploads
     depends_on:
