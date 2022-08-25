@@ -20,25 +20,34 @@ services:
       DB_HOST: database
       DB_PASSWORD:
       LOG_LEVEL: debug
+    expose:
+      - 8000
+    labels:
+      - "traefik.http.routers.kt-web.rule=Host(`${VIRTUAL_HOST}`)"
+      - "traefik.http.routers.kt-web.tls.certresolver=letsencrypt"
+      - "traefik.http.services.kt-web.loadbalancer.healthcheck.hostname=web"
+      - "traefik.http.services.kt-web.loadbalancer.healthcheck.path=/healthz"
     volumes:
       - uploads:/usr/src/images/uploads/
     depends_on:
       - database
+    networks:
+      - ingress
+      - default
 
   nginx:
     build:
       context: .
       dockerfile: nginx.Dockerfile
-    environment:
-      VIRTUAL_HOST:
-      LETSENCRYPT_HOST:
+    labels:
+      - "traefik.http.routers.kt-static.rule=(Host(`${VIRTUAL_HOST}`) && PathPrefix(`/static/`, `/images/`))"
+      - "traefik.http.routers.kt-static.tls.certresolver=letsencrypt"
     volumes:
       - uploads:/images/uploads
     depends_on:
       - web
     networks:
-      - nginx-proxy
-      - default
+      - ingress
 
 volumes:
   uploads:
@@ -48,5 +57,5 @@ volumes:
 
 networks:
   default:
-  nginx-proxy:
+  ingress:
     external: true

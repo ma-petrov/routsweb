@@ -21,7 +21,7 @@ scrape_configs:
     metrics_path: '/metrics'
     scrape_interval: 1m
     static_configs:
-      - targets: ['nginx-exporter:9113']
+      - targets: ['traefik:8082']
 
   - job_name: 'node-exporter'
     metrics_path: '/metrics'
