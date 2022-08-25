@@ -1,35 +1,52 @@
 services:
-  # actual Ningx which accessable from the Internet
-  nginx-proxy:
-    image: jwilder/nginx-proxy:1.0-alpine
+  traefik:
+    image: traefik:v2.8
+    restart: unless-stopped
+    extra_hosts:
+      host: host-gateway
+    command:
+      - --api.dashboard=true
+      - --providers.docker
+      - --log.level=info
+      - --log.format=json
+      - --accesslog=true
+      - --accesslog.format=json
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.letsencrypt.acme.storage=/acme/acme.json
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --metrics.prometheus=true
+      - --metrics.prometheus.addEntryPointsLabels=true
+      - --metrics.prometheus.addrouterslabels=true
+      - --metrics.prometheus.addServicesLabels=true
+      - --entryPoints.metrics.address=:8082
+      - --metrics.prometheus.entryPoint=metrics
+    labels:
+      - "traefik.http.routers.traefik.rule=Host(`${VIRTUAL_HOST}`)" # domain for dashboard
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.service=api@internal" # points to dashboard
+      - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.traefik.middlewares=auth" # enable password auth
+      - "traefik.http.middlewares.auth.basicauth.users=admin:${TRAEFIK_PASSWORD:?Please provide traefik admin password}"
+      - "traefik.docker.network=ingress"
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - certs:/etc/nginx/certs
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-    networks:
-      - nginx-proxy 
-
-  # SSL auto configuratein
-  acme:
-    image: nginxproxy/acme-companion:2.2
-    volumes_from:
-      - nginx-proxy
-    volumes:
+      - acme:/acme/
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - acme:/etc/acme.sh
+    networks:
+      - ingress
 
 volumes:
-  certs:
-  vhost:
-  html:
   acme:
 
 networks:
-  nginx-proxy: # network which will be used for services
+  ingress: # network which will be used for services
     driver: bridge
-    name: nginx-proxy
+    name: ingress
+    driver_opts:
+      com.docker.network.bridge.name: br-ingress

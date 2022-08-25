@@ -3,43 +3,62 @@ version: '3'
 services:
   ###############################################################
   #                Our core monitoring stack                    #
-  ############################################################### 
+  ###############################################################
   prometheus:
     image: prom/prometheus:main
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    container_name: prom
+    restart: unless-stopped
+    labels:
+      - "traefik.http.routers.prom.rule=Host(`${PROM_VIRTUAL_HOST}`)"
+      - "traefik.http.routers.prom.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.prom.middlewares=auth"
+      - "traefik.docker.network=ingress"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml # We mount a custom prometheus config
       - prom-db:/prometheus
+    networks:
+      - ingress
+      - default
 
   grafana:                                            # Garafana needs no config file since
     image: grafana/grafana                            # we configure it once it's up
+    container_name: grafana
+    restart: unless-stopped
     environment:
-      VIRTUAL_HOST:
-      VIRTUAL_PORT: 80
-      LETSENCRYPT_HOST: "${VIRTUAL_HOST}"
-      GF_SERVER_DOMAIN: "${VIRTUAL_HOST}"
+      GF_SERVER_DOMAIN: "${GRAFANA_VIRTUAL_HOST}"
       GF_SERVER_HTTP_PORT: 80
       GF_SERVER_PROTOCOL: http
-    depends_on: [prometheus]                            
+    expose:
+      - 80
+    labels:
+      - "traefik.http.routers.monitor.rule=Host(`${GRAFANA_VIRTUAL_HOST}`)"
+      - "traefik.http.routers.monitor.tls.certresolver=letsencrypt"
+      - "traefik.docker.network=ingress"
+    depends_on: [prometheus]
     volumes:
       - grafana:/var/lib/grafana
     networks:
       - default
-      - nginx-proxy
+      - ingress
 
   ###############################################################
   #            Agents to collect runtime metric                 #
-  ############################################################### 
-  nginx-exporter:
-    image: bitnami/nginx-exporter:0.10.0
-    command: '-nginx.scrape-uri=http://nginx-proxy:8080/stub_status'
-    depends_on: [nginx-proxy]
+  ###############################################################
+
+  loki:
+    container_name: loki
+    restart: unless-stopped
+    image: grafana/loki:2.6.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/loki-config.yaml
+    volumes:
+      - ./loki-config.yaml:/etc/loki/loki-config.yaml
+      - loki:/loki
     networks:
       - default
-      - nginx-proxy
 
-  node-exporter: 
+  node-exporter:
     image: prom/node-exporter:latest
     container_name: node_exporter
     hostname: "${HOSTNAME}"
@@ -63,8 +82,9 @@ volumes:
   grafana:
   am-data:
   prom-db:
+  loki:
 
 networks:
   default:
-  nginx-proxy:
+  ingress:
     external: true

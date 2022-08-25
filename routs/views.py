@@ -1,4 +1,5 @@
 from django import forms
+from django.http import HttpResponse
 from django.views import generic
 from django.shortcuts import render
 from django.db.models import Min, Max
@@ -83,7 +84,7 @@ def index(request):
     """
     route_collections = RouteCollections.objects.all()
 
-    UserBehaviourData.add_website_open_action()
+    UserBehaviourData.add_request_index_action(request.headers)
 
     return render(request, 'index.html', {'route_collections': route_collections})
 
@@ -94,6 +95,23 @@ def develop(request):
     """
 
     return render(request, 'routs/develop.html')
+
+
+def metrics(request):
+    """
+    Metrics page rendering
+    """
+
+    def format_row(m):
+        return 'request_index{"action_dt"="' + \
+               m['action_dttm'].strftime(r'%d.%m.%Y') + \
+               '"} 1 ' + \
+               str(int(m['action_dttm'].timestamp()))
+
+    metrics = UserBehaviourData.get_prometheus_metrics('request_index')
+    response = '\n'.join([format_row(m) for m in metrics])
+
+    return HttpResponse(response, content_type="text/plain")
 
 
 class RoutListView(generic.ListView):
